@@ -18,6 +18,7 @@ public class Canvas{
 		frame.getContentPane().add(panel);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 
 		frame.setVisible(true);	
 	}
 	
@@ -35,7 +36,6 @@ public class Canvas{
 			cursor = new Cursor(1024/2 + 32/2, 768/2 +32/2, 32, 32);
 			addKeyListener(this);
 			addMouseMotionListener(this);
-			this.requestFocusInWindow();
 		}
 		
 		public void paint(Graphics g){
@@ -51,13 +51,11 @@ public class Canvas{
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			System.out.println("Im being activated, and Im a keypressed event");
 			
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println("Im being activated, and Im a keypressed event");
 
 			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A)
 			{
@@ -66,7 +64,6 @@ public class Canvas{
 			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
 			{
 				map.getCharacter().walk(true);
-				System.out.println("Im being activated, and Im a keypressed event");
 
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
@@ -90,12 +87,14 @@ public class Canvas{
 		public void mouseDragged(MouseEvent e) {
 			cursor.setX(e.getX());
 			cursor.setY(e.getY());
+			requestFocusInWindow();
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			cursor.setX(e.getX());
 			cursor.setY(e.getY());
+			requestFocusInWindow();
 		}
 	}
 }
