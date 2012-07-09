@@ -34,7 +34,8 @@ public class Map {
 	
 	public Map(String filename) {
 	// TODO Auto-generated constructor stub
-		
+		worldSprites = new SpriteSheet("images/platformTiles.gif");
+		charSprites = new SpriteSheet("images/playerSpritePrelim.gif");
 		inputfile =  new File(filename);
 		try {
 			 scan = new Scanner(inputfile);
@@ -46,8 +47,6 @@ public class Map {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 		
 	public Tile[][] getMap(){return map;}
@@ -56,7 +55,7 @@ public class Map {
 		// TODO Auto-generated method stub
 		while(scan.hasNext()){
 			for(int i = 0; i< xDimension; i++){
-				for(int j = 0; j< yDimension; i++){
+				for(int j = 0; j< yDimension; j++){
 					int item = scan.nextInt();
 					if(item==16){
 						character = new Character(i,j, charSprites);
@@ -70,7 +69,10 @@ public class Map {
 		
 		}
 	}
-	
+
+	public Character getCharacter() {
+		return character;
+	}
 	
 
 }

@@ -7,13 +7,13 @@ import java.awt.image.*;
 
 public class Canvas{
 	
-	private Tile[][] map;
+	private Map map;
 	private CanvasPanel panel;
 	
 	public Canvas(Map map) {
 		// TODO Auto-generated constructor stub
 		JFrame frame = new JFrame("Swarm");
-		this.map = map.getMap();
+		this.map = map;
 		panel = new CanvasPanel();
 		frame.getContentPane().add(panel);
 		frame.pack();
@@ -33,12 +33,14 @@ public class Canvas{
 		}
 		
 		public void paint(Graphics g){
-			for(int i = 0; i < map.length;i++){
-				for(int j = 0; j < map[0].length;)
-			g.drawImage(map[i][j].getImage().getImage(), map[i][j].getX(), map[i][j].getY(), null);
-				
-			
-			}
+		 
+			for(int i = 0; i < map.getMap().length;i++){
+				for(int j = 0; j < map.getMap()[0].length; j++){
+					map.getMap()[i][j].getImage().getImage();
+					g.drawImage(map.getMap()[i][j].getImage().getImage(), map.getMap()[i][j].getX(), map.getMap()[i][j].getY(), null);
+				}
+				}
+			map.getCharacter().draw(g);
 		}
 
 		@Override
@@ -51,20 +53,20 @@ public class Canvas{
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A)
 			{
-				
+				map.getCharacter().move(false);
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
 			{
-				
+				map.getCharacter().move(true);
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
-				
+				map.getCharacter().jump();
 			}
-			else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_S)
+			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
 			{
 				
-			}
+			}*/
 			
 		}
 
