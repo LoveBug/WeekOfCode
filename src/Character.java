@@ -8,7 +8,6 @@ public class Character implements Drawable{
 	private int y;
 	
 	private int moveDistance = 8;
-	private int jumpHeight = 8;
 	
 	private boolean isJumping = false;
 	private int maxJump;
