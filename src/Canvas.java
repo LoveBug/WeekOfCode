@@ -23,6 +23,7 @@ public class Canvas{
 			map.getCharacter().move(map.getMap());
 			panel.repaint();
 		}
+		
 	}
 	
 	public void repaint(){
@@ -37,6 +38,8 @@ public class Canvas{
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
 			cursor = new Cursor(1024/2, 768/2, 32, 32);
+			addKeyListener(this);
+			addMouseMotionListener(this);
 		}
 		
 		public void paint(Graphics g){
@@ -63,6 +66,8 @@ public class Canvas{
 
 		@Override
 		public void keyPressed(KeyEvent e) {
+			System.out.println("Im being activated, and Im a keypressed event");
+
 			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A)
 			{
 				map.getCharacter().walk(false);
@@ -70,6 +75,8 @@ public class Canvas{
 			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
 			{
 				map.getCharacter().walk(true);
+				System.out.println("Im being activated, and Im a keypressed event");
+
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
