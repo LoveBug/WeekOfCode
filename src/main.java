@@ -6,6 +6,11 @@ public class main {
 		
 		Canvas canvas = new Canvas(map);
 		
+		while(true){
+			map.getCharacter().move(map.getMap());
+			canvas.repaint();
+		}
+		
 	}
 
 }
