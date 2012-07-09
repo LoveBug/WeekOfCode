@@ -43,14 +43,9 @@ public class Canvas{
 		 
 			for(int i = 0; i < map.getMap().length;i++){
 				for(int j = 0; j < map.getMap()[0].length; j++){
-					
-					
-					ImageWrapper testimg = map.getMap()[i][j].getImage();
-					Image testimg2 = testimg.getImage();
-					
 					g.drawImage(map.getMap()[i][j].getImage().getImage(), map.getMap()[i][j].getX(), map.getMap()[i][j].getY(), null);
 				}
-				}
+			}
 			map.getCharacter().draw(g);
 			cursor.draw(g);
 		}
