@@ -35,22 +35,15 @@ public class Character implements Drawable{
 	
 	public void move(Tile[][] map)
 	{
-		if(isJumping){
+		if(isJumping)
+		{
 			y -= moveDistance;
 			
 			if(y == maxJump)
 			{
 				isJumping = false;  
-			
 			}
 	
-		}else{
-			boolean falling = true;
-			for(int i=0; i<map[0].length; i++)
-				if(map[this.x+this.width][i].getHitbox().checkCollision(movementBox))
-					falling = false;
-			if(falling)
-				this.y += moveDistance;
 		}
 		
 		
@@ -59,24 +52,7 @@ public class Character implements Drawable{
 			if(!direction){movement = -moveDistance;}
 		
 			x += movement;
-		
-			//Checking collisions
-			for(int i = 0; i< map.length; i++){
-				for(int j = 0; j< map[0].length; i++){
-					if(map[i][j].getHitbox().checkCollision(movementBox)){
-						x = x-movement;
-						y = y-moveDistance;
-					}
-				}
-			}
-			this.isWalking = false;
 		}
-		
-	}
-	
-	public void walk(boolean direction){
-		this.direction = direction;
-		this.isWalking = true;
 	}
 	
 	public void jump()
@@ -99,7 +75,12 @@ public class Character implements Drawable{
 	public int getX() {
 		return x;
 	}
-
+	
+	public void walk(boolean direction){
+		this.direction = direction;
+		this.isWalking = true;
+	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}

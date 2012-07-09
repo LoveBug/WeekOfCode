@@ -54,14 +54,16 @@ public class Map {
 	private void readmap() {
 		// TODO Auto-generated method stub
 		while(scan.hasNext()){
-			for(int i = 0; i< xDimension; i++){
-				for(int j = 0; j< yDimension; j++){
+			
+			for(int j = 0; j< yDimension; j++){
+				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==16){
-						character = new Character(i,j, charSprites);
+						character = new Character(i*32,j*32, charSprites);
+						map[i][j] = new Tile(32,32,i*32,j*32,TILE_DEPTH,new ImageWrapper(-1,worldSprites));
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, worldSprites);
-						map[i][j]= new Tile(32, 32, i, j, TILE_DEPTH, imgwrap);
+						map[i][j]= new Tile(32, 32, i*32, j*32, TILE_DEPTH, imgwrap);
 					}
 				}
 			}
