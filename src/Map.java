@@ -29,7 +29,7 @@ public class Map {
 	public static final int CLOSED_BOT = 4096;
 	public static final int PLAYER = 8192;
 	
-	public Map(String filename, Graphics g) {
+	public Map(String filename) {
 	// TODO Auto-generated constructor stub
 		
 		inputfile =  new File(filename);
