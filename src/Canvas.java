@@ -30,6 +30,7 @@ public class Canvas{
 	}
 	
 	private class CanvasPanel extends JPanel implements KeyListener, MouseMotionListener{
+
 		private static final long serialVersionUID = 8187920910989915064L;
 		private Cursor cursor;
 
@@ -41,7 +42,11 @@ public class Canvas{
 		 
 			for(int i = 0; i < map.getMap().length;i++){
 				for(int j = 0; j < map.getMap()[0].length; j++){
-					map.getMap()[i][j].getImage().getImage();
+					
+					
+					ImageWrapper testimg = map.getMap()[i][j].getImage();
+					Image testimg2 = testimg.getImage();
+					
 					g.drawImage(map.getMap()[i][j].getImage().getImage(), map.getMap()[i][j].getX(), map.getMap()[i][j].getY(), null);
 				}
 				}
