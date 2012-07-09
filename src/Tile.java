@@ -23,6 +23,10 @@ public class Tile implements Drawable, Collidable  {
 		this.hitbox = hitbox;// Create hitbox here
 	}
 
+	public ImageWrapper getImage(){
+		return image;
+	}
+	
 	/**
 	 * Returns This tiles hitbox
 	 */
