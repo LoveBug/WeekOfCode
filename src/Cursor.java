@@ -15,7 +15,7 @@ public class Cursor {
 		this.height = height;
 		this.setX(x);
 		this.setY(y);
-		cursor = new ImageWrapper("images/cursor.gif");  //needs to be changed when initial cursor is made
+		cursor = new ImageWrapper("images/reticlePrelim.gif");  //needs to be changed when initial cursor is made
 	}
 	
 	public void draw(Graphics g)

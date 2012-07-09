@@ -36,6 +36,7 @@ public class Canvas{
 
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
+			cursor = new Cursor(1024/2, 768/2, 32, 32);
 		}
 		
 		public void paint(Graphics g){
@@ -51,6 +52,7 @@ public class Canvas{
 				}
 				}
 			map.getCharacter().draw(g);
+			cursor.draw(g);
 		}
 
 		@Override
@@ -88,14 +90,14 @@ public class Canvas{
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+			cursor.setX(e.getX());
+			cursor.setY(e.getY());
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+			cursor.setX(e.getX());
+			cursor.setY(e.getY());
 		}
 	}
 }
