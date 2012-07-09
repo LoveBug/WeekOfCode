@@ -10,6 +10,8 @@ public class Character implements Drawable{
 	private int moveDistance = 8;
 	
 	private boolean isJumping = false;
+	private boolean isWalking = false;
+	private boolean direction = true;
 	private int maxJump;
 	
 	private Hitbox movementBox;
@@ -31,25 +33,50 @@ public class Character implements Drawable{
 		image.draw(g, x, y, width, height);
 	}
 	
-	public void move(boolean direction)
+	public void move(Tile[][] map)
 	{
-		if(isJumping)
-		{
+		if(isJumping){
 			y -= moveDistance;
 			
 			if(y == maxJump)
 			{
 				isJumping = false;  
+			
 			}
 	
+		}else{
+			boolean falling = true;
+			for(int i=0; i<map[0].length; i++)
+				if(map[this.x+this.width][i].getHitbox().checkCollision(movementBox))
+					falling = false;
+			if(falling)
+				this.y += moveDistance;
 		}
 		
-		//insert gravity
 		
-		int movement = moveDistance;
-		if(!direction){movement = -moveDistance;}
-
-		x += movement;
+		if(isWalking){
+			int movement = moveDistance;
+			if(!direction){movement = -moveDistance;}
+		
+			x += movement;
+		
+			//Checking collisions
+			for(int i = 0; i< map.length; i++){
+				for(int j = 0; j< map[0].length; i++){
+					if(map[i][j].getHitbox().checkCollision(movementBox)){
+						x = x-movement;
+						y = y-moveDistance;
+					}
+				}
+			}
+			this.isWalking = false;
+		}
+		
+	}
+	
+	public void walk(boolean direction){
+		this.direction = direction;
+		this.isWalking = true;
 	}
 	
 	public void jump()
