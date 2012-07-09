@@ -30,7 +30,6 @@ public class Canvas{
 
 		private static final long serialVersionUID = 8187920910989915064L;
 		private Cursor cursor;
-		private Graphics graphics;
 		
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
