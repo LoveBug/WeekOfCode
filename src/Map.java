@@ -59,9 +59,9 @@ public class Map {
 				for(int j = 0; j< yDimension; i++){
 					int item = scan.nextInt();
 					if(item==16){
-						character = new Character(i,j);
+						character = new Character(i,j, charSprites);
 					}else{
-						ImageWrapper imgwrap = new ImageWrapper(scan.nextInt());
+						ImageWrapper imgwrap = new ImageWrapper(item, worldSprites);
 						map[i][j]= new Tile(32, 32, i, j, TILE_DEPTH, imgwrap);
 					}
 				}
