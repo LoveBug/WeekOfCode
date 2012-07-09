@@ -37,7 +37,7 @@ public class Character implements Drawable{
 	
 	public void move(Tile[][] map)
 	{
-		if(isJumping)
+		/*if(isJumping)
 		{
 			y -= moveDistance;
 			
@@ -54,7 +54,7 @@ public class Character implements Drawable{
 				}
 			if(falling)
 				this.y += moveDistance;
-		}
+		}*/
 		
 		
 		if(isWalking){
