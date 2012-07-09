@@ -34,11 +34,11 @@ public class ImageWrapper {
 		transparency = new Color(picture.getRGB(0, 0));
 	}
 	
-	public ImageWrapper(int bit, SpriteSheet sprites)
+	public ImageWrapper(int bit, int width, int height, SpriteSheet sprites)
 	{
 		//if(bit < 0){bit = 0;}
 		bit++;
-		picture = sprites.getSprite(bit);
+		picture = sprites.getSprite(bit, width, height);
 	}
 	
 	public void draw(Graphics g, int x, int y, int width, int height)

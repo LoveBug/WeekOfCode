@@ -23,13 +23,13 @@ public class SpriteSheet {
 	}
 	}
 	
-	public BufferedImage getSprite(int spriteID){
+	public BufferedImage getSprite(int spriteID, int width, int height){
 		int row = spriteID/16;
 		int col = spriteID%16;
 		
-		BufferedImage img = new BufferedImage(32,32, BufferedImage.TYPE_INT_RGB);
-		for(int i=row*32; i<row*32+32; i++)
-			for(int j=col*32; j<col*32+32; j++)
+		BufferedImage img = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+		for(int i=row*32; i<row*32+height; i++)
+			for(int j=col*32; j<col*32+width; j++)
 				img.setRGB(j-(col*32), i-(row*32), this.image.getRGB(j,i));
 		return img;
 		

@@ -25,9 +25,9 @@ public class Character implements Drawable{
 		this.setY(y);
 		
 		this.sprite = sprites;
-		image = new ImageWrapper(0, sprites);
-		this.height = image.getImage().getHeight(null);
-		this.width = image.getImage().getWidth(null);
+		this.height = 96;
+		this.width = 64;
+		image = new ImageWrapper(-1, width, height, sprites);	//-1 cause of offset initialization
 	}
 	
 	public void draw(Graphics g)
