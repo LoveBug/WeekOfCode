@@ -26,6 +26,8 @@ public class Character implements Drawable{
 		
 		this.sprite = sprites;
 		image = new ImageWrapper(0, sprites);
+		this.height = image.getImage().getHeight(null);
+		this.width = image.getImage().getWidth(null);
 	}
 	
 	public void draw(Graphics g)
@@ -43,8 +45,6 @@ public class Character implements Drawable{
 			{
 				isJumping = false;  
 			}
-	
-<<<<<<< HEAD
 		}else{
 			boolean falling = true;
 			for(int i=this.x; i<this.x+this.width; i++)
@@ -54,8 +54,6 @@ public class Character implements Drawable{
 				}
 			if(falling)
 				this.y += moveDistance;
-=======
->>>>>>> 34ffc2dfe2624f6251ce87fff4a54934903c955f
 		}
 		
 		
