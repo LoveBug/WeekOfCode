@@ -18,12 +18,7 @@ public class Canvas{
 		frame.getContentPane().add(panel);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		while(true){
-			map.getCharacter().move(map.getMap());
-			panel.repaint();
-		}
-		
+		frame.setVisible(true);	
 	}
 	
 	public void repaint(){
@@ -40,6 +35,7 @@ public class Canvas{
 			cursor = new Cursor(1024/2 + 32/2, 768/2 +32/2, 32, 32);
 			addKeyListener(this);
 			addMouseMotionListener(this);
+			this.requestFocusInWindow();
 		}
 		
 		public void paint(Graphics g){
