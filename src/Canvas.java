@@ -19,8 +19,10 @@ public class Canvas{
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		while(true)
+		while(true){
 			map.getCharacter().move(map.getMap());
+			panel.repaint();
+		}
 	}
 	
 	public void repaint(){
