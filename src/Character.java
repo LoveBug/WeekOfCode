@@ -13,6 +13,7 @@ public class Character implements Drawable{
 	private boolean isWalking = false;
 	private boolean direction = true;
 	private int maxJump;
+	private int startHeight;
 	
 	private Hitbox movementBox;
 	private Hitbox shootBox;
@@ -37,8 +38,7 @@ public class Character implements Drawable{
 	
 	public void move(Tile[][] map)
 	{
-		/*if(isJumping)
-		{
+		if(isJumping){
 			y -= moveDistance;
 			
 			if(y == maxJump)
@@ -47,14 +47,8 @@ public class Character implements Drawable{
 			}
 		}else{
 			boolean falling = true;
-			for(int i=this.x; i<this.x+this.width; i++)
-				if(map[i/32][this.y/32].getHitbox().checkCollision(movementBox)){
-					falling = false;
-					break;
-				}
-			if(falling)
-				this.y += moveDistance;
-		}*/
+			for(int x=this.x; x<this.x+this.width; x++){}
+		}
 		
 		
 		if(isWalking){
