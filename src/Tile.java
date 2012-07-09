@@ -10,7 +10,7 @@ public class Tile implements Drawable, Collidable  {
 	private int y;
 	private int depth;
 	private ImageWrapper image;
-	private Hitbox hitbox;
+	protected Hitbox hitbox;
 
 	public Tile(int height, int width, int x, int y, int depth,
 			ImageWrapper image) {

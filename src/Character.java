@@ -29,6 +29,7 @@ public class Character implements Drawable{
 		this.height = 96;
 		this.width = 64;
 		image = new ImageWrapper(-1, width, height, sprites);	//-1 cause of offset initialization
+		this.movementBox = new Hitbox(x, y, width, height);
 	}
 	
 	public void draw(Graphics g)
@@ -40,14 +41,23 @@ public class Character implements Drawable{
 	{
 		if(isJumping){
 			y -= moveDistance;
-			
+			this.movementBox.setHeight(y);
 			if(y == maxJump)
 			{
 				isJumping = false;  
 			}
 		}else{
 			boolean falling = true;
-			for(int x=this.x; x<this.x+this.width; x++){}
+			for(int x=this.x; x<this.x+this.width; x++){
+				if(this.movementBox.checkCollision(map[x/32][this.y/32].getHitbox())){
+					falling = false;
+					break;
+				}
+			}
+			if(falling){
+				this.y+=moveDistance;
+				this.movementBox.setY(y);
+			}
 		}
 		
 		
@@ -56,6 +66,7 @@ public class Character implements Drawable{
 			if(!direction){movement = -moveDistance;}
 		
 			x += movement;
+			this.movementBox.setX(x);
 		}
 	}
 	
