@@ -52,7 +52,7 @@ public class Map {
 		while(scan.hasNext()){
 			for(int i = 0; i< xDimension; i++){
 				for(int j = 0; j< yDimension; i++){
-					ImageWrapper imgwrap = new ImageWrapper(scan.next());
+					ImageWrapper imgwrap = new ImageWrapper(scan.nextInt());
 					map[i][j]= new Tile(32, 32, i, j, TILE_DEPTH, imgwrap);
 				}
 			}
