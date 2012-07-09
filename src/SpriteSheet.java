@@ -23,7 +23,7 @@ public class SpriteSheet {
 	}
 	}
 	
-	public Image getSprite(int spriteID){
+	public BufferedImage getSprite(int spriteID){
 		int row = spriteID/16;
 		int col = spriteID%16;
 		
