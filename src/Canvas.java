@@ -19,6 +19,8 @@ public class Canvas{
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		while(true)
+			map.getCharacter().move(map.getMap());
 	}
 	
 	public void repaint(){
@@ -53,11 +55,11 @@ public class Canvas{
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A)
 			{
-				map.getCharacter().move(false);
+				map.getCharacter().walk(false);
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
 			{
-				map.getCharacter().move(true);
+				map.getCharacter().walk(true);
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
