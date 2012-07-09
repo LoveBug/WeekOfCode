@@ -26,6 +26,8 @@ public class Character implements Drawable{
 		
 		this.sprite = sprites;
 		image = new ImageWrapper(0, sprites);
+		this.height = image.getImage().getHeight(null);
+		this.width = image.getImage().getWidth(null);
 	}
 	
 	public void draw(Graphics g)
@@ -43,7 +45,15 @@ public class Character implements Drawable{
 			{
 				isJumping = false;  
 			}
-	
+		}else{
+			boolean falling = true;
+			for(int i=this.x; i<this.x+this.width; i++)
+				if(map[i/32][this.y/32].getHitbox().checkCollision(movementBox)){
+					falling = false;
+					break;
+				}
+			if(falling)
+				this.y += moveDistance;
 		}
 		
 		
