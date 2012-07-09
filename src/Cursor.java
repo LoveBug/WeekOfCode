@@ -20,7 +20,7 @@ public class Cursor {
 	
 	public void draw(Graphics g)
 	{
-		cursor.draw(g, x, y, width, height);
+		cursor.draw(g, x - width/2, y - height/2, width, height);
 	}
 
 	public int getX() {

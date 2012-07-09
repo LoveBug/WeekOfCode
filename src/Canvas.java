@@ -37,7 +37,7 @@ public class Canvas{
 
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
-			cursor = new Cursor(1024/2, 768/2, 32, 32);
+			cursor = new Cursor(1024/2 + 32/2, 768/2 +32/2, 32, 32);
 			addKeyListener(this);
 			addMouseMotionListener(this);
 		}
@@ -60,7 +60,7 @@ public class Canvas{
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
+			System.out.println("Im being activated, and Im a keypressed event");
 			
 		}
 
