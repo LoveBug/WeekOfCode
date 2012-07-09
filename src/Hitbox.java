@@ -1,5 +1,5 @@
 
-public class Hitbox implements Collidable{
+public class Hitbox{
 	private int width;
 	private int height;
 	private int x;
