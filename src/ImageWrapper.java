@@ -34,6 +34,22 @@ public class ImageWrapper {
 		transparency = new Color(picture.getRGB(0, 0));
 	}
 	
+	public ImageWrapper(int bit, SpriteSheet sprites)
+	{
+		if(bit == -1){bit = 0;}
+		
+		File myfile;
+		
+		if(bit < 16)
+		{
+			myfile = new File("platformTiles.gif");
+		}
+		else if(bit == 16)
+		{
+			
+		}
+	}
+	
 	public void draw(Graphics g, int x, int y, int width, int height)
 	{
 		g.drawImage(picture, x, y, width, height, null);
