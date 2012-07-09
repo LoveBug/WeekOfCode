@@ -64,7 +64,7 @@ public class Character implements Drawable{
 		
 			//Checking collisions
 			for(int i = 0; i< map.length; i++){
-				for(int j = 0; j< map[0].length; i++){
+				for(int j = 0; j< map[0].length; j++){
 					if(map[i][j].getHitbox().checkCollision(movementBox)){
 						x = x-movement;
 						y = y-moveDistance;
