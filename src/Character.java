@@ -68,10 +68,15 @@ public class Character implements Drawable{
 		
 		if(isWalking){
 			int movement = moveDistance;
+			boolean colliding = false;
 			if(!direction){movement = -moveDistance;}
-		
-			x += movement;
-			this.movementBox.setX(x);
+			
+			
+			
+			if(!colliding){
+				x += movement;
+				this.movementBox.setX(x);
+			}	
 			isWalking=false;
 		}
 	}
