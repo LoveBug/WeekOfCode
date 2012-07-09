@@ -13,14 +13,14 @@ public class Tile implements Drawable, Collidable  {
 	private Hitbox hitbox;
 
 	public Tile(int height, int width, int x, int y, int depth,
-			ImageWrapper image, Hitbox hitbox) {
+			ImageWrapper image) {
 		this.height = height;
 		this.width = width;
 		this.x = x;
 		this.y = y;
 		this.depth = depth;
 		this.image = image;
-		this.hitbox = hitbox;// Create hitbox here
+		this.hitbox = new Hitbox(x,y,width,height);
 	}
 
 	public ImageWrapper getImage(){

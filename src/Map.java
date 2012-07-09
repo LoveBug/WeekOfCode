@@ -11,6 +11,7 @@ public class Map {
 	private Scanner scan;
 	private int xDimension;
 	private int yDimension;
+	private Character character;
 	
 	public static final int TILE_DEPTH = 5;
 	public static final int BACKGROUND = 0;
@@ -52,8 +53,13 @@ public class Map {
 		while(scan.hasNext()){
 			for(int i = 0; i< xDimension; i++){
 				for(int j = 0; j< yDimension; i++){
-					ImageWrapper imgwrap = new ImageWrapper(scan.nextInt());
-					map[i][j]= new Tile(32, 32, i, j, TILE_DEPTH, imgwrap);
+					int item = scan.nextInt();
+					if(item==16){
+						character = new Character();
+					}else{
+						ImageWrapper imgwrap = new ImageWrapper(scan.nextInt());
+						map[i][j]= new Tile(32, 32, i, j, TILE_DEPTH, imgwrap);
+					}
 				}
 			}
 			
