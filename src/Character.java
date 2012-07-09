@@ -67,6 +67,7 @@ public class Character implements Drawable{
 		
 			x += movement;
 			this.movementBox.setX(x);
+			isWalking=false;
 		}
 	}
 	
