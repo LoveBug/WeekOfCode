@@ -42,12 +42,13 @@ public class ImageWrapper {
 		
 		if(bit < 16)
 		{
-			myfile = new File("platformTiles.gif");
+			myfile = new File("images/platformTiles.gif");
 		}
 		else if(bit == 16)
 		{
-			
+			myfile = new File("images/playerSpritePrelim.gif");
 		}
+		
 	}
 	
 	public void draw(Graphics g, int x, int y, int width, int height)
