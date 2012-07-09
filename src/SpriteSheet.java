@@ -30,7 +30,7 @@ public class SpriteSheet {
 		BufferedImage img = new BufferedImage(32,32, BufferedImage.TYPE_INT_RGB);
 		for(int i=row*32; i<row*32+32; i++)
 			for(int j=col*32; j<col*32+32; j++)
-				img.setRGB(i, j, this.image.getRGB(i, j));
+				img.setRGB(j-(col*32), i-(row*32), this.image.getRGB(j,i));
 		return img;
 		
 		

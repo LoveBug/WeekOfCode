@@ -33,10 +33,13 @@ public class Canvas{
 		}
 		
 		public void paint(Graphics g){
+		 
 			for(int i = 0; i < map.getMap().length;i++){
-				for(int j = 0; j < map.getMap()[0].length;)
+				for(int j = 0; j < map.getMap()[0].length; j++){
+					map.getMap()[i][j].getImage().getImage();
 					g.drawImage(map.getMap()[i][j].getImage().getImage(), map.getMap()[i][j].getX(), map.getMap()[i][j].getY(), null);
-			}
+				}
+				}
 			map.getCharacter().draw(g);
 		}
 
