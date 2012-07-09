@@ -30,7 +30,8 @@ public class Canvas{
 
 		private static final long serialVersionUID = 8187920910989915064L;
 		private Cursor cursor;
-
+		private Graphics graphics;
+		
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
 			cursor = new Cursor(1024/2 + 32/2, 768/2 +32/2, 32, 32);
@@ -39,7 +40,6 @@ public class Canvas{
 		}
 		
 		public void paint(Graphics g){
-		 
 			for(int i = 0; i < map.getMap().length;i++){
 				for(int j = 0; j < map.getMap()[0].length; j++){
 					g.drawImage(map.getMap()[i][j].getImage().getImage(), map.getMap()[i][j].getX(), map.getMap()[i][j].getY(), null);
