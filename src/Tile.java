@@ -75,7 +75,7 @@ public class Tile implements Drawable, Collidable  {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		image.draw(x, y, g);
+		image.draw(g, x, y, width, height);
 
 	}
 

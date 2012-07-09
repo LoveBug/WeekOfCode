@@ -7,6 +7,12 @@ public class Character implements Drawable{
 	private int x;
 	private int y;
 	
+	private int moveDistance = 8;
+	private int jumpHeight = 8;
+	
+	private boolean isJumping = false;
+	private int maxJump;
+	
 	private Hitbox movementBox;
 	private Hitbox shootBox;
 	
@@ -22,6 +28,36 @@ public class Character implements Drawable{
 	{
 		image.draw(g, x, y, width, height);
 	}
+	
+	public void move(boolean direction)
+	{
+		if(isJumping)
+		{
+			y -= moveDistance;
+			
+			if(y == maxJump)
+			{
+				isJumping = false;  
+			}
+	
+		}
+		
+		//insert gravity
+		
+		int movement = moveDistance;
+		if(!direction){movement = -moveDistance;}
+
+		x += movement;
+	}
+	
+	public void jump()
+	{
+		if(isJumping){return;}
+		
+		isJumping = true;
+		maxJump = y - 4*32;  //4 blocks of 32
+	}
+	
 
 	public int getY() {
 		return y;
