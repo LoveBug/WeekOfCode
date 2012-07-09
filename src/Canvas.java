@@ -25,8 +25,14 @@ public class Canvas{
 		}
 	}
 	
-	private class CanvasPanel extends JPanel implements KeyListener{
+	public void repaint(){
+		panel.repaint();
+	}
+	
+	private class CanvasPanel extends JPanel implements KeyListener, MouseMotionListener{
+
 		private static final long serialVersionUID = 8187920910989915064L;
+		private Cursor cursor;
 
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
@@ -76,6 +82,18 @@ public class Canvas{
 
 		@Override
 		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
