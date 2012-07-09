@@ -47,8 +47,10 @@ public class Character implements Drawable{
 		}else{
 			boolean falling = true;
 			for(int i=0; i<map[0].length; i++)
-				if(map[this.x+this.width][i].getHitbox().checkCollision(movementBox))
+				if(map[this.x+this.width][i].getHitbox().checkCollision(movementBox)){
 					falling = false;
+					break;
+				}
 			if(falling)
 				this.y += moveDistance;
 		}
