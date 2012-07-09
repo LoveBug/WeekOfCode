@@ -21,6 +21,10 @@ public class GameTimer implements ActionListener{
 		this.canvas = c;
 		
 	}
+	
+	public void start(){
+		t.start();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

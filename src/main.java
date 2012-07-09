@@ -1,6 +1,6 @@
 
 public class main {
-	private static int fps = 30;
+	private static int fps = 60;
 
 	public static void main(String[] args) {
 		Map map = new Map("testLevel.txt");
@@ -8,6 +8,7 @@ public class main {
 		Canvas canvas = new Canvas(map);
 		
 		GameTimer t = new GameTimer(1000 / fps, map, canvas );
+		t.start();
 		
 	}
 
