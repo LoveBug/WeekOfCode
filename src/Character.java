@@ -15,12 +15,15 @@ public class Character implements Drawable{
 	private Hitbox movementBox;
 	private Hitbox shootBox;
 	
+	private SpriteSheet sprite;
+	
 	public Character(int x, int y, SpriteSheet sprites)
 	{
 		this.setX(x);
 		this.setY(y);
 		
-		image = sprites.getSprite(0);
+		this.sprite = sprites;
+		image = new ImageWrapper(0, sprites);
 	}
 	
 	public void draw(Graphics g)

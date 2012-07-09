@@ -25,7 +25,7 @@ public class ImageWrapper {
 		File myfile = new File(location);
 
 		try {
-			picture = (BufferedImage)ImageIO.read(myfile);
+			picture = ImageIO.read(myfile);
 
 		} catch (IOException e) {
 			System.out.println("the error is " + e);
@@ -36,19 +36,8 @@ public class ImageWrapper {
 	
 	public ImageWrapper(int bit, SpriteSheet sprites)
 	{
-		if(bit == -1){bit = 0;}
-		
-		File myfile;
-		
-		if(bit < 16)
-		{
-			myfile = new File("images/platformTiles.gif");
-		}
-		else if(bit == 16)
-		{
-			myfile = new File("images/playerSpritePrelim.gif");
-		}
-		
+		if(bit < 0){bit = 0;}
+		picture = sprites.getSprite(bit);
 	}
 	
 	public void draw(Graphics g, int x, int y, int width, int height)
