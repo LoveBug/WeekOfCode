@@ -25,10 +25,6 @@ public class Canvas{
 		}
 	}
 	
-	public void repaint(){
-		panel.repaint();
-	}
-	
 	private class CanvasPanel extends JPanel implements KeyListener{
 		private static final long serialVersionUID = 8187920910989915064L;
 
