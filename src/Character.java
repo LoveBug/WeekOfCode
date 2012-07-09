@@ -11,6 +11,7 @@ public class Character implements Drawable{
 	
 	private boolean isJumping = false;
 	private boolean isWalking = false;
+	private boolean isFalling = false;
 	private boolean direction = true;
 	private int maxJump;
 	private int startHeight;
@@ -42,14 +43,15 @@ public class Character implements Drawable{
 		if(isJumping){
 			y -= moveDistance;
 			this.movementBox.setHeight(y);
-			if(y == maxJump)
+			if(y<maxJump)
 			{
 				isJumping = false;  
+				isFalling = true;
 			}
-		}else{
+		}else if(isFalling){
 			boolean falling = true;
 			for(int x=this.x; x<this.x+this.width; x++){
-				if(this.movementBox.checkCollision(map[x/32][this.y/32].getHitbox())){
+				if(this.movementBox.checkCollision(map[x/32][(this.y+this.height)/32].getHitbox())){
 					falling = false;
 					break;
 				}
@@ -57,6 +59,9 @@ public class Character implements Drawable{
 			if(falling){
 				this.y+=moveDistance;
 				this.movementBox.setY(y);
+			}else{
+				this.y = this.y/32*32;
+				isFalling = false;
 			}
 		}
 		
@@ -76,7 +81,7 @@ public class Character implements Drawable{
 		if(isJumping){return;}
 		
 		isJumping = true;
-		maxJump = y - 4*32;  //4 blocks of 32
+		maxJump = y - 32;  //4 blocks of 32
 	}
 	
 

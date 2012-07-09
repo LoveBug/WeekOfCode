@@ -60,10 +60,13 @@ public class Map {
 					int item = scan.nextInt();
 					if(item==16){
 						character = new Character(i*32,j*32, charSprites);
-						map[i][j] = new Tile(32,32,i*32,j*32,TILE_DEPTH,new ImageWrapper(-1, 32, 32,worldSprites));
+						map[i][j] = new BackgroundTile(32,32,i*32,j*32,TILE_DEPTH,new ImageWrapper(-1, 32, 32,worldSprites));
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, 32, 32, worldSprites);
-						map[i][j]= new Tile(32, 32, i*32, j*32, TILE_DEPTH, imgwrap);
+						if(item==-1)
+							map[i][j] = new BackgroundTile(32, 32, i*32, j*32, TILE_DEPTH, imgwrap);
+						else
+							map[i][j] = new FloorTile(32,32,i*32,j*32,TILE_DEPTH,imgwrap);
 					}
 				}
 			}

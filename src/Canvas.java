@@ -51,7 +51,6 @@ public class Canvas{
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			
 		}
 
 		@Override
@@ -66,10 +65,6 @@ public class Canvas{
 				map.getCharacter().walk(true);
 
 			}
-			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
-			{
-				map.getCharacter().jump();
-			}
 			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
 			{
 				
@@ -79,8 +74,10 @@ public class Canvas{
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
+			if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
+			{
+				map.getCharacter().jump();
+			}
 		}
 
 		@Override
