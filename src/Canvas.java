@@ -72,6 +72,10 @@ public class Canvas{
 			{
 				upKeyPressed = true;
 			}
+			if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
+			{
+				map.getCharacter().jump();
+			}
 			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
 			{
 				downKeyPressed = true;
