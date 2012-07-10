@@ -7,7 +7,7 @@ public class Tile implements Drawable, Collidable  {
 	private int y;
 	private int depth;
 	private ImageWrapper image;
-	protected Hitbox hitbox;
+	private Hitbox hitbox;
 
 	public Tile(int height, int width, int x, int y, int depth,
 			ImageWrapper image) {
@@ -22,6 +22,10 @@ public class Tile implements Drawable, Collidable  {
 
 	public ImageWrapper getImageWrapper(){
 		return image;
+	}
+	
+	public void setHitbox(Hitbox h){
+		this.hitbox = h;
 	}
 	
 	/**
