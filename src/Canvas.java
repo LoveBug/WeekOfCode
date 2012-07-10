@@ -55,7 +55,6 @@ public class Canvas{
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			
 		}
 
 		@Override
@@ -69,6 +68,7 @@ public class Canvas{
 				rightKeyPressed = true;
 
 			}
+
 			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
 				upKeyPressed = true;
@@ -99,7 +99,6 @@ public class Canvas{
 			{
 				downKeyPressed = false;
 			}*/
-			
 		}
 
 		@Override
