@@ -11,7 +11,6 @@ public class Map {
 	private int yDimension;
 	private Character character;
 	private SpriteSheet worldSprites;
-	private SpriteSheet charSprites;
 	
 	public static final int TILE_DEPTH = 5;
 	public static final int BACKGROUND = 0;
