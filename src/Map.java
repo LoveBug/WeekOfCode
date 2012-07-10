@@ -59,7 +59,7 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==16){
-						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, charSprites);
+						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE);
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(-1, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, BLOCK_SIZE, BLOCK_SIZE, worldSprites);
