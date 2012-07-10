@@ -7,6 +7,8 @@ public class Cursor {
 	private int width;
 	private int height;
 	
+	private Character c;
+	
 	private ImageWrapper cursor;
 	
 	public Cursor(int x, int y, int width, int height)
