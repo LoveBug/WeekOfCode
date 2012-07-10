@@ -15,7 +15,6 @@ public class Character implements Drawable{
 	private boolean isFalling = false;
 	private boolean direction = true;
 	private int maxJump;
-	private int startHeight;
 	
 	private Hitbox movementBox;
 	private Hitbox shootBox;

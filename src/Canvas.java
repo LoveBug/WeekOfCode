@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
-
 
 
 public class Canvas{
@@ -35,7 +33,7 @@ public class Canvas{
 		private boolean leftKeyPressed;
 		private boolean rightKeyPressed;
 		private boolean upKeyPressed;
-		private boolean downKeyPressed;
+		//private boolean downKeyPressed;  for later when doppng through blocks
 		
 		private static final int screenWidth = 1024;
 		private static final int screenHeight = 768;

@@ -8,9 +8,7 @@ public class main implements ActionListener{
 	private static int fps = 60;
 	private Canvas canvas;
 	private Map map;
-	
-	private int timeStart;
-	private int timeSinceLastCall;
+
 	private int tick;
 	private Timer t;
 	
