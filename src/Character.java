@@ -84,7 +84,8 @@ public class Character implements Drawable{
 			for(; x<end; x++){
 				if(this.movementBox.checkCollision(map[x/32][(this.y+this.height)/32].getHitbox())){
 					falling = false;
-					break;
+					if(map[x/32][(this.y+this.height)/32] instanceof DestTile)
+						((DestTile)map[x/32][(this.y+this.height)/32]).destroy();
 				}
 			}
 			if(falling){
