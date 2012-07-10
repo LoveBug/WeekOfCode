@@ -66,20 +66,27 @@ public class Canvas{
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A)
 			{
+				map.getCharacter().walk(false);
 				leftKeyPressed = true;
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
 			{
+				map.getCharacter().walk(true);
 				rightKeyPressed = true;
 
 			}
+<<<<<<< HEAD
+
+=======
 			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
 				upKeyPressed = true;
 			}
+>>>>>>> f905a3d07a335067a5e703ff6b3595c9fdb9a473
 			if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
 				map.getCharacter().jump();
+				upKeyPressed = true;
 			}
 			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
 			{

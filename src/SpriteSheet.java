@@ -16,12 +16,10 @@ public class SpriteSheet {
 	 file = new File(Filename);
 	 try {
 		image = ImageIO.read(file);
-	
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
+	 } catch (IOException e) {
 		e.printStackTrace();
-	}
-	}
+	 }
+}
 	
 	public BufferedImage getSprite(int spriteID, int width, int height){
 		int row = spriteID/16;
