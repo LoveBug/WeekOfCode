@@ -8,6 +8,7 @@ public class Character implements Drawable{
 	private int y;
 	
 	private int moveDistance = 8;
+	private int currentImage = 1;
 	
 	private boolean isJumping = false;
 	private boolean isWalking = false;
@@ -29,7 +30,7 @@ public class Character implements Drawable{
 		this.sprite = sprites;
 		this.height = 96;
 		this.width = 64;
-		image = new ImageWrapper(1, width, height, sprites);	//-1 cause of offset initialization
+		image = new ImageWrapper(currentImage, width, height, sprites);	//-1 = 0 cause of offset initialization
 		this.movementBox = new Hitbox(x, y, width, height);
 	}
 	
@@ -69,15 +70,17 @@ public class Character implements Drawable{
 		
 		if(isWalking){
 			int movement = moveDistance;
-			boolean colliding = false;
 			if(!direction){movement = -moveDistance;}
-			
-			
-			
-			if(!colliding){
-				x += movement;
-				this.movementBox.setX(x);
-			}	
+			this.x+=movement;
+			this.movementBox.setX(x);
+			int x = this.x;
+			if(direction)
+				x+=this.width;
+			for(int y=this.y; y<this.y+this.height; y++)
+				if(this.movementBox.checkCollision(map[x/32][y/32].getHitbox())){
+					this.x = this.x/32*32;
+					break;
+				}
 			isWalking=false;
 		}
 	}
