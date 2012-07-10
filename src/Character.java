@@ -7,6 +7,9 @@ public class Character implements Drawable{
 	private final int IMAGE_HEIGHT = 3;
 	
 	private final int JUMP_HEIGHT = 4;
+	private final int TURN_COUNT = 120;
+	
+	private int turnCounter = 0;
 	
 	private ImageWrapper image;
 	private int height;
@@ -26,15 +29,17 @@ public class Character implements Drawable{
 	private Hitbox movementBox;
 	private Hitbox shootBox;
 	
-	private SpriteSheet sprite, jumpSprite;
+	private SpriteSheet sprite, jumpSprite, stationarySprite;
 	
 	public Character(int x, int y)
 	{
 		this.setX(x);
 		this.setY(y);
 		
-		this.sprite = new SpriteSheet("images/runCyclePrelimSheetAlpha.gif");
-		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.gif");
+		this.sprite = new SpriteSheet("images/runCyclePrelimSheetAlpha.png");
+		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.png");
+		this.stationarySprite = new SpriteSheet("images/playerSpriteFinalDesign.png");
+		
 		this.height = 96;
 		this.width = 64;
 		image = new ImageWrapper(currentImage, width, height, sprite);
@@ -49,6 +54,7 @@ public class Character implements Drawable{
 	public void move(Tile[][] map)
 	{
 		if(isJumping){
+			turnCounter = TURN_COUNT;
 			if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
 				this.currentImage+=IMAGE_WIDTH;
 				updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
@@ -69,10 +75,17 @@ public class Character implements Drawable{
 			}
 		}else{
 			boolean falling = true;
-			for(int x=this.x; x<this.x+this.width; x++){
+			int x=this.x+20;
+			int end = this.x+this.width-10;
+			if(!direction){
+				x=this.x+10;
+				end=this.x+width-20;
+			}
+			for(; x<end; x++){
 				if(this.movementBox.checkCollision(map[x/32][(this.y+this.height)/32].getHitbox())){
 					falling = false;
-					break;
+					if(map[x/32][(this.y+this.height)/32] instanceof DestTile)
+						((DestTile)map[x/32][(this.y+this.height)/32]).destroy();
 				}
 			}
 			if(falling){
@@ -97,6 +110,7 @@ public class Character implements Drawable{
 		
 		
 		if(isWalking){
+			turnCounter = TURN_COUNT;
 			int movement = moveDistance;
 			if(!direction){
 				movement = -moveDistance;
@@ -116,6 +130,14 @@ public class Character implements Drawable{
 					break;
 				}
 			isWalking=false;
+		}
+		
+		if(!isWalking && !isJumping){
+			if(turnCounter<0){
+				this.currentImage=0;
+				updateImage(new ImageWrapper(currentImage, width, height, stationarySprite));
+			}else
+				turnCounter--;
 		}
 	}
 	

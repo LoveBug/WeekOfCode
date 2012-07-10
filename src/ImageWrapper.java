@@ -32,8 +32,8 @@ public class ImageWrapper {
 		g.drawImage(picture, x, y, width, height, null);
 	}
 
-	public Image getImage() {
-		return (picture);
+	public BufferedImage getImage() {
+		return picture;
 	}
 
 	public void setImage(BufferedImage tempImage) {
