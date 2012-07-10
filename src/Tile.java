@@ -73,11 +73,8 @@ public class Tile implements Drawable, Collidable  {
 	/**
 	 * Draws this tile to the canvas
 	 */
-	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		image.draw(g, x, y, width, height);
-
 	}
 
 }

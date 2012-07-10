@@ -10,14 +10,13 @@ public class SpriteSheet {
 	BufferedImage image;
 	
 	public SpriteSheet(String Filename) {
-		// TODO Auto-generated constructor stub
-	 file = new File(Filename);
-	 try {
-		image = ImageIO.read(file);
-	 } catch (IOException e) {
-		e.printStackTrace();
-	 }
-}
+		file = new File(Filename);
+		try {
+			image = ImageIO.read(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public BufferedImage getSprite(int spriteID, int width, int height){
 		int row = spriteID/16;
