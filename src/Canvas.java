@@ -70,7 +70,14 @@ public class Canvas{
 				rightKeyPressed = true;
 
 			}
+<<<<<<< HEAD
 
+=======
+			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
+			{
+				upKeyPressed = true;
+			}
+>>>>>>> f905a3d07a335067a5e703ff6b3595c9fdb9a473
 			if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
 				map.getCharacter().jump();
@@ -79,6 +86,28 @@ public class Canvas{
 			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
 			{
 				downKeyPressed = true;
+			}*/
+			movecharacter(leftKeyPressed, rightKeyPressed, upKeyPressed);
+		}
+
+		private void movecharacter(boolean leftKeyPressed2,
+				boolean rightKeyPressed2, boolean upKeyPressed2/*, boolean downKeyPressed2*/) {
+			
+			if(leftKeyPressed2)
+			{
+				map.getCharacter().walk(false);
+			}
+			if(rightKeyPressed2)
+			{
+				map.getCharacter().walk(true);
+			}
+			if(upKeyPressed2)
+			{
+				map.getCharacter().jump();
+			}
+			/*if(downKeyPressed2)
+			{
+				
 			}*/
 			
 		}

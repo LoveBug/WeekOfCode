@@ -63,7 +63,7 @@ public class Map {
 						map[i][j] = new BackgroundTile(32,32,i*32,j*32,TILE_DEPTH,new ImageWrapper(-1, 32, 32,worldSprites));
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, 32, 32, worldSprites);
-						if(item==-1)
+						if(item<0)
 							map[i][j] = new BackgroundTile(32, 32, i*32, j*32, TILE_DEPTH, imgwrap);
 						else
 							map[i][j] = new FloorTile(32,32,i*32,j*32,TILE_DEPTH,imgwrap);
