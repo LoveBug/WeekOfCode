@@ -36,9 +36,14 @@ public class Canvas{
 		private boolean upKeyPressed;
 		private boolean downKeyPressed;
 		
+		private static final int screenWidth = 1024;
+		private static final int screenHeight = 768;
+		
+		private static final int blockSize = 32;
+		
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
-			cursor = new Cursor(1024/2 + 32/2, 768/2 +32/2, 32, 32);
+			cursor = new Cursor(screenWidth/2 + blockSize/2, screenHeight/2 +blockSize/2, blockSize, blockSize);
 			addKeyListener(this);
 			addMouseMotionListener(this);
 		}
@@ -79,6 +84,7 @@ public class Canvas{
 			{
 				downKeyPressed = true;
 			}*/
+			
 			movecharacter(leftKeyPressed, rightKeyPressed, upKeyPressed);
 		}
 
