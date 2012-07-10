@@ -7,7 +7,7 @@ public class Cursor {
 	private int width;
 	private int height;
 	
-	private final int maxDistance = 300; 
+	private final int maxDistance = 50; 
 	
 	private Character c;
 	
@@ -35,14 +35,17 @@ public class Cursor {
 	}
 
 	
-	public void moveCursor(int nX, int nY)
+	public void moveCursor(int mouseX, int mouseY, int charPosX, int charPosY)
 	{
-		double dist = (nX - x)*(nX - x) + (nY - y)*(nY - y);
+		System.out.println("MouseX: "+ mouseX + " mouseY: "+mouseY +" charPosX: "+charPosX +" charPosY:" +charPosY );
+		double dist = (mouseX - charPosX)*(mouseX - charPosX) + (mouseY - charPosY)*(mouseY - charPosY);
 		
 		if(dist < maxDistance*maxDistance)
 		{
-			this.x = nX;
-			this.y = nY;
+			this.x = (mouseX - charPosX)/2;
+			this.y = (mouseY - charPosY)/2;
+			System.out.println("cursor x update:"+this.x+ " cursor Y update" + this.y);
+
 		}
 	}
 
