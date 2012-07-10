@@ -30,6 +30,8 @@ public class Map {
 	public static final int CLOSED_BOT = 4096;
 	public static final int PLAYER = 8192;
 	
+	public static final int BLOCK_SIZE = 32;
+	
 	public Map(String filename) {
 	// TODO Auto-generated constructor stub
 		worldSprites = new SpriteSheet("images/platformTiles.gif");
@@ -56,14 +58,14 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==16){
-						character = new Character(i*32,j*32);
-						map[i][j] = new BackgroundTile(32,32,i*32,j*32,TILE_DEPTH,new ImageWrapper(-1, 32, 32,worldSprites));
+						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE);
+						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(-1, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 					}else{
-						ImageWrapper imgwrap = new ImageWrapper(item, 32, 32, worldSprites);
+						ImageWrapper imgwrap = new ImageWrapper(item, BLOCK_SIZE, BLOCK_SIZE, worldSprites);
 						if(item<0)
-							map[i][j] = new BackgroundTile(32, 32, i*32, j*32, TILE_DEPTH, imgwrap);
+							map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, imgwrap);
 						else
-							map[i][j] = new FloorTile(32,32,i*32,j*32,TILE_DEPTH,imgwrap);
+							map[i][j] = new FloorTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,imgwrap);
 					}
 				}
 			}
