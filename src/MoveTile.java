@@ -41,4 +41,20 @@ public class MoveTile extends Tile{
 				yspeed = -yspeed;
 		}
 	}
+	
+	public int getYSpeed(){
+		return this.yspeed;
+	}
+	
+	public int getXSpeed(){
+		return this.xspeed;
+	}
+	
+	public void setYSpeed(int y){
+		this.yspeed = y;
+	}
+	
+	public void setXSpeed(int x){
+		this.xspeed = x;
+	}
 }

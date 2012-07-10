@@ -25,6 +25,7 @@ public class Character implements Drawable{
 	private boolean isFalling = false;
 	private boolean direction = true;
 	private int maxJump;
+	private int ySpeed = moveDistance;
 	
 	private Hitbox movementBox;
 	private Hitbox shootBox;
@@ -64,11 +65,13 @@ public class Character implements Drawable{
 			if(y<maxJump){
 				isJumping = false;  
 				isFalling = true;
+				ySpeed = moveDistance;
 			}else{
 				for(int x=this.x; x<this.x+this.width; x++){
 					if(this.movementBox.checkCollision(map.getMap()[x/32][((this.y+10)/32)].getHitbox())){
 						isJumping = false;
 						isFalling = true;
+						ySpeed = moveDistance;
 						break;
 					}
 				}
@@ -92,15 +95,18 @@ public class Character implements Drawable{
 			//check moving tile collision
 			for(MoveTile t : map.movingTiles())
 				if(this.movementBox.checkCollision(t.getHitbox())){
+					falling = false;
 					tile = t;
 					break;
 				}
 			
 			if(falling){
+				if(ySpeed<=0)
+					ySpeed = moveDistance;
 				if(!isFalling)
 					this.currentImage = 0;
 				isFalling = true;
-				this.y+=moveDistance;
+				this.y+=ySpeed;
 				this.movementBox.setY(y);
 				if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
 					this.currentImage+=IMAGE_WIDTH;
@@ -110,12 +116,15 @@ public class Character implements Drawable{
 				if(isFalling){
 					this.currentImage = 0;
 					updateImage(new ImageWrapper(this.currentImage, width, height, sprite));
+					this.ySpeed = 0;
 				}
 				if(tile==null)
 					this.y = this.y/32*32;
-				else
+				else{
 					this.y = tile.getY()-this.height;
-				//this.movementBox.setY(this.y);
+					this.movementBox.setY(this.y);
+					this.ySpeed = tile.getYSpeed();
+				}
 				isFalling = false;
 			}
 		}
@@ -141,6 +150,7 @@ public class Character implements Drawable{
 						this.x = this.x/32*32+32;
 					break;
 				}
+			this.movementBox.setX(this.x);
 			isWalking=false;
 		}
 		
