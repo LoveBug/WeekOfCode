@@ -8,6 +8,7 @@ public class Character implements Drawable{
 	
 	private final int JUMP_HEIGHT = 4;
 	private final int TURN_COUNT = 120;
+	private final int FALL_MAX = 16;
 	
 	private int turnCounter = 0;
 	
@@ -25,7 +26,7 @@ public class Character implements Drawable{
 	private boolean isFalling = false;
 	private boolean direction = true;
 	private int maxJump;
-	private int ySpeed = moveDistance;
+	private float ySpeed = moveDistance;
 	
 	private Hitbox movementBox;
 	private Hitbox shootBox;
@@ -54,18 +55,60 @@ public class Character implements Drawable{
 	
 	public void move(Map map)
 	{
+		jumpMovement(map);
+		
+		if(isWalking){
+			turnCounter = TURN_COUNT;
+			int movement = moveDistance;
+			if(!direction){
+				movement = -moveDistance;
+			}
+			
+			this.x+=movement;
+			this.movementBox.setX(x);
+			int x = this.x;
+			if(direction)
+				x+=this.width;
+			for(int y=this.y+5; y<this.y+this.height-10; y++)
+				if(this.movementBox.checkCollision(map.getMap()[x/32][y/32].getHitbox())){
+					if(direction)
+						this.x = this.x/32*32;
+					else
+						this.x = this.x/32*32+32;
+					break;
+				}
+			this.movementBox.setX(this.x);
+			isWalking=false;
+		}
+		
+		if(!isWalking && !isJumping){
+			if(turnCounter<0){
+				this.currentImage=0;
+				updateImage(new ImageWrapper(currentImage, width, height, stationarySprite));
+			}else
+				turnCounter--;
+		}
+	}
+	
+	public void jumpMovement(Map map){
 		if(isJumping){
 			turnCounter = TURN_COUNT;
 			if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
 				this.currentImage+=IMAGE_WIDTH;
 				updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
 			}
-			y -= moveDistance;
+			
+			if(ySpeed>5)
+				ySpeed -= 0.5;
+			else if(ySpeed>1)
+				ySpeed -= 0.2;
+			
+			y -= ySpeed;
 			this.movementBox.setY(y);
 			if(y<maxJump){
 				isJumping = false;  
 				isFalling = true;
-				ySpeed = moveDistance;
+				
 			}else{
 				for(int x=this.x; x<this.x+this.width; x++){
 					if(this.movementBox.checkCollision(map.getMap()[x/32][((this.y+10)/32)].getHitbox())){
@@ -101,8 +144,13 @@ public class Character implements Drawable{
 				}
 			
 			if(falling){
-				if(ySpeed<=0)
-					ySpeed = moveDistance;
+				if(ySpeed<0)
+					ySpeed = 0;
+				if(ySpeed<FALL_MAX)
+					if(ySpeed<10)
+						ySpeed+=0.75;
+					else
+						ySpeed+=0.25;
 				if(!isFalling)
 					this.currentImage = 0;
 				isFalling = true;
@@ -116,50 +164,17 @@ public class Character implements Drawable{
 				if(isFalling){
 					this.currentImage = 0;
 					updateImage(new ImageWrapper(this.currentImage, width, height, sprite));
-					this.ySpeed = 0;
 				}
-				if(tile==null)
+				if(tile==null){
 					this.y = this.y/32*32;
-				else{
+					this.ySpeed = 4;
+				}else{
 					this.y = tile.getY()-this.height;
 					this.movementBox.setY(this.y);
 					this.ySpeed = tile.getYSpeed();
 				}
 				isFalling = false;
 			}
-		}
-		
-		
-		if(isWalking){
-			turnCounter = TURN_COUNT;
-			int movement = moveDistance;
-			if(!direction){
-				movement = -moveDistance;
-			}
-			
-			this.x+=movement;
-			this.movementBox.setX(x);
-			int x = this.x;
-			if(direction)
-				x+=this.width;
-			for(int y=this.y+5; y<this.y+this.height-10; y++)
-				if(this.movementBox.checkCollision(map.getMap()[x/32][y/32].getHitbox())){
-					if(direction)
-						this.x = this.x/32*32;
-					else
-						this.x = this.x/32*32+32;
-					break;
-				}
-			this.movementBox.setX(this.x);
-			isWalking=false;
-		}
-		
-		if(!isWalking && !isJumping){
-			if(turnCounter<0){
-				this.currentImage=0;
-				updateImage(new ImageWrapper(currentImage, width, height, stationarySprite));
-			}else
-				turnCounter--;
 		}
 	}
 	
@@ -170,6 +185,7 @@ public class Character implements Drawable{
 		updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
 		isJumping = true;
 		maxJump = y - 32*JUMP_HEIGHT;  //4 blocks of 32
+		ySpeed = FALL_MAX;
 	}
 	
 	public void updateImage(ImageWrapper i){
