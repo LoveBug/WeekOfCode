@@ -46,6 +46,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			}
 		}
 		
+		for(MoveTile t : map.movingTiles())
+			g.drawImage(t.getImageWrapper().getImage(), t.getX()-cam.getX(), t.getY()-cam.getY(), null);
 		map.getCharacter().getImage().draw(g, map.getCharacter().getX()-cam.getX(), map.getCharacter().getY()-cam.getY(), map.getCharacter().getWidth(), map.getCharacter().getHeight());
 		cursor.draw(g);
 	}
