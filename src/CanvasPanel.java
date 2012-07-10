@@ -27,9 +27,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	public CanvasPanel(Map m) {
 		setPreferredSize(new Dimension(1024, 768));
-		cursor = new Cursor(screenWidth / 2 + blockSize / 2, screenHeight / 2
-				+ blockSize / 2, blockSize, blockSize);
+		
 		this.map = m;
+		cursor = new Cursor(screenWidth / 2 + blockSize / 2, screenHeight / 2
+				+ blockSize / 2, blockSize, blockSize, map.getCharacter());
 		this.cam = new Camera(map.getCharacter(), cursor);
 		addKeyListener(this);
 		addMouseMotionListener(this);
@@ -40,11 +41,12 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			for (int j = 0; j < map.getMap()[0].length; j++) {
 				Tile tempTile = map.getMap()[i][j];
 				
-				if(!(i > screenWidth/blockSize || j > screenHeight/blockSize)){
-					g.drawImage(tempTile.getImageWrapper().getImage(), tempTile.getX(), tempTile.getY(), null);
-				}
+				g.drawImage(tempTile.getImageWrapper().getImage(), tempTile.getX()-cam.getX(), tempTile.getY()-cam.getY(), null);
+				
 			}
 		}
+		map.getCharacter().setX(map.getCharacter().getX()-cam.getX());
+		map.getCharacter().setX(map.getCharacter().getY()-cam.getY());
 		map.getCharacter().draw(g);
 		cursor.draw(g);
 	}

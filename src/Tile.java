@@ -61,6 +61,8 @@ public class Tile implements Drawable, Collidable  {
 	public int getY() {
 		return y;
 	}
+	
+	
 	/**
 	 * 
 	 * @return Depth

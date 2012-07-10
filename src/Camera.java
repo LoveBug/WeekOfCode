@@ -24,7 +24,7 @@ public class Camera {
 	}
 
 	public int getX() {
-		return centerX;
+		return (centerX - SCREEN_WIDTH/2);
 	}
 
 	public void setX(int centerX) {
@@ -32,7 +32,7 @@ public class Camera {
 	}
 
 	public int getY() {
-		return centerY;
+		return (centerY - SCREEN_HEIGHT/2);
 	}
 
 	public void setY(int centerY) {

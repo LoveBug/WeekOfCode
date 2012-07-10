@@ -7,18 +7,22 @@ public class Cursor {
 	private int width;
 	private int height;
 	
+	private final int maxDistance = 750; 
+	
 	private Character c;
 	
 	private ImageWrapper cursor;
 	
-	public Cursor(int x, int y, int width, int height)
+	public Cursor(int x, int y, int width, int height, Character c)
 	{
 		this.width = width;
 		this.height = height;
 		this.setX(x);
 		this.setY(y);
 		
-		cursor = new ImageWrapper("images/targetReticleAlpha.gif");  //needs to be changed when initial cursor is made
+		this.c = c;
+		
+		cursor = new ImageWrapper("images/targetReticleAlpha.png");  //needs to be changed when initial cursor is made
 	}
 	
 	public void draw(Graphics g)
@@ -31,6 +35,8 @@ public class Cursor {
 	}
 
 	public void setX(int x) {
+		
+		if(x > -12){}  //fix please
 		this.x = x;
 	}
 
