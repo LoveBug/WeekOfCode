@@ -23,7 +23,7 @@ public class SpriteSheet {
 		int row = spriteID/16;
 		int col = spriteID%16;
 		
-		BufferedImage img = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+		BufferedImage img = new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
 		for(int i=row*32; i<row*32+height; i++)
 			for(int j=col*32; j<col*32+width; j++)
 				img.setRGB(j-(col*32), i-(row*32), this.image.getRGB(j,i));

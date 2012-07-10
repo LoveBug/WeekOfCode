@@ -30,12 +30,9 @@ public class Main implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
 		map.getCharacter().move(map.getMap());
 		
 		canvas.repaint();
-		
 	}
 	
 	public void start(){

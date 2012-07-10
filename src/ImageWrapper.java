@@ -46,7 +46,7 @@ public class ImageWrapper {
 	public void reverse(){
 		int height = this.picture.getHeight();
 		int width = this.picture.getWidth();
-		BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		for(int i=0; i<width; i++)
 			for(int j=0; j<height; j++)
 				temp.setRGB(i, j, picture.getRGB(width-i-1, j));
