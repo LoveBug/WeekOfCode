@@ -7,7 +7,7 @@ public class Cursor {
 	private int width;
 	private int height;
 	
-	private final int maxDistance = 750; 
+	private final int maxDistance = 300; 
 	
 	private Character c;
 	
@@ -17,8 +17,8 @@ public class Cursor {
 	{
 		this.width = width;
 		this.height = height;
-		this.setX(x);
-		this.setY(y);
+		this.x = x;
+		this.y = y;
 		
 		this.c = c;
 		
@@ -34,17 +34,21 @@ public class Cursor {
 		return x;
 	}
 
-	public void setX(int x) {
+	
+	public void moveCursor(int nX, int nY)
+	{
+		double dist = (nX - x)*(nX - x) + (nY - y)*(nY - y);
 		
-		if(x > -12){}  //fix please
-		this.x = x;
+		if(dist < maxDistance*maxDistance)
+		{
+			this.x = nX;
+			this.y = nY;
+		}
 	}
 
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
-		this.y = y;
-	}
+
 }

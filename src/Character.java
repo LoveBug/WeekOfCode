@@ -190,6 +190,12 @@ public class Character implements Drawable{
 	public void setImage(ImageWrapper image) {
 		this.image = image;
 	}
+	public int getWidth(){
+		return width;
+	}
+	public int getHeight(){
+		return height;
+	}
 
 	public Hitbox getMovementBox() {
 		return movementBox;

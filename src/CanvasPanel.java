@@ -45,9 +45,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 				
 			}
 		}
-		map.getCharacter().setX(map.getCharacter().getX()-cam.getX());
-		map.getCharacter().setX(map.getCharacter().getY()-cam.getY());
-		map.getCharacter().draw(g);
+		
+		map.getCharacter().getImage().draw(g, map.getCharacter().getX()-cam.getX(), map.getCharacter().getY()-cam.getY(), map.getCharacter().getWidth(), map.getCharacter().getHeight());
 		cursor.draw(g);
 	}
 
@@ -113,8 +112,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		cursor.setX(e.getX());
-		cursor.setY(e.getY());
+		cursor.moveCursor(e.getX(), e.getY());
 		
 		cam.setX(e.getX());
 		cam.setY(e.getY());
@@ -124,8 +122,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		cursor.setX(e.getX());
-		cursor.setY(e.getY());
+		cursor.moveCursor(e.getX(), e.getY());
+		
+		cam.setX(e.getX());
+		cam.setY(e.getY());
 		requestFocusInWindow();
 	}
 }
