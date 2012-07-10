@@ -44,6 +44,8 @@ public class Map {
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
 								new ImageWrapper(item*-1, BLOCK_SIZE, BLOCK_SIZE, worldSprites), 
 								new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+					}else if(item>17){
+						//TODO: moving platforms are designated by tile_item-18
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, BLOCK_SIZE, BLOCK_SIZE, worldSprites);
 						if(item==0)
