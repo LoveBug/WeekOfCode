@@ -6,20 +6,9 @@ import javax.imageio.ImageIO;
 
 public class ImageWrapper {
 	private BufferedImage picture;
-	private Color transparency;
+	
 
-	public ImageWrapper(String location, Color colorKey) {
-		File myfile = new File(location);
 
-		try {
-			picture = ImageIO.read(myfile);
-
-		} catch (IOException e) {
-			System.out.println("the error is " + e);
-		}
-
-		transparency = colorKey;
-	}
 
 	public ImageWrapper(String location) {
 		File myfile = new File(location);
@@ -31,7 +20,7 @@ public class ImageWrapper {
 			System.out.println("the error is " + e);
 		}
 		
-		transparency = new Color(picture.getRGB(0, 0));
+		
 	}
 	
 	public ImageWrapper(int bit, int width, int height, SpriteSheet sprites)
@@ -53,14 +42,7 @@ public class ImageWrapper {
 		picture = tempImage;
 	}
 
-	public Color getTranspercy() {
-		return transparency;
-	}
-
-	public void setTranspercy(Color transparency) {
-		this.transparency = transparency;
-	}
-
+	
 	public void reverse(){
 		int height = this.picture.getHeight();
 		int width = this.picture.getWidth();
