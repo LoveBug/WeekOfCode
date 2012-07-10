@@ -37,7 +37,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[0].length; j++) {
 				Tile tempTile = map.getMap()[i][j];
-				g.drawImage(tempTile.getImageWrapper().getImage(), tempTile.getX(), tempTile.getY(), null);
+				
+				if(!(i > screenWidth/blockSize || j > screenHeight/blockSize)){
+					g.drawImage(tempTile.getImageWrapper().getImage(), tempTile.getX(), tempTile.getY(), null);
+				}
 			}
 		}
 		map.getCharacter().draw(g);
