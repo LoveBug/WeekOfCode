@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -11,6 +12,8 @@ public class Map {
 	private int yDimension;
 	private Character character;
 	private SpriteSheet worldSprites;
+	
+	private ArrayList<MoveTile> movingTiles = new ArrayList<MoveTile>();
 	
 	public static final int TILE_DEPTH = 5;	
 	public static final int BLOCK_SIZE = 32;
@@ -45,7 +48,11 @@ public class Map {
 								new ImageWrapper(item*-1, BLOCK_SIZE, BLOCK_SIZE, worldSprites), 
 								new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
 					}else if(item>17){
-						//TODO: moving platforms are designated by tile_item-18
+						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
+								TILE_DEPTH, new ImageWrapper(item, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+						movingTiles.add(new MoveTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
+								TILE_DEPTH, new ImageWrapper(item-18, BLOCK_SIZE, BLOCK_SIZE, worldSprites),
+								true, 10, 200, 8));
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, BLOCK_SIZE, BLOCK_SIZE, worldSprites);
 						if(item==0)
@@ -64,5 +71,7 @@ public class Map {
 		return character;
 	}
 	
-
+	public ArrayList<MoveTile> movingTiles(){
+		return this.movingTiles;
+	}
 }
