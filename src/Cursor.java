@@ -7,7 +7,7 @@ public class Cursor {
 	private int width;
 	private int height;
 	
-	private final int maxDistance = 50; 
+	private final int maxDistance = 5; 
 	
 	private Character c;
 	

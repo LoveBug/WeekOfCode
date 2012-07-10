@@ -52,6 +52,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	}
 
 	public void paint(Graphics g) {
+		g.clearRect(0, 0, this.getWidth(), this.getHeight());//Change to image
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[0].length; j++) {
 				Tile tempTile = map.getMap()[i][j];
@@ -128,16 +129,19 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		 * 
 		 * }
 		 */
+		
+		cam.setX(map.getCharacter().getX());
+		cam.setY(map.getCharacter().getY());
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		
-		cam.setX(e.getX());
-		cam.setY(e.getY());
-		previousMouseX = e.getX();
-		previousMouseY = e.getY();
-		cursor.moveCursor(e.getX(), e.getY(), map.getCharacter().getX(),map.getCharacter().getY());
+	//	cam.setX(e.getX());
+	//	cam.setY(e.getY());
+	//	previousMouseX = e.getX();
+	//	previousMouseY = e.getY();
+		//cursor.moveCursor(e.getX(), e.getY(), map.getCharacter().getX(),map.getCharacter().getY());
 
 		requestFocusInWindow();
 	}
@@ -145,13 +149,14 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		
-		cam.setX(e.getX());
-		cam.setY(e.getY());
+		
+		cam.setX(map.getCharacter().getX());
+		cam.setY(map.getCharacter().getY());
 		previousMouseX = e.getX();
 		previousMouseY = e.getY();
 		
 		
-		cursor.moveCursor(e.getX(), e.getY(), map.getCharacter().getX()-cam.getX(),map.getCharacter().getY()-cam.getY());
+		//cursor.moveCursor(e.getX(), e.getY(), map.getCharacter().getX()-cam.getX(),map.getCharacter().getY()-cam.getY());
 		
 		
 		requestFocusInWindow();
