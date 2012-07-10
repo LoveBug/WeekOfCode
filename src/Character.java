@@ -33,8 +33,8 @@ public class Character implements Drawable{
 		this.setX(x);
 		this.setY(y);
 		
-		this.sprite = new SpriteSheet("images/runCyclePrelimSheet.gif");
-		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheet.gif");
+		this.sprite = new SpriteSheet("images/runCyclePrelimSheetAlpha.gif");
+		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.gif");
 		this.height = 96;
 		this.width = 64;
 		image = new ImageWrapper(currentImage, width, height, sprite);

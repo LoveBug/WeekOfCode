@@ -7,6 +7,8 @@ public class Cursor {
 	private int width;
 	private int height;
 	
+	private Character c;
+	
 	private ImageWrapper cursor;
 	
 	public Cursor(int x, int y, int width, int height)
@@ -15,7 +17,7 @@ public class Cursor {
 		this.height = height;
 		this.setX(x);
 		this.setY(y);
-		cursor = new ImageWrapper("images/targetReticle.gif");  //needs to be changed when initial cursor is made
+		cursor = new ImageWrapper("images/targetReticleAlpha.gif");  //needs to be changed when initial cursor is made
 	}
 	
 	public void draw(Graphics g)
