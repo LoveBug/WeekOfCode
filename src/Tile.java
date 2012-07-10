@@ -74,6 +74,14 @@ public class Tile implements Drawable, Collidable  {
 		return depth;
 	}
 
+	
+	public void setX(int x){
+		this.x = x;
+	}
+	
+	public void setY(int y){
+		this.y = y;
+	}
 	/**
 	 * Draws this tile to the canvas
 	 */
