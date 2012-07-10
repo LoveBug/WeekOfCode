@@ -28,8 +28,7 @@ public class Main implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		map.getCharacter().move(map.getMap());
-		
+		map.update();
 		canvas.repaint();
 	}
 	

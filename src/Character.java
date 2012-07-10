@@ -51,7 +51,7 @@ public class Character implements Drawable{
 		image.draw(g, x, y, width, height);
 	}
 	
-	public void move(Tile[][] map)
+	public void move(Map map)
 	{
 		if(isJumping){
 			turnCounter = TURN_COUNT;
@@ -66,7 +66,7 @@ public class Character implements Drawable{
 				isFalling = true;
 			}else{
 				for(int x=this.x; x<this.x+this.width; x++){
-					if(this.movementBox.checkCollision(map[x/32][((this.y+10)/32)].getHitbox())){
+					if(this.movementBox.checkCollision(map.getMap()[x/32][((this.y+10)/32)].getHitbox())){
 						isJumping = false;
 						isFalling = true;
 						break;
@@ -75,6 +75,7 @@ public class Character implements Drawable{
 			}
 		}else{
 			boolean falling = true;
+			MoveTile tile = null;
 			int x=this.x+20;
 			int end = this.x+this.width-10;
 			if(!direction){
@@ -82,12 +83,19 @@ public class Character implements Drawable{
 				end=this.x+width-20;
 			}
 			for(; x<end; x++){
-				if(this.movementBox.checkCollision(map[x/32][(this.y+this.height)/32].getHitbox())){
+				if(this.movementBox.checkCollision(map.getMap()[x/32][(this.y+this.height)/32].getHitbox())){
 					falling = false;
-					if(map[x/32][(this.y+this.height)/32] instanceof DestTile)
-						((DestTile)map[x/32][(this.y+this.height)/32]).destroy();
+					if(map.getMap()[x/32][(this.y+this.height)/32] instanceof DestTile)
+						((DestTile)map.getMap()[x/32][(this.y+this.height)/32]).destroy();
 				}
 			}
+			//check moving tile collision
+			for(MoveTile t : map.movingTiles())
+				if(this.movementBox.checkCollision(t.getHitbox())){
+					tile = t;
+					break;
+				}
+			
 			if(falling){
 				if(!isFalling)
 					this.currentImage = 0;
@@ -103,7 +111,11 @@ public class Character implements Drawable{
 					this.currentImage = 0;
 					updateImage(new ImageWrapper(this.currentImage, width, height, sprite));
 				}
-				this.y = this.y/32*32;
+				if(tile==null)
+					this.y = this.y/32*32;
+				else
+					this.y = tile.getY()-this.height;
+				//this.movementBox.setY(this.y);
 				isFalling = false;
 			}
 		}
@@ -122,7 +134,7 @@ public class Character implements Drawable{
 			if(direction)
 				x+=this.width;
 			for(int y=this.y+5; y<this.y+this.height-10; y++)
-				if(this.movementBox.checkCollision(map[x/32][y/32].getHitbox())){
+				if(this.movementBox.checkCollision(map.getMap()[x/32][y/32].getHitbox())){
 					if(direction)
 						this.x = this.x/32*32;
 					else
