@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 
-public class main implements ActionListener{
+public class Main implements ActionListener{
 	private static int fps = 60;
 	private Canvas canvas;
 	private Map map;
@@ -14,7 +14,7 @@ public class main implements ActionListener{
 	
 	
 	
-	public main()
+	public Main()
 	{
 		map = new Map("testLevel2.txt");
 		
@@ -25,7 +25,7 @@ public class main implements ActionListener{
 	}
 
 	public static void main(String[] args){
-		new main().start();
+		new Main().start();
 	}
 
 	@Override
