@@ -1,6 +1,8 @@
 import java.awt.Graphics;
 
 public class Character implements Drawable{
+	private final int FRAMES = 7;
+	
 	private ImageWrapper image;
 	private int height;
 	private int width;
@@ -48,7 +50,7 @@ public class Character implements Drawable{
 				isFalling = true;
 			}else{
 				for(int x=this.x; x<this.x+this.width; x++){
-					if(this.movementBox.checkCollision(map[x/32][this.y/32].getHitbox())){
+					if(this.movementBox.checkCollision(map[x/32][((this.y+10)/32)].getHitbox())){
 						isJumping = false;
 						isFalling = true;
 						break;
@@ -76,7 +78,15 @@ public class Character implements Drawable{
 		
 		if(isWalking){
 			int movement = moveDistance;
-			if(!direction){movement = -moveDistance;}
+			if(!direction){
+				movement = -moveDistance;
+			}
+			
+			this.currentImage += 2;
+			if(this.currentImage>=FRAMES*2)
+				this.currentImage=1;
+			this.image = new ImageWrapper(currentImage, width, height, sprite);
+			
 			this.x+=movement;
 			this.movementBox.setX(x);
 			int x = this.x;
@@ -116,6 +126,8 @@ public class Character implements Drawable{
 	}
 	
 	public void walk(boolean direction){
+		if(direction!=this.direction)
+			this.image.reverse();
 		this.direction = direction;
 		this.isWalking = true;
 	}
