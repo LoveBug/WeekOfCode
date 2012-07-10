@@ -29,7 +29,7 @@ public class Character implements Drawable{
 		this.sprite = sprites;
 		this.height = 96;
 		this.width = 64;
-		image = new ImageWrapper(-1, width, height, sprites);	//-1 cause of offset initialization
+		image = new ImageWrapper(1, width, height, sprites);	//-1 cause of offset initialization
 		this.movementBox = new Hitbox(x, y, width, height);
 	}
 	
@@ -57,6 +57,7 @@ public class Character implements Drawable{
 				}
 			}
 			if(falling){
+				isFalling = true;
 				this.y+=moveDistance;
 				this.movementBox.setY(y);
 			}else{

@@ -35,7 +35,7 @@ public class Map {
 	public Map(String filename) {
 	// TODO Auto-generated constructor stub
 		worldSprites = new SpriteSheet("images/platformTiles.gif");
-		charSprites = new SpriteSheet("images/playerSpritePrelim.gif");
+		charSprites = new SpriteSheet("images/playerSpriteFinalDesign.gif");
 		inputfile =  new File(filename);
 		try {
 			 scan = new Scanner(inputfile);
