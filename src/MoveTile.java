@@ -30,15 +30,15 @@ public class MoveTile extends Tile{
 	}
 	
 	public void move(){
-		if(xspeed>0){
+		if(xspeed!=0){
 			setX(getX()+xspeed);
 			if(getX()>this.right || getX()<this.left)
-				xspeed -= xspeed;
+				xspeed = -xspeed;
 		}
-		if(yspeed>0){
+		if(yspeed!=0){
 			setY(getY()+yspeed);
-			if(getY()>this.upper || getX()<this.lower)
-				yspeed -= yspeed;
+			if(getY()>this.upper || getY()<this.lower)
+				yspeed = -yspeed;
 		}
 	}
 }
