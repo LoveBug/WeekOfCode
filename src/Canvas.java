@@ -23,6 +23,7 @@ public class Canvas{
 	}
 	
 	public void repaint(){
+		panel.movecharacter();
 		panel.repaint();
 	}
 	
@@ -71,10 +72,7 @@ public class Canvas{
 			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
 			{
 				rightKeyPressed = true;
-
-			}
-			if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
-			{
+			}else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W){
 				upKeyPressed = true;
 			}
 			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
@@ -82,21 +80,20 @@ public class Canvas{
 				downKeyPressed = true;
 			}*/
 			
-			movecharacter(leftKeyPressed, rightKeyPressed, upKeyPressed);
+			
 		}
 
-		private void movecharacter(boolean leftKeyPressed2,
-				boolean rightKeyPressed2, boolean upKeyPressed2/*, boolean downKeyPressed2*/) {
+		public void movecharacter() {
 			
-			if(leftKeyPressed2)
+			if(leftKeyPressed)
 			{
 				map.getCharacter().walk(false);
 			}
-			if(rightKeyPressed2)
+			if(rightKeyPressed)
 			{
 				map.getCharacter().walk(true);
 			}
-			if(upKeyPressed2)
+			if(upKeyPressed)
 			{
 				map.getCharacter().jump();
 			}
@@ -126,6 +123,7 @@ public class Canvas{
 			{
 				downKeyPressed = false;
 			}*/
+			
 		}
 
 		@Override

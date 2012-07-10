@@ -5,7 +5,7 @@ import javax.swing.Timer;
 
 
 public class main implements ActionListener{
-	private static int fps = 160;
+	private static int fps = 60;
 	private Canvas canvas;
 	private Map map;
 	
@@ -18,7 +18,7 @@ public class main implements ActionListener{
 	
 	public main()
 	{
-		map = new Map("testLevel.txt");
+		map = new Map("testLevel2.txt");
 		
 		canvas = new Canvas(map);
 		this.tick = 1000/fps;
@@ -32,8 +32,12 @@ public class main implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		
 		map.getCharacter().move(map.getMap());
+		
 		canvas.repaint();
+		
 	}
 	
 	public void start(){
