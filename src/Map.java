@@ -33,7 +33,6 @@ public class Map {
 	public Map(String filename) {
 	// TODO Auto-generated constructor stub
 		worldSprites = new SpriteSheet("images/platformTiles.gif");
-		charSprites = new SpriteSheet("images/runCyclePrelimSheet.gif");
 		inputfile =  new File(filename);
 		try {
 			 scan = new Scanner(inputfile);
@@ -57,7 +56,7 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==16){
-						character = new Character(i*32,j*32, charSprites);
+						character = new Character(i*32,j*32);
 						map[i][j] = new BackgroundTile(32,32,i*32,j*32,TILE_DEPTH,new ImageWrapper(-1, 32, 32,worldSprites));
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, 32, 32, worldSprites);
