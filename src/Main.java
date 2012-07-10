@@ -12,11 +12,9 @@ public class Main implements ActionListener{
 	private int tick;
 	private Timer t;
 	
-	
-	
 	public Main()
 	{
-		map = new Map("testLevel2.txt");
+		map = new Map("testLevelExpanded.txt");
 		
 		canvas = new Canvas(map);
 		this.tick = 1000/fps;
