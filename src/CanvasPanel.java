@@ -141,7 +141,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	//	cam.setY(e.getY());
 	//	previousMouseX = e.getX();
 	//	previousMouseY = e.getY();
-		//cursor.moveCursor(e.getX(), e.getY(), map.getCharacter().getX(),map.getCharacter().getY());
+		cursor.moveCursor(e.getX(), e.getY());
 
 		requestFocusInWindow();
 	}
@@ -150,13 +150,12 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	public void mouseMoved(MouseEvent e) {
 		
 		
-		cam.setX(map.getCharacter().getX());
-		cam.setY(map.getCharacter().getY());
+		//cam.setX(map.getCharacter().getX());
+		//cam.setY(map.getCharacter().getY());
 		previousMouseX = e.getX();
 		previousMouseY = e.getY();
 		
-		
-		//cursor.moveCursor(e.getX(), e.getY(), map.getCharacter().getX()-cam.getX(),map.getCharacter().getY()-cam.getY());
+		cursor.moveCursor(e.getX(), e.getY());
 		
 		
 		requestFocusInWindow();
