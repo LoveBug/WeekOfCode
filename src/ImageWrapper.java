@@ -36,7 +36,6 @@ public class ImageWrapper {
 	
 	public ImageWrapper(int bit, int width, int height, SpriteSheet sprites)
 	{
-		//if(bit < 0){bit = 0;}
 		bit++;
 		picture = sprites.getSprite(bit, width, height);
 	}

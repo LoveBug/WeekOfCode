@@ -1,7 +1,12 @@
 import java.awt.Graphics;
 
 public class Character implements Drawable{
-	private final int FRAMES = 7;
+	private final int FRAMES = 8;
+	private final int JUMP_FRAMES = 5;
+	private final int IMAGE_WIDTH = 2;
+	private final int IMAGE_HEIGHT = 3;
+	
+	private final int JUMP_HEIGHT = 4;
 	
 	private ImageWrapper image;
 	private int height;
@@ -10,7 +15,7 @@ public class Character implements Drawable{
 	private int y;
 	
 	private int moveDistance = 8;
-	private int currentImage = 1;
+	private int currentImage = -1;
 	
 	private boolean isJumping = false;
 	private boolean isWalking = false;
@@ -21,17 +26,18 @@ public class Character implements Drawable{
 	private Hitbox movementBox;
 	private Hitbox shootBox;
 	
-	private SpriteSheet sprite;
+	private SpriteSheet sprite, jumpSprite;
 	
-	public Character(int x, int y, SpriteSheet sprites)
+	public Character(int x, int y)
 	{
 		this.setX(x);
 		this.setY(y);
 		
-		this.sprite = sprites;
+		this.sprite = new SpriteSheet("images/runCyclePrelimSheet.gif");
+		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheet.gif");
 		this.height = 96;
 		this.width = 64;
-		image = new ImageWrapper(currentImage, width, height, sprites);	//-1 = 0 cause of offset initialization
+		image = new ImageWrapper(currentImage, width, height, sprite);	//-1 = 0 cause of offset initialization
 		this.movementBox = new Hitbox(x, y, width, height);
 	}
 	
@@ -43,6 +49,10 @@ public class Character implements Drawable{
 	public void move(Tile[][] map)
 	{
 		if(isJumping){
+			if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
+				this.currentImage+=IMAGE_WIDTH;
+				this.image = new ImageWrapper(currentImage, width, height, jumpSprite);
+			}
 			y -= moveDistance;
 			this.movementBox.setY(y);
 			if(y<maxJump){
@@ -66,10 +76,20 @@ public class Character implements Drawable{
 				}
 			}
 			if(falling){
+				if(!isFalling)
+					this.currentImage = -1;
 				isFalling = true;
 				this.y+=moveDistance;
 				this.movementBox.setY(y);
+				if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
+					this.currentImage+=IMAGE_WIDTH;
+					this.image = new ImageWrapper(currentImage, width, height, jumpSprite);
+				}
 			}else{
+				if(isFalling){
+					this.currentImage = -1;
+					this.image = new ImageWrapper(this.currentImage, width, height, sprite);
+				}
 				this.y = this.y/32*32;
 				isFalling = false;
 			}
@@ -81,11 +101,6 @@ public class Character implements Drawable{
 			if(!direction){
 				movement = -moveDistance;
 			}
-			
-			this.currentImage += 2;
-			if(this.currentImage>=FRAMES*2)
-				this.currentImage=1;
-			this.image = new ImageWrapper(currentImage, width, height, sprite);
 			
 			this.x+=movement;
 			this.movementBox.setX(x);
@@ -107,9 +122,11 @@ public class Character implements Drawable{
 	public void jump()
 	{
 		if(isJumping || isFalling){return;}
+		this.currentImage = -1;					//TODO: unfuck me
+		this.image = new ImageWrapper(currentImage, width, height, jumpSprite);
 		
 		isJumping = true;
-		maxJump = y - 32*4;  //4 blocks of 32
+		maxJump = y - 32*JUMP_HEIGHT;  //4 blocks of 32
 	}
 	
 
@@ -126,7 +143,13 @@ public class Character implements Drawable{
 	}
 	
 	public void walk(boolean direction){
-		if(direction!=this.direction)
+		if(!(isJumping || isFalling)){
+			this.currentImage += IMAGE_WIDTH;
+			if(this.currentImage>=(FRAMES-1)*IMAGE_WIDTH)
+				this.currentImage=-1;
+			this.image = new ImageWrapper(currentImage, width, height, sprite);
+		}
+		if(!direction)
 			this.image.reverse();
 		this.direction = direction;
 		this.isWalking = true;
