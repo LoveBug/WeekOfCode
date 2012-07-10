@@ -51,7 +51,7 @@ public class Character implements Drawable{
 		if(isJumping){
 			if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
 				this.currentImage+=IMAGE_WIDTH;
-				this.image = new ImageWrapper(currentImage, width, height, jumpSprite);
+				updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
 			}
 			y -= moveDistance;
 			this.movementBox.setY(y);
@@ -83,12 +83,12 @@ public class Character implements Drawable{
 				this.movementBox.setY(y);
 				if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
 					this.currentImage+=IMAGE_WIDTH;
-					this.image = new ImageWrapper(currentImage, width, height, jumpSprite);
+					updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
 				}
 			}else{
 				if(isFalling){
-					this.currentImage = -1;
-					this.image = new ImageWrapper(this.currentImage, width, height, sprite);
+					this.currentImage = -1;	//TODO: unfuck me too
+					updateImage(new ImageWrapper(this.currentImage, width, height, sprite));
 				}
 				this.y = this.y/32*32;
 				isFalling = false;
@@ -107,7 +107,7 @@ public class Character implements Drawable{
 			int x = this.x;
 			if(direction)
 				x+=this.width;
-			for(int y=this.y; y<this.y+this.height; y++)
+			for(int y=this.y+5; y<this.y+this.height-10; y++)
 				if(this.movementBox.checkCollision(map[x/32][y/32].getHitbox())){
 					if(direction)
 						this.x = this.x/32*32;
@@ -123,12 +123,16 @@ public class Character implements Drawable{
 	{
 		if(isJumping || isFalling){return;}
 		this.currentImage = -1;					//TODO: unfuck me
-		this.image = new ImageWrapper(currentImage, width, height, jumpSprite);
-		
+		updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
 		isJumping = true;
 		maxJump = y - 32*JUMP_HEIGHT;  //4 blocks of 32
 	}
 	
+	public void updateImage(ImageWrapper i){
+		if(!direction)
+			i.reverse();
+		this.image = i;
+	}
 
 	public int getY() {
 		return y;
@@ -147,10 +151,8 @@ public class Character implements Drawable{
 			this.currentImage += IMAGE_WIDTH;
 			if(this.currentImage>=(FRAMES-1)*IMAGE_WIDTH)
 				this.currentImage=-1;
-			this.image = new ImageWrapper(currentImage, width, height, sprite);
+			updateImage(new ImageWrapper(currentImage, width, height, sprite));
 		}
-		if(!direction)
-			this.image.reverse();
 		this.direction = direction;
 		this.isWalking = true;
 	}
