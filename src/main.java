@@ -5,7 +5,7 @@ import javax.swing.Timer;
 
 
 public class main implements ActionListener{
-	private static int fps = 60;
+	private static int fps = 160;
 	private Canvas canvas;
 	private Map map;
 	

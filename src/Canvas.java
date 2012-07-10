@@ -31,6 +31,11 @@ public class Canvas{
 		private static final long serialVersionUID = 8187920910989915064L;
 		private Cursor cursor;
 		
+		private boolean leftKeyPressed;
+		private boolean rightKeyPressed;
+		private boolean upKeyPressed;
+		private boolean downKeyPressed;
+		
 		public CanvasPanel(){
 			setPreferredSize(new Dimension(1024,768));
 			cursor = new Cursor(1024/2 + 32/2, 768/2 +32/2, 32, 32);
@@ -54,15 +59,19 @@ public class Canvas{
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println(e.getKeyCode());
 			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A)
 			{
-				map.getCharacter().walk(false);
+				leftKeyPressed = true;
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
 			{
-				map.getCharacter().walk(true);
+				rightKeyPressed = true;
 
+			}
+
+			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
+			{
+				upKeyPressed = true;
 			}
 			if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
 			{
@@ -70,13 +79,30 @@ public class Canvas{
 			}
 			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
 			{
-				
+				downKeyPressed = true;
 			}*/
 			
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
+			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A)
+			{
+				leftKeyPressed = false;
+			}
+			else if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D)
+			{
+				rightKeyPressed = false;
+
+			}
+			else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W)
+			{
+				upKeyPressed = false;
+			}
+			/*else if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_A)
+			{
+				downKeyPressed = false;
+			}*/
 		}
 
 		@Override
