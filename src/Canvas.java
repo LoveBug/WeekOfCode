@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Canvas{
 	
@@ -10,7 +12,11 @@ public class Canvas{
 		frame.getContentPane().add(panel);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
+		
+		frame.setCursor(frame.getToolkit().createCustomCursor(
+	            new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
+	            "null"));
+		
 		frame.setVisible(true);	
 	}
 	
