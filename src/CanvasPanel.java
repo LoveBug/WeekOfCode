@@ -13,6 +13,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	private static final long serialVersionUID = 8187920910989915064L;
 	private Cursor cursor;
 	private Map map;
+	private Camera cam;
 
 	private boolean leftKeyPressed;
 	private boolean rightKeyPressed;
@@ -29,6 +30,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		cursor = new Cursor(screenWidth / 2 + blockSize / 2, screenHeight / 2
 				+ blockSize / 2, blockSize, blockSize);
 		this.map = m;
+		this.cam = new Camera(map.getCharacter(), cursor);
 		addKeyListener(this);
 		addMouseMotionListener(this);
 	}
@@ -111,6 +113,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	public void mouseDragged(MouseEvent e) {
 		cursor.setX(e.getX());
 		cursor.setY(e.getY());
+		
+		cam.setX(e.getX());
+		cam.setY(e.getY());
+		
 		requestFocusInWindow();
 	}
 
