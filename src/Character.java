@@ -48,7 +48,7 @@ public class Character implements Drawable{
 				isJumping = false;  
 				isFalling = true;
 			}
-		}else if(isFalling){
+		}else{
 			boolean falling = true;
 			for(int x=this.x; x<this.x+this.width; x++){
 				if(this.movementBox.checkCollision(map[x/32][(this.y+this.height)/32].getHitbox())){
@@ -83,10 +83,10 @@ public class Character implements Drawable{
 	
 	public void jump()
 	{
-		if(isJumping){return;}
+		if(isJumping || isFalling){return;}
 		
 		isJumping = true;
-		maxJump = y - 32;  //4 blocks of 32
+		maxJump = y - 32*4;  //4 blocks of 32
 	}
 	
 
