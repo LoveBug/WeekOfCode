@@ -6,6 +6,8 @@ public class Cursor {
 	private int y;
 	private int width;
 	private int height;
+	private int gameworldX;
+	private int gameworldY;
 	
 	private final int maxDistance = 5; 
 	
@@ -27,6 +29,7 @@ public class Cursor {
 	
 	public void draw(Graphics g)
 	{
+		
 		cursor.draw(g, x - width/2, y - height/2, width, height);
 	}
 
@@ -43,6 +46,17 @@ public class Cursor {
 
 	public int getY() {
 		return y;
+	}
+	
+	public int getGameworldY(){
+		 
+		//c.cameraY()-c.getY();
+		//c.getX();
+	return	gameworldY;  
+		
+	}
+	public int getGameworldX(){
+		return gameworldX;
 	}
 
 

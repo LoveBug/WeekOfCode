@@ -79,12 +79,18 @@ public class Tile implements Drawable, Collidable  {
 	
 	public void setX(int x){
 		this.x = x;
-		this.hitbox.setX(x);
+		if(!( this.hitbox == null)){
+			this.hitbox.setX(x);
+		}
+		
 	}
 	
 	public void setY(int y){
 		this.y = y;
-		this.hitbox.setY(y);
+		if(!( this.hitbox == null)){
+			this.hitbox.setY(y);
+		}
+	
 	}
 	/**
 	 * Draws this tile to the canvas

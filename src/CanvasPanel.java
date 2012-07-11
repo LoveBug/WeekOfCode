@@ -53,19 +53,30 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());//Change to image
+		
+		g.translate(-cam.getX() + screenWidth/2, -cam.getY() + screenHeight/2);
+		
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[0].length; j++) {
 				Tile tempTile = map.getMap()[i][j];
 				
-				g.drawImage(tempTile.getImageWrapper().getImage(), tempTile.getX()-cam.getX(), tempTile.getY()-cam.getY(), null);
+				tempTile.setX(tempTile.getX());
+				tempTile.setY(tempTile.getY());
+				tempTile.draw(g);
+				//g.drawImage(tempTile.getImageWrapper().getImage(), tempTile.getX()-cam.getX(), tempTile.getY()-cam.getY(), null);
 				
 			}
 		}
 		
-		for(MoveTile t : map.movingTiles())
-			g.drawImage(t.getImageWrapper().getImage(), t.getX()-cam.getX(), t.getY()-cam.getY(), null);
-		map.getCharacter().getImage().draw(g, map.getCharacter().getX()-cam.getX(), map.getCharacter().getY()-cam.getY(), map.getCharacter().getWidth(), map.getCharacter().getHeight());
-		cursor.draw(g);
+		
+			
+		map.getCharacter().setX(map.getCharacter().getX());
+		map.getCharacter().setY(map.getCharacter().getY());
+		map.getCharacter().draw(g);
+			
+		g.translate(cam.getX() - screenWidth/2, cam.getY() - screenHeight/2);
+		cursor.draw(g);	
+			
 	}
 
 	@Override
@@ -130,8 +141,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		 * }
 		 */
 		
-		cam.setX(map.getCharacter().getX());
-		cam.setY(map.getCharacter().getY());
+		
+		
+		cam.setX((map.getCharacter().getX()+(cursor.getX()+map.getCharacter().getX()))/2);
+		cam.setY((map.getCharacter().getY()+(cursor.getY()+map.getCharacter().getY()))/2);
 	}
 
 	@Override
@@ -154,7 +167,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		//cam.setY(map.getCharacter().getY());
 		previousMouseX = e.getX();
 		previousMouseY = e.getY();
-		
+		//g.translate(-cam.getX() + screenWidth/2, -cam.getY() + screenHeight/2);
 		cursor.moveCursor(e.getX(), e.getY());
 		
 		
@@ -188,7 +201,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		mouseController.mouseMove(previousMouseX, previousMouseY);
+		//mouseController.mouseMove(previousMouseX, previousMouseY);
 		System.out.println("Executed Mouse exited");
 		
 		
