@@ -142,10 +142,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		 * }
 		 */
 		
-		
-		
-		cam.setX((map.getCharacter().getX()+(cursor.getX()+map.getCharacter().getX())));
-		cam.setY((map.getCharacter().getY()+(cursor.getY()+map.getCharacter().getY())));
+		cam.setX((map.getCharacter().getX() + cursor.getX())/2);
+		cam.setY((map.getCharacter().getY() + cursor.getY())/2);
 	}
 
 	@Override
