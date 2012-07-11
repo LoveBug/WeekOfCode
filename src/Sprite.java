@@ -49,7 +49,6 @@ public class Sprite {
 					break;
 				}
 			getMovementBox().setX(getX());
-			isWalking=false;
 		}
 	}
 	

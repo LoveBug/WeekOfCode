@@ -50,14 +50,15 @@ public class Character extends Sprite implements Drawable{
 		
 		super.move(map);
 		
-		/*if(!isWalking() && !isJumping){
+		if(!isWalking() && !isJumping){
 			if(turnCounter<0){
 				setCurrentImage(0);
 				updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), stationarySprite));
 			}else
 				this.turnCounter--;
 		}else
-			this.turnCounter = TURN_COUNT;*/
+			this.turnCounter = TURN_COUNT;
+		setWalking(false);
 	}
 	
 	public void jumpMovement(Map map){
@@ -99,17 +100,19 @@ public class Character extends Sprite implements Drawable{
 				x=getX()+10;
 				end=getX()+getWidth()-20;
 			}
+			
+			Hitbox temp = new Hitbox(getMovementBox().getX(), 
+					getMovementBox().getY()+getMovementBox().getHeight()-5,
+					getMovementBox().getWidth(), getMovementBox().getY()+getMovementBox().getHeight()+1);
+			
 			for(; x<end; x++){
-				if(getMovementBox().checkCollision(map.getMap()[x/32][(getY()+getHeight())/32].getHitbox())){
+				if(temp.checkCollision(map.getMap()[x/32][(getY()+getHeight())/32].getHitbox())){
 					falling = false;
 					if(map.getMap()[x/32][(getY()+getHeight())/32] instanceof DestTile)
 						((DestTile)map.getMap()[x/32][(getY()+getHeight())/32]).destroy();
 				}
 			}
 			//check moving tile collision
-			Hitbox temp = new Hitbox(getMovementBox().getX(), 
-					getMovementBox().getY()+getMovementBox().getHeight()-5,
-					getMovementBox().getWidth(), getMovementBox().getY()+getMovementBox().getHeight()+1);
 			for(MoveTile t : map.movingTiles())
 				if(temp.checkCollision(t.getHitbox()) && getY()+getHeight()+this.ySpeed>=t.getY()){
 					falling = false;
@@ -133,8 +136,8 @@ public class Character extends Sprite implements Drawable{
 				ySpeed+=0.75;
 			else
 				ySpeed+=0.25;
-		//if(!isFalling)
-		//	setCurrentImage(0);
+		if(!isFalling)
+			setCurrentImage(0);
 		isFalling = true;
 		getMovementBox().setY(getY());
 		if(getCurrentImage()<(JUMP_FRAMES-2)*IMAGE_WIDTH){
@@ -144,10 +147,10 @@ public class Character extends Sprite implements Drawable{
 	}
 	
 	public void land(MoveTile tile){
-		/*if(this.isFalling){
+		if(this.isFalling){
 			setCurrentImage(0);
 			updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
-		}*/
+		}
 		if(tile==null){
 			setY(getY()/32*32);
 			this.ySpeed = 0;
