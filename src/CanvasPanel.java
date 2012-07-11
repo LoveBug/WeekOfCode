@@ -44,7 +44,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		}
 		this.map = m;
 		cursor = new Cursor(screenWidth / 2 + blockSize / 2, screenHeight / 2
-				+ blockSize / 2, blockSize, blockSize, map.getCharacter());
+			+ blockSize / 2, blockSize, blockSize, map.getCharacter());
 		this.cam = new Camera(map.getCharacter(), cursor);
 		addKeyListener(this);
 		addMouseMotionListener(this);
@@ -55,7 +55,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());//Change to image
 		
-		g.translate(-cam.getX() + screenWidth/2, -cam.getY() + screenHeight/2);
+		g.translate(-cam.getX() , -cam.getY() );
 		
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[0].length; j++) {
@@ -75,7 +75,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		map.getCharacter().setY(map.getCharacter().getY());
 		map.getCharacter().draw(g);
 			
-		g.translate(cam.getX() - screenWidth/2, cam.getY() - screenHeight/2);
+		g.translate(cam.getX() , cam.getY() );
 		cursor.draw(g);	
 			
 	}
@@ -144,8 +144,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		
 		
 		
-		cam.setX((map.getCharacter().getX()+(cursor.getX()+map.getCharacter().getX()))/2);
-		cam.setY((map.getCharacter().getY()+(cursor.getY()+map.getCharacter().getY()))/2);
+		cam.setX((map.getCharacter().getX()+(cursor.getX()+map.getCharacter().getX())));
+		cam.setY((map.getCharacter().getY()+(cursor.getY()+map.getCharacter().getY())));
 	}
 
 	@Override
