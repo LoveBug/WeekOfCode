@@ -1,15 +1,15 @@
 package map;
 
-import java.util.ArrayList;
-
-import sprites.Item;
+import items.Item;
 import sprites.Character;
+
+import java.util.ArrayList;
 
 public class Hud {
 	Character character;
 	ArrayList<Item> characterItems;
 	
-	 Hud(Character character) {
+	 public Hud(Character character) {
 		 
 		 this.character = character;
 		 this.characterItems = character.getItemList();		

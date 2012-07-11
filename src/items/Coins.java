@@ -1,5 +1,7 @@
 package items;
 
-public class Coins {
-
+public class Coin extends Item {
+	//private ImageWrapper img;
+	
+	
 }

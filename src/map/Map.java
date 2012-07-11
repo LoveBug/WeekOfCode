@@ -66,7 +66,7 @@ public class Map {
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
-						enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, 64,64, "images/enemyAnimationSheet.png", 8));	
+						enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, 64,64, "images/enemyAnimationSheet" + /*(item-100) +*/ ".png", 8));	
 					}else if(item>17){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));

@@ -7,12 +7,9 @@ import map.Map;
 
 public class Enemy extends Sprite{
 	
-	private boolean lastDirection;
-	
 	public Enemy(int x, int y, int width, int height, String runCycle,
 			int frames) {
 		super(x, y, width, height, runCycle, frames);
-		getImage().reverse();
 		setDirection(false);
 	}
 	
