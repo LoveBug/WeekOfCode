@@ -7,9 +7,7 @@ import map.Map;
 
 public class Enemy extends Sprite{
 	
-	public Enemy(int x, int y, int width, int height, String runCycle,
-
-			int frames, int health) {
+	public Enemy(int x, int y, int width, int height, String runCycle,int frames, int health) {
 		super(x, y, width, height, runCycle, frames, health);
 		getImage().reverse();
 
