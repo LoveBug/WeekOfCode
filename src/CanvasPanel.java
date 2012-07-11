@@ -24,6 +24,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	private boolean upKeyPressed;
 	private int previousMouseX;
 	private int previousMouseY;
+
 	// private boolean downKeyPressed; for later when droppng through blocks
 
 	private static final int screenWidth = 1024;
@@ -43,8 +44,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			e.printStackTrace();
 		}
 		this.map = m;
-		cursor = new Cursor(screenWidth / 2 + blockSize / 2, screenHeight / 2
-			+ blockSize / 2, blockSize, blockSize, map.getCharacter());
+		cursor = new Cursor(m.getCharacter().getX(), m.getCharacter().getY(), blockSize, blockSize, map.getCharacter());
 		this.cam = new Camera(map.getCharacter(), cursor);
 		addKeyListener(this);
 		addMouseMotionListener(this);
@@ -55,7 +55,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());//Change to image
 		
-		g.translate(-cam.getX() , -cam.getY() );
+		g.translate(-cam.getX(), -cam.getY());
 		
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[0].length; j++) {
@@ -63,19 +63,22 @@ public class CanvasPanel extends JPanel implements KeyListener,
 				
 				tempTile.setX(tempTile.getX());
 				tempTile.setY(tempTile.getY());
+				
 				tempTile.draw(g);
 				//g.drawImage(tempTile.getImageWrapper().getImage(), tempTile.getX()-cam.getX(), tempTile.getY()-cam.getY(), null);
 				
 			}
 		}
 		
+		for(MoveTile m: map.movingTiles() )
+			m.draw(g);
 		
-			
 		map.getCharacter().setX(map.getCharacter().getX());
 		map.getCharacter().setY(map.getCharacter().getY());
 		map.getCharacter().draw(g);
 			
-		g.translate(cam.getX() , cam.getY() );
+		
+		//cursor.moveCursor(cam.getX(), cursor.getY()+cam.getY());
 		cursor.draw(g);	
 			
 	}
@@ -129,9 +132,11 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 		if (leftKeyPressed) {
 			map.getCharacter().walk(false);
+		
 		}
 		if (rightKeyPressed) {
 			map.getCharacter().walk(true);
+		
 		}
 		if (upKeyPressed) {
 			map.getCharacter().jump();
@@ -142,7 +147,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		 * }
 		 */
 		
-		cam.setX((map.getCharacter().getX() + cursor.getX())/2);
+		cam.setX((map.getCharacter().getX() + cursor.getGameworldX())/2);
 		cam.setY((map.getCharacter().getY() + cursor.getY())/2);
 	}
 
@@ -168,7 +173,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		previousMouseY = e.getY();
 		//g.translate(-cam.getX() + screenWidth/2, -cam.getY() + screenHeight/2);
 		cursor.moveCursor(e.getX(), e.getY());
-		
 		
 		requestFocusInWindow();
 	}
