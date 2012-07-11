@@ -27,6 +27,7 @@ public class Character implements Drawable{
 	private boolean direction = true;
 	private int maxJump;
 	private float ySpeed = moveDistance;
+	private float xSpeed = 0;
 	
 	private Hitbox movementBox;
 	private Hitbox shootBox;
@@ -56,6 +57,12 @@ public class Character implements Drawable{
 	public void move(Map map)
 	{
 		jumpMovement(map);
+		
+		if(this.xSpeed!=0){
+			this.x += xSpeed;
+			this.movementBox.setX(this.x);
+			this.xSpeed = 0;
+		}
 		
 		if(isWalking){
 			turnCounter = TURN_COUNT;
@@ -136,46 +143,57 @@ public class Character implements Drawable{
 				}
 			}
 			//check moving tile collision
+			Hitbox temp = new Hitbox(this.movementBox.getX(), 
+					this.movementBox.getY()+this.movementBox.getHeight()-5,
+					this.movementBox.getWidth(), this.movementBox.getY()+this.movementBox.getHeight()+1);
 			for(MoveTile t : map.movingTiles())
-				if(this.movementBox.checkCollision(t.getHitbox())){
+				if(temp.checkCollision(t.getHitbox())){
 					falling = false;
 					tile = t;
 					break;
 				}
 			
-			if(falling){
-				if(ySpeed<0)
-					ySpeed = 0;
-				if(ySpeed<FALL_MAX)
-					if(ySpeed<10)
-						ySpeed+=0.75;
-					else
-						ySpeed+=0.25;
-				if(!isFalling)
-					this.currentImage = 0;
-				isFalling = true;
-				this.y+=ySpeed;
-				this.movementBox.setY(y);
-				if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
-					this.currentImage+=IMAGE_WIDTH;
-					updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
-				}
-			}else{
-				if(isFalling){
-					this.currentImage = 0;
-					updateImage(new ImageWrapper(this.currentImage, width, height, sprite));
-				}
-				if(tile==null){
-					this.y = this.y/32*32;
-					this.ySpeed = 4;
-				}else{
-					this.y = tile.getY()-this.height;
-					this.movementBox.setY(this.y);
-					this.ySpeed = tile.getYSpeed();
-				}
-				isFalling = false;
-			}
+			if(falling)
+				fall();
+			else
+				land(tile);
 		}
+	}
+	
+	public void fall(){
+		if(ySpeed<0)
+			ySpeed = 0;
+		if(ySpeed<FALL_MAX)
+			if(ySpeed<10)
+				ySpeed+=0.75;
+			else
+				ySpeed+=0.25;
+		if(!isFalling)
+			this.currentImage = 0;
+		isFalling = true;
+		this.y+=ySpeed;
+		this.movementBox.setY(y);
+		if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
+			this.currentImage+=IMAGE_WIDTH;
+			updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
+		}
+	}
+	
+	public void land(MoveTile tile){
+		if(this.isFalling){
+			this.currentImage = 0;
+			updateImage(new ImageWrapper(this.currentImage, width, height, sprite));
+		}
+		if(tile==null){
+			this.y = this.y/32*32;
+			this.ySpeed = 4;
+		}else{
+			this.y = tile.getY()-this.height;
+			this.movementBox.setY(this.y);
+			this.ySpeed = tile.getYSpeed();
+			this.xSpeed = tile.getXSpeed();
+		}
+		this.isFalling = false;
 	}
 	
 	public void jump()
