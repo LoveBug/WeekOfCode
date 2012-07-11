@@ -96,7 +96,7 @@ public class Character extends Sprite implements Drawable{
 			else if(ySpeed>1)
 				ySpeed -= 0.05;
 			
-			setY((int)(getY()+ySpeed));
+			setY((int)(getY()-ySpeed));
 			getMovementBox().setY(getY());
 			if(getY()<maxJump){
 				isJumping = false;  
