@@ -19,13 +19,18 @@ public class Hud{
 	private int ScreenY;
 	private int characterHealth;
 	private int characterMana;
-	private ImageWrapper image;
+	private ImageWrapper toplayerimage;
+	private ImageWrapper bottomLayerimage;
+	private ImageWrapper healthtile;
+	private ImageWrapper manatile;
 	private int BAR_WIDTH;
 	private int BAR_LENGTH;
 	
 	Hud(Character character, int ScreenX, int ScreenY) {
-		 this.image = new ImageWrapper("images/hudBase.png");
-
+		 this.toplayerimage = new ImageWrapper("images/hudLayerTop.png");
+		 this.bottomLayerimage = new ImageWrapper("images/hudLayerBottom.png");
+		 this.healthtile = new ImageWrapper("images/hudRedBlur.png");
+		 this.manatile = new ImageWrapper("images/hudGoldBlur.png");
 		 this.character = character;
 		 this.characterItems = character.getItemList();		
 		 this.characterHealth = character.getHealth();
@@ -42,7 +47,11 @@ public class Hud{
 	}
 	
 	public void draw(Graphics g){
-		image.draw(g, ScreenX, ScreenY, 256, 128);		
+		bottomLayerimage.draw(g, ScreenX, ScreenY, 256, 128);
+		healthtile.draw(g, 10, 10, 12, 12);
+		manatile.draw(g, 68, 28, 8, 8);
+		toplayerimage.draw(g, ScreenX, ScreenY, 256, 128);
+		
 	}	
 	
 	 
