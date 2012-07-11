@@ -28,7 +28,7 @@ public class Cursor {
 		
 		this.c = c;
 		
-		cursor = new ImageWrapper("images/targetReticleAlpha.png");  //needs to be changed when initial cursor is made
+		cursor = new ImageWrapper("images/cursorReticle.png");  //needs to be changed when initial cursor is made
 		gameworldY = c.getY()+absoluteY;
 		gameworldX = c.getX()+absoluteX;
 	}

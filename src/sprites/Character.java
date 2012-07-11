@@ -41,8 +41,8 @@ public class Character extends Sprite implements Drawable{
 	{
 		super(x,y,width,height,runCycle, 8);
 		
-		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.png");
-		this.stationarySprite = new SpriteSheet("images/playerSpriteFinalDesign.png");
+		this.jumpSprite = new SpriteSheet("images/playerJump.png");
+		this.stationarySprite = new SpriteSheet("images/playerStand.png");
 
 		this.ySpeed = getMoveDistance();
 		setItemList(new 	ArrayList<Item>());
