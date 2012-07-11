@@ -1,7 +1,13 @@
+package main;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
+
+import canvas.Canvas;
+
+import map.Map;
 
 
 public class Main implements ActionListener{

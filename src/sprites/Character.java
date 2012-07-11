@@ -1,3 +1,14 @@
+package sprites;
+import java.util.ArrayList;
+
+import swarm.Drawable;
+import swarm.Hitbox;
+import swarm.ImageWrapper;
+import map.DestTile;
+import map.Map;
+import map.MoveTile;
+
+
 public class Character extends Sprite implements Drawable{
 	
 	private final int JUMP_FRAMES = 5;
@@ -17,6 +28,10 @@ public class Character extends Sprite implements Drawable{
 	private float ySpeed;
 	private float xSpeed = 0;
 	
+	//Item feilds
+	private int gold;
+	private ArrayList<Item> itemList; 
+			
 	private SpriteSheet jumpSprite, stationarySprite;
 	
 	public Character(int x, int y, int width, int height, String runCycle)
@@ -27,6 +42,7 @@ public class Character extends Sprite implements Drawable{
 		this.stationarySprite = new SpriteSheet("images/playerSpriteFinalDesign.png");
 
 		this.ySpeed = getMoveDistance();
+		setItemList(new 	ArrayList<Item>());
 	}
 	
 	public void walk(boolean direction){
@@ -183,6 +199,14 @@ public class Character extends Sprite implements Drawable{
 		isJumping = true;
 		maxJump = getY() - Map.BLOCK_SIZE*JUMP_HEIGHT;  //4 blocks of 32
 		ySpeed = FALL_MAX/2;
+	}
+
+	public ArrayList<Item> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(ArrayList<Item> itemList) {
+		this.itemList = itemList;
 	}	
 	
 	

@@ -1,4 +1,11 @@
+package sprites;
+
 import java.awt.Graphics;
+
+import swarm.Hitbox;
+import swarm.ImageWrapper;
+
+import map.Map;
 
 public class Sprite {
 	private final int FRAMES;

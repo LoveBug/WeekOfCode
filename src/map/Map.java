@@ -1,7 +1,17 @@
+package map;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import sprites.Character;
+import sprites.Enemy;
+import sprites.SpriteSheet;
+import swarm.ImageWrapper;
+
+import main.Main;
+
 
 
 public class Map {
@@ -56,7 +66,7 @@ public class Map {
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
-						enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, 64,64, "images/enemyAnimationSheet.png", 8));	
+						enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, 64,64, "images/enemyAnimationSheet" + /*(item-100) +*/ ".png", 8));	
 					}else if(item>17){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));

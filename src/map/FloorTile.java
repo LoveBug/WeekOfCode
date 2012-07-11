@@ -1,3 +1,8 @@
+package map;
+import swarm.ImageWrapper;
+
+
+
 
 public class FloorTile extends Tile{
 	public FloorTile(int height, int width, int x, int y, int depth,
