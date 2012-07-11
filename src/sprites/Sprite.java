@@ -75,7 +75,7 @@ public class Sprite {
 	
 	public void walk(boolean direction){
 		this.currentImage += this.width/Map.BLOCK_SIZE;
-		if(this.currentImage>=(FRAMES-1)*(this.width/Map.BLOCK_SIZE))
+		if(this.currentImage>=(FRAMES-1)*this.width/Map.BLOCK_SIZE)
 			this.currentImage=0;
 		updateImage(new ImageWrapper(this.currentImage, getWidth(), getHeight(), getSpriteSheet()));
 		setDirection(direction);

@@ -1,9 +1,12 @@
 package map;
 
+
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import sprites.Item;
+import items.Item;
+
+
 import sprites.Character;
 import sprites.Sprite;
 import swarm.ImageWrapper;
@@ -22,6 +25,7 @@ public class Hud{
 	
 	Hud(Character character, int ScreenX, int ScreenY) {
 		 this.image = new ImageWrapper("images/hudBase.png");
+
 		 this.character = character;
 		 this.characterItems = character.getItemList();		
 		 this.characterHealth = character.getHealth();

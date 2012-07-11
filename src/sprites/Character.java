@@ -1,12 +1,15 @@
 package sprites;
+
+import items.Item;
+
 import java.util.ArrayList;
 
-import swarm.Drawable;
-import swarm.Hitbox;
-import swarm.ImageWrapper;
 import map.DestTile;
 import map.Map;
 import map.MoveTile;
+import swarm.Drawable;
+import swarm.Hitbox;
+import swarm.ImageWrapper;
 
 
 public class Character extends Sprite implements Drawable{
@@ -66,7 +69,9 @@ public class Character extends Sprite implements Drawable{
 			this.xSpeed = 0;
 		}
 		
-		super.move(map);
+		super.move(map); 
+		
+		checkCoinCollision(map);
 		
 		if(!isWalking() && !isJumping){
 			if(turnCounter<0){
@@ -193,6 +198,18 @@ public class Character extends Sprite implements Drawable{
 			this.ySpeed = 0;
 		}
 		this.isFalling = false;
+	}
+	
+	private void checkCoinCollision(Map m){
+		ArrayList<Item> temp = new ArrayList<Item>();
+		
+		for(Item i: m.items()){
+			if(this.getMovementBox().checkCollision(i.getMovementBox())){
+				temp.add(i);
+			}
+		}
+		
+		m.items().removeAll(temp);
 	}
 	
 	public void jump()

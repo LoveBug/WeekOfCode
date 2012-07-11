@@ -1,4 +1,7 @@
-package sprites;
+package items;
+
+import sprites.Sprite;
+import map.Map;
 
 public class Item extends Sprite{
 
@@ -7,6 +10,9 @@ public class Item extends Sprite{
 		this.setMoveDistance(0);
 			}
 	
-	
+	public void move(Map m){
+		walk(true);
+		super.move(m);
+	}
 	
 }
