@@ -19,15 +19,13 @@ public class Character extends Sprite implements Drawable{
 	
 	private SpriteSheet jumpSprite, stationarySprite;
 	
-	public Character(int x, int y, int height, int width, String runCycle)
+	public Character(int x, int y, int width, int height, String runCycle)
 	{
-		super(x,y,height,width,runCycle, 8);
+		super(x,y,width,height,runCycle, 8);
 		
 		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.png");
 		this.stationarySprite = new SpriteSheet("images/playerSpriteFinalDesign.png");
-		
-		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
-		setMovementBox(new Hitbox(x, y, getWidth(), getHeight()));
+
 		this.ySpeed = getMoveDistance();
 	}
 	
@@ -94,6 +92,8 @@ public class Character extends Sprite implements Drawable{
 		}else{
 			boolean falling = true;
 			MoveTile tile = null;
+			Enemy enemy = null;
+			
 			int x=getX()+20;
 			int end = getX()+getWidth()-10;
 			if(!getDirection()){
@@ -120,10 +120,18 @@ public class Character extends Sprite implements Drawable{
 					break;
 				}
 			
+			//check enemy-foot collision
+			for(Enemy e : map.enemies())
+				if(temp.checkCollision(e.getMovementBox()) && getY()+getHeight()+this.ySpeed>=e.getY()){
+					falling = false;
+					enemy = e;
+					break;
+				}
+			
 			if(falling)
 				fall();
 			else
-				land(tile);
+				land(tile, enemy);
 		}
 	}
 	
@@ -146,19 +154,23 @@ public class Character extends Sprite implements Drawable{
 		}
 	}
 	
-	public void land(MoveTile tile){
+	public void land(MoveTile tile, Enemy enemy){
 		if(this.isFalling){
 			setCurrentImage(0);
 			updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
 		}
-		if(tile==null){
-			setY(getY()/32*32);
-			this.ySpeed = 0;
-		}else{
+		if(tile!=null){
 			setY(tile.getY()-getHeight());
 			getMovementBox().setY(getY());
 			this.ySpeed = tile.getYSpeed();
-			this.xSpeed = tile.getXSpeed();
+			this.xSpeed = tile.getXSpeed();		
+		}else if(enemy!=null){
+			setY(enemy.getY()-getHeight());
+			System.out.println("I straight up murdered " + enemy);
+			jump();
+		}else{
+			setY(getY()/32*32);
+			this.ySpeed = 0;
 		}
 		this.isFalling = false;
 	}

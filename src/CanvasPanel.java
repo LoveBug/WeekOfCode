@@ -76,8 +76,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		
 		for(MoveTile m: map.movingTiles() )
 			m.draw(g);
-		
-		
+
+		for(Enemy e : map.enemies())
+			e.draw(g);
+	
 		map.getCharacter().draw(g);
 			
 		cursor.draw(g);	
