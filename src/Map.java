@@ -41,7 +41,7 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==17){
-						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE);
+						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 96, 64, "images/runCyclePrelimSheetAlpha.png");
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 					}else if(item<0){
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
