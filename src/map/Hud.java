@@ -15,6 +15,7 @@ public class Hud {
 		 this.characterItems = character.getItemList();		
 	}
 	
+	 
 	
 	
 }
