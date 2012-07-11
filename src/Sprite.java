@@ -1,6 +1,5 @@
 import java.awt.Graphics;
 
-
 public class Sprite {
 	private final int FRAMES;
 	
@@ -68,7 +67,7 @@ public class Sprite {
 		this.currentImage += this.width/Map.BLOCK_SIZE;
 		if(this.currentImage>=(FRAMES-1)*(this.width/Map.BLOCK_SIZE))
 			this.currentImage=0;
-		updateImage(new ImageWrapper(currentImage, getWidth(), getHeight(), getSpriteSheet()));
+		updateImage(new ImageWrapper(this.currentImage, getWidth(), getHeight(), getSpriteSheet()));
 		setDirection(direction);
 		this.isWalking = true;
 	}

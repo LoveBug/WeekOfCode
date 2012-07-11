@@ -50,14 +50,14 @@ public class Character extends Sprite implements Drawable{
 		
 		super.move(map);
 		
-		if(!isWalking() && !isJumping){
+		/*if(!isWalking() && !isJumping){
 			if(turnCounter<0){
 				setCurrentImage(0);
 				updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), stationarySprite));
 			}else
-				turnCounter--;
+				this.turnCounter--;
 		}else
-			turnCounter = TURN_COUNT;
+			this.turnCounter = TURN_COUNT;*/
 	}
 	
 	public void jumpMovement(Map map){
@@ -133,8 +133,8 @@ public class Character extends Sprite implements Drawable{
 				ySpeed+=0.75;
 			else
 				ySpeed+=0.25;
-		if(!isFalling)
-			setCurrentImage(0);
+		//if(!isFalling)
+		//	setCurrentImage(0);
 		isFalling = true;
 		getMovementBox().setY(getY());
 		if(getCurrentImage()<(JUMP_FRAMES-2)*IMAGE_WIDTH){
@@ -144,13 +144,13 @@ public class Character extends Sprite implements Drawable{
 	}
 	
 	public void land(MoveTile tile){
-		if(this.isFalling){
+		/*if(this.isFalling){
 			setCurrentImage(0);
 			updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
-		}
+		}*/
 		if(tile==null){
 			setY(getY()/32*32);
-			this.ySpeed = 4;
+			this.ySpeed = 0;
 		}else{
 			setY(tile.getY()-getHeight());
 			getMovementBox().setY(getY());
