@@ -27,6 +27,7 @@ public class Map {
 	private int yDimension;
 	private Character character;
 	private SpriteSheet worldSprites;
+	private Hud hud ;
 	
 	private ArrayList<MoveTile> movingTiles = new ArrayList<MoveTile>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -51,6 +52,8 @@ public class Map {
 		}
 		
 		enemyTicks = Main.FPS/6;
+		//Must be after Readmap is called
+		 hud = new Hud(character,0,0);
 	}
 		
 	public Tile[][] getMap(){return map;}
@@ -62,7 +65,10 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==17){
-						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 64, 96, "images/playerWalk.png");
+
+						
+						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 64, 96, "images/playerWalk.png",100);
+
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 					}else if(item<0){
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
@@ -78,7 +84,8 @@ public class Map {
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
-						enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2]));	
+				enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2],1));	
+
 					}else if(item>17){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
@@ -111,11 +118,18 @@ public class Map {
 		return this.enemies;
 	}
 	
+
+	public Hud getHud(){
+		return hud;
+	}
 	public ArrayList<Item> items(){
 		return this.items;
+
 	}
 	
 	public void update(){
+		
+		
 		//update moving tiles
 		for(MoveTile t : this.movingTiles)
 			t.move();
@@ -135,5 +149,8 @@ public class Map {
 		
 		//update player
 		this.character.move(this);
+		//update hud
+		this.hud.update();
+		
 	}
 }

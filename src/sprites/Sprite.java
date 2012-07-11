@@ -22,10 +22,11 @@ public class Sprite {
 	private SpriteSheet sprites;
 	private int moveDistance = 8;
 	private int currentImage = 0;
+	private int health;
 	
 	private boolean isWalking = false;
 	
-	public Sprite(int x, int y, int width, int height, String runCycle, int frames){
+	public Sprite(int x, int y, int width, int height, String runCycle, int frames, int health){
 		setMovementBox(new Hitbox(x,y,height,width));
 		setX(x);
 		setY(y);
@@ -34,7 +35,7 @@ public class Sprite {
 		setSpriteSheet(runCycle);
 		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
 		setMovementBox(new Hitbox(x, y, getWidth(), getHeight()));
-		
+		this.setHealth(health);
 		this.FRAMES = frames;
 	}
 	
@@ -101,6 +102,7 @@ public class Sprite {
 	public void setMoveDistance(int m) {this.moveDistance = m;}
 	public void setCurrentImage(int c) {this.currentImage = c;}
 	public void setWalking(boolean w) {this.isWalking = w;}
+	public void setHealth(int health) {this.health = health;}
 	
 	//------------------GETTERS----------------------------
 	public int getY() {return this.y;}
@@ -115,4 +117,7 @@ public class Sprite {
 	public int getMoveDistance() {return this.moveDistance;}
 	public int getCurrentImage() {return this.currentImage;}
 	public boolean isWalking() {return this.isWalking;}
+	public int getHealth() {	return health;}
+
+	
 }

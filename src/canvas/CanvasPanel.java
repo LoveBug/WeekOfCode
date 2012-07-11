@@ -66,6 +66,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	public void paint(Graphics g) {
 		
 		g.drawImage(bg.getImage(), 0, 0, null);
+	
 		
 		g.translate(-cam.getX(), -cam.getY());
 		
@@ -93,7 +94,11 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	
 		map.getCharacter().draw(g);
 			
-		cursor.draw(g);	
+		cursor.draw(g);
+		g.translate(cam.getX(), cam.getY());
+		
+		map.getHud().draw(g);
+		
 			
 	}
 
