@@ -24,6 +24,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	private boolean upKeyPressed;
 	private int previousMouseX;
 	private int previousMouseY;
+	
+	private ImageWrapper bg;
 
 	// private boolean downKeyPressed; for later when droppng through blocks
 
@@ -45,6 +47,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
 		mouseController.mouseMove(0, 0);
 		
+		 bg = new ImageWrapper("images/Background.jpg");
+		
 		addKeyListener(this);
 		addMouseMotionListener(this);
 		addMouseListener(this);
@@ -52,7 +56,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	}
 
 	public void paint(Graphics g) {
-		g.clearRect(0, 0, this.getWidth(), this.getHeight());//Change to image
+		
+		g.drawImage(bg.getImage(), 0, 0, null);
 		
 		g.translate(-cam.getX(), -cam.getY());
 		
@@ -75,8 +80,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		
 		map.getCharacter().draw(g);
 			
-		
-		//cursor.moveCursor(cam.getX(), cursor.getY()+cam.getY());
 		cursor.draw(g);	
 			
 	}
