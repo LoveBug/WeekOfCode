@@ -105,10 +105,12 @@ public class Character implements Drawable{
 				updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
 			}
 			
-			if(ySpeed>5)
-				ySpeed -= 0.5;
+			if(ySpeed>7)
+				ySpeed -= 0.3;
+			else if(ySpeed>3)
+				ySpeed -= 0.15;
 			else if(ySpeed>1)
-				ySpeed -= 0.2;
+				ySpeed -= 0.05;
 			
 			y -= ySpeed;
 			this.movementBox.setY(y);
@@ -203,7 +205,7 @@ public class Character implements Drawable{
 		updateImage(new ImageWrapper(currentImage, width, height, jumpSprite));
 		isJumping = true;
 		maxJump = y - 32*JUMP_HEIGHT;  //4 blocks of 32
-		ySpeed = FALL_MAX;
+		ySpeed = FALL_MAX/2;
 	}
 	
 	public void updateImage(ImageWrapper i){
