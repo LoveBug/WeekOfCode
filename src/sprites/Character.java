@@ -34,9 +34,9 @@ public class Character extends Sprite implements Drawable{
 			
 	private SpriteSheet jumpSprite, stationarySprite;
 	
-	public Character(int x, int y, int width, int height, String runCycle)
+	public Character(int x, int y, int width, int height, String runCycle, int health)
 	{
-		super(x,y,width,height,runCycle, 8);
+		super(x,y,width,height,runCycle, 8, health);
 		
 		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.png");
 		this.stationarySprite = new SpriteSheet("images/playerSpriteFinalDesign.png");
@@ -207,6 +207,14 @@ public class Character extends Sprite implements Drawable{
 
 	public void setItemList(ArrayList<Item> itemList) {
 		this.itemList = itemList;
+	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public void setGold(int gold) {
+		this.gold = gold;
 	}	
 	
 	

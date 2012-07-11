@@ -10,8 +10,8 @@ public class Enemy extends Sprite{
 	private boolean lastDirection;
 	
 	public Enemy(int x, int y, int width, int height, String runCycle,
-			int frames) {
-		super(x, y, width, height, runCycle, frames);
+			int frames, int health) {
+		super(x, y, width, height, runCycle, frames, health);
 		getImage().reverse();
 		setDirection(false);
 	}
