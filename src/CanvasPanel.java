@@ -33,6 +33,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	public CanvasPanel(Map m) {
 		setPreferredSize(new Dimension(1024, 768));
+		setDoubleBuffered(true);
 		
 		try {
 			mouseController = new Robot();

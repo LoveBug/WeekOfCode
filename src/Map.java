@@ -41,7 +41,7 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==17){
-						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE);
+						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 96, 64, "images/runCyclePrelimSheetAlpha.png");
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 					}else if(item<0){
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
@@ -52,7 +52,7 @@ public class Map {
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
 						movingTiles.add(new MoveTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(item-17, BLOCK_SIZE, BLOCK_SIZE, worldSprites),
-								true, 700, 200, 4));																//minus 17 as dont want acces to moving background tiles
+								j*BLOCK_SIZE, (j-10)*BLOCK_SIZE, 4, i*BLOCK_SIZE, (i+10)*BLOCK_SIZE, 4));																//minus 17 as dont want access to moving background tiles
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, BLOCK_SIZE, BLOCK_SIZE, worldSprites);
 						if(item==0)

@@ -11,8 +11,8 @@ public class MoveTile extends Tile{
 			lower = lowerBound;
 			yspeed = speed;
 		}else{
-			left = lowerBound;
-			right = upperBound;
+			right = lowerBound;
+			left = upperBound;
 			xspeed = speed;
 		}
 	}
