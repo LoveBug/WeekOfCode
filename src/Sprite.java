@@ -22,9 +22,12 @@ public class Sprite {
 		setMovementBox(new Hitbox(x,y,height,width));
 		setX(x);
 		setY(y);
-		setHeight(96);
-		setWidth(64);
+		setHeight(height);
+		setWidth(width);
 		setSpriteSheet(runCycle);
+		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
+		setMovementBox(new Hitbox(x, y, getWidth(), getHeight()));
+		
 		this.FRAMES = frames;
 	}
 	

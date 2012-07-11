@@ -24,11 +24,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	private boolean upKeyPressed;
 	private int previousMouseX;
 	private int previousMouseY;
+	
+	private ImageWrapper bg;
 
 	// private boolean downKeyPressed; for later when droppng through blocks
-
-	private static final int screenWidth = 1024;
-	private static final int screenHeight = 768;
 
 	private static final int blockSize = 32;
 
@@ -44,8 +43,12 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			e.printStackTrace();
 		}
 		this.map = m;
-		cursor = new Cursor(m.getCharacter().getX()+screenWidth/2, m.getCharacter().getY()-screenHeight/2, blockSize, blockSize, map.getCharacter());
-		this.cam = new Camera(map.getCharacter(), cursor);
+		this.cam = new Camera(map.getCharacter());
+		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
+		mouseController.mouseMove(0, 0);
+		
+		 bg = new ImageWrapper("images/Background.jpg");
+		
 		addKeyListener(this);
 		addMouseMotionListener(this);
 		addMouseListener(this);
@@ -53,7 +56,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	}
 
 	public void paint(Graphics g) {
-		g.clearRect(0, 0, this.getWidth(), this.getHeight());//Change to image
+		
+		g.drawImage(bg.getImage(), 0, 0, null);
 		
 		g.translate(-cam.getX(), -cam.getY());
 		
@@ -72,12 +76,12 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		
 		for(MoveTile m: map.movingTiles() )
 			m.draw(g);
-		
-		
+
+		for(Enemy e : map.enemies())
+			e.draw(g);
+	
 		map.getCharacter().draw(g);
 			
-		
-		//cursor.moveCursor(cam.getX(), cursor.getY()+cam.getY());
 		cursor.draw(g);	
 			
 	}
@@ -146,8 +150,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		 * }
 		 */
 		
-		cam.setX((map.getCharacter().getX() + cursor.getGameworldX())/2);
-		cam.setY((map.getCharacter().getY() + cursor.getY())/2);
+		cam.setX(cursor);
+		cam.setY(cursor);
 	}
 
 	@Override

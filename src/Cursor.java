@@ -11,11 +11,11 @@ public class Cursor {
 	
 	private final int maxDistance = 5; 
 	
-	private Character c;
+	private Camera c;
 	
 	private ImageWrapper cursor;
 	
-	public Cursor(int x, int y, int width, int height, Character c)
+	public Cursor(int x, int y, int width, int height, Camera c)
 	{
 		this.width = width;
 		this.height = height;
@@ -33,7 +33,7 @@ public class Cursor {
 	{
 		gameworldY = c.getY() +absoluteY;
 		gameworldX = c.getX()+absoluteX;
-		cursor.draw(g, gameworldX - 1024/2, gameworldY - 768/2, width, height);
+		cursor.draw(g, gameworldX , gameworldY, width, height);
 	}
 
 	public int getX() {

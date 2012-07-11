@@ -5,7 +5,7 @@ import javax.swing.Timer;
 
 
 public class Main implements ActionListener{
-	private static int fps = 60;
+	public static final int FPS = 60;
 	private Canvas canvas;
 	private Map map;
 
@@ -17,7 +17,7 @@ public class Main implements ActionListener{
 		map = new Map("testLevelExpanded.txt");
 		
 		canvas = new Canvas(map);
-		this.tick = 1000/fps;
+		this.tick = 1000/FPS;
 		t = new Timer(this.tick, this); 
 
 	}
