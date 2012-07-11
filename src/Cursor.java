@@ -37,6 +37,7 @@ public class Cursor {
 	}
 
 	public int getX() {
+		//System.out.println("Returned cursor X as: "+absoluteX);
 		return absoluteX;
 	}
 
@@ -48,6 +49,7 @@ public class Cursor {
 	}
 
 	public int getY() {
+	//	System.out.println("Returned cursor Y as: "+absoluteY);
 		return absoluteY;
 	}
 	
@@ -56,11 +58,13 @@ public class Cursor {
 		 
 		//c.cameraY()-c.getY();
 		//c.getX();
+	//	System.out.println("Returned gameworld cursor Y as: "+gameworldY);
 		 
 	return	gameworldY;  
 		
 	}
 	public int getGameworldX(){
+		//System.out.println("Returned gameworld cursor X as: "+gameworldX);
 		return gameworldX;
 	}
 

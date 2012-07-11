@@ -26,7 +26,7 @@ public class Camera {
 	}
 
 	public void setX(Cursor cur) {
-		this.x = (c.getX()+cur.getX())/2;
+		this.x = (c.getX()+cur.getGameworldX())/2;
 	}
 
 	public int getY() {
@@ -34,6 +34,6 @@ public class Camera {
 	}
 
 	public void setY(Cursor cur) {
-		this.y =(c.getY()+cur.getY())/2;
+		this.y =(c.getY()+cur.getGameworldY())/2;
 	}
 }
