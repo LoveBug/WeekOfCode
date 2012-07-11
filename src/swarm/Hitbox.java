@@ -1,3 +1,4 @@
+package swarm;
 
 public class Hitbox{
 	private int width;

@@ -1,4 +1,8 @@
+package canvas;
+
 import java.awt.Graphics;
+
+import swarm.ImageWrapper;
 
 
 public class Cursor {

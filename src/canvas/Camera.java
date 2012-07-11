@@ -1,3 +1,6 @@
+package canvas;
+import sprites.Character;
+
 
 public class Camera {
 	private Character c;

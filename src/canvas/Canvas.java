@@ -1,4 +1,8 @@
+package canvas;
 import javax.swing.*;
+
+import map.Map;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

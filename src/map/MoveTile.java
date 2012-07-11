@@ -1,3 +1,8 @@
+package map;
+import swarm.ImageWrapper;
+
+
+
 
 public class MoveTile extends Tile{
 	private int upper,lower,left,right;

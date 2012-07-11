@@ -1,3 +1,8 @@
+package map;
+import swarm.ImageWrapper;
+
+
+
 
 public class DestTile extends Tile{
 	private ImageWrapper destroyedImage;
