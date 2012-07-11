@@ -1,6 +1,8 @@
 package map;
 
 import java.io.File;
+
+import items.Coin;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,7 +14,7 @@ import swarm.ImageWrapper;
 
 import main.Main;
 
-
+import items.Item;
 
 public class Map {
 	private int enemyTicks;
@@ -28,6 +30,7 @@ public class Map {
 	
 	private ArrayList<MoveTile> movingTiles = new ArrayList<MoveTile>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Item> items = new ArrayList<Item>();
 	
 	public static final int TILE_DEPTH = 5;	
 	public static final int BLOCK_SIZE = 32;
@@ -63,6 +66,13 @@ public class Map {
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
 								new ImageWrapper(item*-1, BLOCK_SIZE, BLOCK_SIZE, worldSprites), 
 								new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+					}else if(item>199){
+						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
+								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+						switch(item - 200){
+						case 0:
+							items.add(new Coin(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32, "images/goldCoin2.png", 4));
+						}
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
@@ -99,10 +109,19 @@ public class Map {
 		return this.enemies;
 	}
 	
+	public ArrayList<Item> items(){
+		return this.items;
+	}
+	
 	public void update(){
 		//update moving tiles
 		for(MoveTile t : this.movingTiles)
 			t.move();
+		
+		if(eCountTick >= enemyTicks){
+			for(Item e : items)
+				e.move(this);
+		}
 		
 		//update enemies
 		if(eCountTick >= enemyTicks){
