@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 
 public class Map {
+	private int enemyTicks;
+	private int eCountTick = 0;
+	
 	private Tile[][] map;
 	private File inputfile;
 	private Scanner scan;
@@ -14,6 +17,7 @@ public class Map {
 	private SpriteSheet worldSprites;
 	
 	private ArrayList<MoveTile> movingTiles = new ArrayList<MoveTile>();
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	
 	public static final int TILE_DEPTH = 5;	
 	public static final int BLOCK_SIZE = 32;
@@ -30,6 +34,8 @@ public class Map {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		enemyTicks = Main.FPS/6;
 	}
 		
 	public Tile[][] getMap(){return map;}
@@ -41,12 +47,16 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==17){
-						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 96, 64, "images/runCyclePrelimSheetAlpha.png");
+						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 64, 96, "images/runCyclePrelimSheetAlpha.png");
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 					}else if(item<0){
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
 								new ImageWrapper(item*-1, BLOCK_SIZE, BLOCK_SIZE, worldSprites), 
 								new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+					}else if(item>99){
+						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
+								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+						enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, 64,64, "images/enemyAnimationSheet.png", 8));	
 					}else if(item>17){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
@@ -75,10 +85,22 @@ public class Map {
 		return this.movingTiles;
 	}
 	
+	public ArrayList<Enemy> enemies(){
+		return this.enemies;
+	}
+	
 	public void update(){
 		//update moving tiles
 		for(MoveTile t : this.movingTiles)
 			t.move();
+		
+		//update enemies
+		if(eCountTick >= enemyTicks){
+			eCountTick = 0;
+			for(Enemy e : enemies)
+				e.move(this);
+		}else
+			eCountTick++;
 		
 		//update player
 		this.character.move(this);
