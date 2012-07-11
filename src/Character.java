@@ -1,5 +1,5 @@
 public class Character extends Sprite implements Drawable{
-	private final int FRAMES = 8;
+	
 	private final int JUMP_FRAMES = 5;
 	private final int IMAGE_WIDTH = 2;
 	private final int IMAGE_HEIGHT = 3;
@@ -10,33 +10,32 @@ public class Character extends Sprite implements Drawable{
 	
 	private int turnCounter = 0;
 	
-	
-	
-	private int moveDistance = 8;
-	private int currentImage = 0;
-	
 	private boolean isJumping = false;
-	private boolean isWalking = false;
 	private boolean isFalling = false;
 	
 	private int maxJump;
-	private float ySpeed = moveDistance;
+	private float ySpeed;
 	private float xSpeed = 0;
 	
 	private SpriteSheet jumpSprite, stationarySprite;
 	
 	public Character(int x, int y, int height, int width, String runCycle)
 	{
-		super(x,y,height,width,runCycle);
+		super(x,y,height,width,runCycle, 8);
 		
 		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.png");
 		this.stationarySprite = new SpriteSheet("images/playerSpriteFinalDesign.png");
 		
-		setImage(new ImageWrapper(currentImage, getWidth(), getHeight(), getSpriteSheet()));
+		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
 		setMovementBox(new Hitbox(x, y, getWidth(), getHeight()));
+		this.ySpeed = getMoveDistance();
 	}
 	
-	
+	public void walk(boolean direction){
+		if(!(isJumping || isFalling))
+			super.walk(direction);
+		setDirection(direction);
+	}
 	
 	public void move(Map map)
 	{
@@ -48,45 +47,23 @@ public class Character extends Sprite implements Drawable{
 			this.xSpeed = 0;
 		}
 		
-		if(isWalking){
-			turnCounter = TURN_COUNT;
-			int movement = moveDistance;
-			if(!getDirection()){
-				movement = -moveDistance;
-			}
-			
-			setX(getX()+movement);
-			getMovementBox().setX(getX());
-			int x = getX();
-			if(getDirection())
-				x+=getWidth();
-			for(int y=getY()+5; y<getY()+getHeight()-10; y++)
-				if(getMovementBox().checkCollision(map.getMap()[x/32][y/32].getHitbox())){
-					if(getDirection())
-						 setX(getX()/32*32);
-					else
-						setX(getX()/32*32+32);
-					break;
-				}
-			getMovementBox().setX(getX());
-			isWalking=false;
-		}
+		super.move(map);
 		
-		if(!isWalking && !isJumping){
+		if(!isWalking() && !isJumping){
 			if(turnCounter<0){
-				this.currentImage=0;
-				updateImage(new ImageWrapper(currentImage, getWidth(), getHeight(), stationarySprite));
+				setCurrentImage(0);
+				updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), stationarySprite));
 			}else
 				turnCounter--;
-		}
+		}else
+			turnCounter = TURN_COUNT;
 	}
 	
 	public void jumpMovement(Map map){
 		if(isJumping){
-			turnCounter = TURN_COUNT;
-			if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
-				this.currentImage+=IMAGE_WIDTH;
-				updateImage(new ImageWrapper(currentImage, getWidth(), getHeight(), jumpSprite));
+			if(getCurrentImage()<(JUMP_FRAMES-2)*IMAGE_WIDTH){
+				setCurrentImage(getCurrentImage()+IMAGE_WIDTH);
+				updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), jumpSprite));
 			}
 			
 			if(ySpeed>7)
@@ -107,7 +84,7 @@ public class Character extends Sprite implements Drawable{
 					if(getMovementBox().checkCollision(map.getMap()[x/32][((getY()+10)/32)].getHitbox())){
 						isJumping = false;
 						isFalling = true;
-						ySpeed = moveDistance;
+						ySpeed = getMoveDistance();
 						break;
 					}
 				}
@@ -156,19 +133,19 @@ public class Character extends Sprite implements Drawable{
 			else
 				ySpeed+=0.25;
 		if(!isFalling)
-			this.currentImage = 0;
+			setCurrentImage(0);
 		isFalling = true;
 		getMovementBox().setY(getY());
-		if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
-			this.currentImage+=IMAGE_WIDTH;
-			updateImage(new ImageWrapper(currentImage, getWidth(), getHeight(), jumpSprite));
+		if(getCurrentImage()<(JUMP_FRAMES-2)*IMAGE_WIDTH){
+			setCurrentImage(getCurrentImage()+IMAGE_WIDTH);
+			updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), jumpSprite));
 		}
 	}
 	
 	public void land(MoveTile tile){
 		if(this.isFalling){
-			this.currentImage = 0;
-			updateImage(new ImageWrapper(this.currentImage, getWidth(), getHeight(), getSpriteSheet()));
+			setCurrentImage(0);
+			updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
 		}
 		if(tile==null){
 			setY(getY()/32*32);
@@ -185,23 +162,14 @@ public class Character extends Sprite implements Drawable{
 	public void jump()
 	{
 		if(isJumping || isFalling){return;}
-		this.currentImage = 0;
-		updateImage(new ImageWrapper(currentImage, getWidth(), getHeight(), jumpSprite));
+		setCurrentImage(0);
+		updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), jumpSprite));
 		isJumping = true;
-		maxJump = getY() - 32*JUMP_HEIGHT;  //4 blocks of 32
+		maxJump = getY() - Map.BLOCK_SIZE*JUMP_HEIGHT;  //4 blocks of 32
 		ySpeed = FALL_MAX/2;
 	}	
 	
-	public void walk(boolean direction){
-		if(!(isJumping || isFalling)){
-			this.currentImage += IMAGE_WIDTH;
-			if(this.currentImage>=(FRAMES-1)*IMAGE_WIDTH)
-				this.currentImage=0;
-			updateImage(new ImageWrapper(currentImage, getWidth(), getHeight(), getSpriteSheet()));
-		}
-		setDirection(direction);
-		this.isWalking = true;
-	}
+	
 	
 	
 }
