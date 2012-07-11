@@ -28,16 +28,20 @@ public class Character extends Sprite implements Drawable{
 	private float ySpeed;
 	private float xSpeed = 0;
 	
+
+	
 	//Item feilds
 	private int gold;
 	private ArrayList<Item> itemList; 
-			
+	private int mana;
+	
 	private SpriteSheet jumpSprite, stationarySprite;
 	
 	public Character(int x, int y, int width, int height, String runCycle, int health)
 	{
-		super(x,y,width,height,runCycle, 8, health);
 		
+		super(x,y,width,height,runCycle, 8, health);
+		mana = 100;
 		this.jumpSprite = new SpriteSheet("images/jumpCyclePrelimSheetAlpha.png");
 		this.stationarySprite = new SpriteSheet("images/playerSpriteFinalDesign.png");
 
@@ -215,7 +219,18 @@ public class Character extends Sprite implements Drawable{
 
 	public void setGold(int gold) {
 		this.gold = gold;
-	}	
+	}
+
+	public int getMana() {
+		// TODO Auto-generated method stub
+		return mana;
+	}
+	public void setMana(int mana){
+	 this.mana = mana;
+	}
+
+	
+		
 	
 	
 	

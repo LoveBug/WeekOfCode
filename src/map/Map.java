@@ -48,7 +48,7 @@ public class Map {
 		
 		enemyTicks = Main.FPS/6;
 		//Must be after Readmap is called
-		 hud = new Hud(character);
+		 hud = new Hud(character,0,0);
 	}
 		
 	public Tile[][] getMap(){return map;}
@@ -100,6 +100,10 @@ public class Map {
 	
 	public ArrayList<Enemy> enemies(){
 		return this.enemies;
+	}
+	
+	public Hud getHud(){
+		return hud;
 	}
 	
 	public void update(){
