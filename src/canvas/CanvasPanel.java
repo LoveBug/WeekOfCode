@@ -55,7 +55,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
 		mouseController.mouseMove(0, 0);
 		
-		 bg = new ImageWrapper("images/Background.jpg");
+		 bg = new ImageWrapper("images/backgroundCave.jpg");
 		
 		addKeyListener(this);
 		addMouseMotionListener(this);
