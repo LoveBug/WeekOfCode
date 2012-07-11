@@ -34,7 +34,7 @@ public class Character extends Sprite implements Drawable{
 
 	
 	//Item feilds
-	private int gold;
+	private int gold = 0;
 	private ArrayList<Item> itemList; 
 	private int mana;
 	
@@ -155,6 +155,11 @@ public class Character extends Sprite implements Drawable{
 					enemy = e;
 					break;
 				}
+			
+			if(enemy != null){
+				map.enemies().remove(enemy);
+			}
+			
 			
 			if(falling)
 				fall();
