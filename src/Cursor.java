@@ -31,7 +31,7 @@ public class Cursor {
 	
 	public void draw(Graphics g)
 	{
-		gameworldY = c.getY()+absoluteY;
+		gameworldY = c.getY() +absoluteY;
 		gameworldX = c.getX()+absoluteX;
 		cursor.draw(g, gameworldX - 1024/2, gameworldY - 768/2, width, height);
 	}

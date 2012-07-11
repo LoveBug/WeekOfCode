@@ -44,7 +44,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			e.printStackTrace();
 		}
 		this.map = m;
-		cursor = new Cursor(m.getCharacter().getX(), m.getCharacter().getY(), blockSize, blockSize, map.getCharacter());
+		cursor = new Cursor(m.getCharacter().getX()+screenWidth/2, m.getCharacter().getY()-screenHeight/2, blockSize, blockSize, map.getCharacter());
 		this.cam = new Camera(map.getCharacter(), cursor);
 		addKeyListener(this);
 		addMouseMotionListener(this);
@@ -73,8 +73,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		for(MoveTile m: map.movingTiles() )
 			m.draw(g);
 		
-		map.getCharacter().setX(map.getCharacter().getX());
-		map.getCharacter().setY(map.getCharacter().getY());
+		
 		map.getCharacter().draw(g);
 			
 		
