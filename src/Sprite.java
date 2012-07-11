@@ -20,6 +20,7 @@ public class Sprite {
 	private boolean isWalking = false;
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int frames){
+		setMovementBox(new Hitbox(x,y,height,width));
 		setX(x);
 		setY(y);
 		setHeight(96);
@@ -73,8 +74,14 @@ public class Sprite {
 	}
 	
 	//-------------------SETTERS---------------------------
-	public void setX(int x) {this.x = x;}
-	public void setY(int y) {this.y = y;}
+	public void setX(int x) {
+		this.x = x;
+		this.movementBox.setX(x);
+	}
+	public void setY(int y) {
+		this.y = y;
+		this.movementBox.setY(y);
+	}
 	public void setHeight(int h) {this.height = h;}
 	public void setWidth(int w) {this.width = w;}
 	public void setImage(ImageWrapper image) {this.image = image;}

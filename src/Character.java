@@ -35,6 +35,7 @@ public class Character extends Sprite implements Drawable{
 		if(!(isJumping || isFalling))
 			super.walk(direction);
 		setDirection(direction);
+		setWalking(true);
 	}
 	
 	public void move(Map map)
