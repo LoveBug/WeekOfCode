@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import sprites.Enemy;
 import swarm.ImageWrapper;
-
+import items.Item;
 import map.Map;
 import map.MoveTile;
 import map.Tile;
@@ -32,8 +32,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	private boolean leftKeyPressed;
 	private boolean rightKeyPressed;
 	private boolean upKeyPressed;
-	private int previousMouseX;
-	private int previousMouseY;
 	
 	private ImageWrapper bg;
 
@@ -89,6 +87,9 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 		for(Enemy e : map.enemies())
 			e.draw(g);
+		
+		for(Item i: map.items())
+			i.draw(g);
 	
 		map.getCharacter().draw(g);
 			
@@ -166,11 +167,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
-	//	cam.setX(e.getX());
-	//	cam.setY(e.getY());
-	//	previousMouseX = e.getX();
-	//	previousMouseY = e.getY();
 		cursor.moveCursor(e.getX(), e.getY());
 
 		requestFocusInWindow();
@@ -178,13 +174,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		
-		
-		//cam.setX(map.getCharacter().getX());
-		//cam.setY(map.getCharacter().getY());
-		previousMouseX = e.getX();
-		previousMouseY = e.getY();
-		//g.translate(-cam.getX() + screenWidth/2, -cam.getY() + screenHeight/2);
 		cursor.moveCursor(e.getX(), e.getY());
 		
 		requestFocusInWindow();
@@ -216,10 +205,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		//mouseController.mouseMove(previousMouseX, previousMouseY);
-		System.out.println("Executed Mouse exited");
-		
 		
 	}
 }
