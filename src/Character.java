@@ -147,7 +147,7 @@ public class Character implements Drawable{
 					this.movementBox.getY()+this.movementBox.getHeight()-5,
 					this.movementBox.getWidth(), this.movementBox.getY()+this.movementBox.getHeight()+1);
 			for(MoveTile t : map.movingTiles())
-				if(temp.checkCollision(t.getHitbox())){
+				if(temp.checkCollision(t.getHitbox()) && this.y+this.height+this.ySpeed>=t.getY()){
 					falling = false;
 					tile = t;
 					break;
@@ -161,6 +161,7 @@ public class Character implements Drawable{
 	}
 	
 	public void fall(){
+		this.y+=ySpeed;
 		if(ySpeed<0)
 			ySpeed = 0;
 		if(ySpeed<FALL_MAX)
@@ -171,7 +172,6 @@ public class Character implements Drawable{
 		if(!isFalling)
 			this.currentImage = 0;
 		isFalling = true;
-		this.y+=ySpeed;
 		this.movementBox.setY(y);
 		if(this.currentImage<(JUMP_FRAMES-2)*IMAGE_WIDTH){
 			this.currentImage+=IMAGE_WIDTH;
