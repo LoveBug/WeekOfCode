@@ -27,9 +27,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	// private boolean downKeyPressed; for later when droppng through blocks
 
-	private static final int screenWidth = 1024;
-	private static final int screenHeight = 768;
-
 	private static final int blockSize = 32;
 
 	public CanvasPanel(Map m) {
@@ -44,8 +41,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			e.printStackTrace();
 		}
 		this.map = m;
-		cursor = new Cursor(m.getCharacter().getX()+screenWidth/2, m.getCharacter().getY()-screenHeight/2, blockSize, blockSize, map.getCharacter());
-		this.cam = new Camera(map.getCharacter(), cursor);
+		this.cam = new Camera(map.getCharacter());
+		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
+		mouseController.mouseMove(0, 0);
+		
 		addKeyListener(this);
 		addMouseMotionListener(this);
 		addMouseListener(this);
@@ -146,8 +145,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		 * }
 		 */
 		
-		cam.setX((map.getCharacter().getX() + cursor.getGameworldX())/2);
-		cam.setY((map.getCharacter().getY() + cursor.getY())/2);
+		cam.setX(cursor);
+		cam.setY(cursor);
 	}
 
 	@Override
