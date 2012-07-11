@@ -1,4 +1,13 @@
+package map;
+
+
+
 import java.awt.Graphics;
+
+import swarm.Collidable;
+import swarm.Drawable;
+import swarm.Hitbox;
+import swarm.ImageWrapper;
 
 public class Tile implements Drawable, Collidable  {
 	private int height;

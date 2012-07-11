@@ -1,7 +1,17 @@
+package map;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import sprites.Character;
+import sprites.Enemy;
+import sprites.SpriteSheet;
+import swarm.ImageWrapper;
+
+import main.Main;
+
 
 
 public class Map {

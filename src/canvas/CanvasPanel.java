@@ -1,3 +1,5 @@
+package canvas;
+
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,6 +11,14 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
+
+import sprites.Enemy;
+import swarm.ImageWrapper;
+
+import map.Map;
+import map.MoveTile;
+import map.Tile;
+
 
 public class CanvasPanel extends JPanel implements KeyListener,
 		MouseMotionListener,MouseListener {

@@ -1,3 +1,12 @@
+package sprites;
+import swarm.Drawable;
+import swarm.Hitbox;
+import swarm.ImageWrapper;
+import map.DestTile;
+import map.Map;
+import map.MoveTile;
+
+
 public class Character extends Sprite implements Drawable{
 	
 	private final int JUMP_FRAMES = 5;

@@ -1,8 +1,11 @@
+package swarm;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
 import javax.imageio.ImageIO;
+
+import sprites.SpriteSheet;
 
 public class ImageWrapper {
 	private BufferedImage picture;

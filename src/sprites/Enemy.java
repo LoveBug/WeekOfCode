@@ -1,3 +1,7 @@
+package sprites;
+import swarm.Hitbox;
+import map.Map;
+
 
 public class Enemy extends Sprite{
 	
