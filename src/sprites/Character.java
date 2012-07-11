@@ -32,7 +32,7 @@ public class Character extends Sprite implements Drawable{
 	private float xSpeed = 0;
 	
 	//Item feilds
-	private int gold;
+	private int gold = 0;
 	private ArrayList<Item> itemList; 
 			
 	private SpriteSheet jumpSprite, stationarySprite;
@@ -148,6 +148,11 @@ public class Character extends Sprite implements Drawable{
 					enemy = e;
 					break;
 				}
+			
+			if(enemy != null){
+				map.enemies().remove(enemy);
+			}
+			
 			
 			if(falling)
 				fall();
