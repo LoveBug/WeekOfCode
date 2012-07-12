@@ -77,9 +77,9 @@ public class Map {
 	
 	private void readWeapons(){
 
-		for(int i =0; i< 6;i++){	
+		/*for(int i =0; i< 6;i++){	
 			character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
-		}
+		}*/
 
 	}
 
