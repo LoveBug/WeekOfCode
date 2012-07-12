@@ -1,14 +1,22 @@
 package sprites;
-import java.awt.Graphics;
 
 import swarm.Hitbox;
 import map.Map;
 
 
 public class Enemy extends Sprite{
+	public enum Type {
+		WALKER(0), FLYER(1);
+		public final int index;
+
+		private Type(int i) {
+			this.index = i;
+		}
+
+	}
 	
 	public Enemy(int x, int y, int width, int height, String runCycle,int frames, int health) {
-		super(x, y, width, height, runCycle, frames, health);
+		super(x, y, width, height, runCycle, frames, null, 0, health);
 		getImage().reverse();
 
 		setShootBox(new Hitbox(x, y, width, height/2));
@@ -42,4 +50,5 @@ public class Enemy extends Sprite{
 		super.move(m);
 	}
 	
+	public void jump(){}
 }
