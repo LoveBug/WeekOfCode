@@ -122,14 +122,14 @@ public class Character extends Sprite implements Drawable{
 			MoveTile tile = null;
 			Enemy enemy = null;
 			
-			int x=getX()+20;
+			int x=getX()+5;
 			int end = getX()+getWidth()-10;
 			if(!getDirection()){
 				x=getX()+10;
 				end=getX()+getWidth()-20;
 			}
 			
-			Hitbox temp = new Hitbox(getMovementBox().getX(), 
+			Hitbox temp =new Hitbox(getMovementBox().getX()+10,
 					getMovementBox().getY()+getMovementBox().getHeight()-5,
 					getMovementBox().getWidth(), getMovementBox().getY()+getMovementBox().getHeight()+1);
 			

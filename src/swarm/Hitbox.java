@@ -16,14 +16,21 @@ public class Hitbox{
 	
 	public boolean checkCollision(Hitbox box)
 	{
-		if(box==null)
-			return false;
-		if((box.x > x && box.x < x + width) ||(box.x + box.width > x && box.x + box.width < x + width)){
-			if((box.y > y && box.y < y + height) ||(box.y + box.height > y && box.y + box.height < y + height)){
-				return true;
-			}
-		}
-		return false;
+		if(box == null){return false;}
+		
+		return checkCollision(box.x, box.y) || box.checkCollision(this.x, this.y)
+		    || checkCollision(box.x + box.width, box.y) || box.checkCollision(this.x + this.width, this.y)
+		    || checkCollision(box.x, box.y + box.height) || box.checkCollision(this.x, this.y + this.height)
+		    || checkCollision(box.x + box.width, box.y + box.height) || box.checkCollision(this.x + this.width, this.y + this.height);
+	}
+	
+	public boolean checkCollision(int x, int y){
+		if(x < this.x){return false;}
+		if(y < this.y){return false;}
+		if(x > this.x + this.width){return false;}
+		if(y > this.y + this.height){return false;}
+		
+		return true;
 	}
 
 	public int getWidth() {
