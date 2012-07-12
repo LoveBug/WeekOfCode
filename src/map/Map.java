@@ -200,8 +200,7 @@ public class Map {
 					e.move(this);
 			}
 			
-			enemies = temp;
-			temp = new ArrayList<Enemy>();
+			enemies.removeAll(temp);
 		}else
 			eCountTick++;
 		
