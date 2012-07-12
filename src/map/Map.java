@@ -1,8 +1,11 @@
 package map;
 
 import java.io.File;
+import java.io.IOException;
 
 import items.Coin;
+import items.WeaponItem;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -39,6 +42,9 @@ public class Map {
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
+	private boolean complete = false;
+	private boolean dead = false;
+	
 	private int[][] enemyFrames = {{BLOCK_SIZE*2, BLOCK_SIZE*2, 8}, {BLOCK_SIZE, BLOCK_SIZE, 5}};
 	
 	public static final int TILE_DEPTH = 5;	
@@ -47,32 +53,35 @@ public class Map {
 	public Map(String filename) {
 		worldSprites = new SpriteSheet("images/tilesCave.gif");
 		weaponSprites = new SpriteSheet("images/hudWeapons.png");
-		
-		inputfile =  new File(filename);
+
 		try {
-			 scan = new Scanner(inputfile);
-			  xDimension = scan.nextInt();
-			  yDimension = scan.nextInt();
-			 map = new Tile[xDimension][yDimension];
+			File file = new File(filename);
+			scan = new Scanner(file);
+			xDimension = scan.nextInt();
+			yDimension = scan.nextInt();
+			map = new Tile[xDimension][yDimension];
+			enemies =  new ArrayList<Enemy>();
+			movingTiles = new ArrayList<MoveTile>();
+			items = new ArrayList<Item>();
 			readmap();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		readWeapons();
+
+		//readWeapons();
 		enemyTicks = Main.FPS/6;
-		//Must be after Readmap is called
-		 hud = new Hud(character,0,0);
+
+		hud = new Hud(character,0,0);
 	}
 		
 	public Tile[][] getMap(){return map;}
 	
 	private void readWeapons(){
-		for(int i =0; i< 6;i++){
-		
-		
-		
-		character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
+
+		for(int i =0; i< 6;i++){	
+			character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
 		}
+
 	}
 
 	private void readmap() {
@@ -99,9 +108,28 @@ public class Map {
 					}else if(item>199){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+						WeaponItem.Type type = null;
 						switch(item - 200){
 						case 0:
 							items.add(new Coin(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32, "images/pickupCoin.png", 4));
+							break;
+						case 1:
+							type = WeaponItem.Type.SWORD;
+							break;
+						case 2:
+							type = WeaponItem.Type.MACE;
+							break;
+						case 3:
+							type = WeaponItem.Type.PISTOL;
+							break;
+						case 4:
+							type = WeaponItem.Type.CROSSBOW;
+							break;
+						default:
+							throw new RuntimeException("wat?");
+						}
+						if (type != null) {
+							items.add(new WeaponItem(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32,"images/hudWeapons.png", type));
 						}
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
@@ -123,8 +151,6 @@ public class Map {
 					}
 				}
 			}
-			
-		
 		}
 	}
 
@@ -164,8 +190,17 @@ public class Map {
 		//update enemies
 		if(eCountTick >= enemyTicks){
 			eCountTick = 0;
-			for(Enemy e : enemies)
-				e.move(this);
+			
+			ArrayList<Enemy> temp = new ArrayList<Enemy>();
+			
+			for(Enemy e : enemies){
+				if(e.getHealth() < 0)
+					temp.add(e);
+				else
+					e.move(this);
+			}
+			
+			enemies.removeAll(temp);
 		}else
 			eCountTick++;
 		
@@ -182,5 +217,21 @@ public class Map {
 
 	public Exit getExit() {
 		return exit;
+	}
+
+	public boolean isComplete() {
+		return complete;
+	}
+
+	public void setComplete(boolean complete) {
+		this.complete = complete;
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 }

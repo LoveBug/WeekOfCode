@@ -98,9 +98,6 @@ public class Sprite {
 	
 	public void damage(int dam){
 		setHealth(getHealth() - dam);
-		if(getHealth() < 0){
-			System.out.println("You deead nigger");
-		}
 	}
 	
 	//-------------------SETTERS---------------------------

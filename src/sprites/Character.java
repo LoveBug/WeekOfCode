@@ -1,6 +1,8 @@
 package sprites;
 
+import items.Coin;
 import items.Item;
+import items.WeaponItem;
 
 import java.util.ArrayList;
 
@@ -31,11 +33,8 @@ public class Character extends Sprite implements Drawable{
 	private float ySpeed;
 	private float xSpeed = 0;
 	
-
-	
-	//Item feilds
 	private int gold = 0;
-	private ArrayList<Item> itemList; 
+	private ArrayList<Item> itemList = new ArrayList<Item>(); 
 	private int mana;
 	private int currentItemindex=0;
 	
@@ -78,7 +77,7 @@ public class Character extends Sprite implements Drawable{
 		checkCoinCollision(map);
 		
 		if(this.getMovementBox().checkCollision(map.getExit().getMovementBox())){
-			System.out.println("You win Mofo");
+			map.setComplete(true);
 		}
 		
 		if(!isWalking() && !isJumping){
@@ -160,11 +159,6 @@ public class Character extends Sprite implements Drawable{
 					
 				}
 			
-			if(enemy != null){
-				map.enemies().remove(enemy);
-			}
-			
-			
 			if(falling)
 				fall();
 			else
@@ -220,6 +214,14 @@ public class Character extends Sprite implements Drawable{
 				temp.add(i);
 			}
 		}
+		for(Item i: temp){
+			if (i instanceof WeaponItem){
+				itemList.add(i);
+			}else if(i instanceof Coin){
+				gold++;
+				System.out.println("Your gold is: "+ gold);
+			}
+		}
 		
 		m.items().removeAll(temp);
 	}
@@ -258,13 +260,16 @@ public class Character extends Sprite implements Drawable{
 	 this.mana = mana;
 	}
 	public void cycleItem(){
+		if(itemList.size()!=0){
 		currentItemindex++;
-		
 		currentItemindex = currentItemindex%itemList.size();
-	}
+		}
+		}
 
 	public Item getCurrentItem() {
-		
+		if(itemList.size() == 0){
+			return null;
+		}
 				return itemList.get(currentItemindex);
 	}
 	public void giveItem(Item item){

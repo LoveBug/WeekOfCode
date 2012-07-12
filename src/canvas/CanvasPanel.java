@@ -9,6 +9,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JPanel;
 
@@ -39,6 +43,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	// private boolean downKeyPressed; for later when droppng through blocks
 
 	private static final int blockSize = 32;
+	
 
 	public CanvasPanel(Map m) {
 		setPreferredSize(new Dimension(1024, 768));
@@ -54,9 +59,9 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		this.map = m;
 		this.cam = new Camera(map.getCharacter());
 		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
-		mouseController.mouseMove(0, 0);
+		mouseController.mouseMove(map.getCharacter().getX(), map.getCharacter().getY());
 		
-		 bg = new ImageWrapper("images/backgroundCave.jpg");
+		bg = new ImageWrapper("images/backgroundCave.jpg");
 		
 		addKeyListener(this);
 		addMouseMotionListener(this);
@@ -120,7 +125,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 				|| e.getKeyCode() == KeyEvent.VK_W) {
 			upKeyPressed = true;
 		}else if (e.getKeyCode() == KeyEvent.VK_Q) {
-			System.out.println("Hiii");
+			
 			 weaponSwitchKeyPressed = true;
 			
 		}
@@ -147,7 +152,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			System.exit(0);
 			
 		}else if (e.getKeyCode() == KeyEvent.VK_Q) {
-			System.out.println("Stop that");
+			
 			 weaponSwitchKeyPressed = false;
 			
 		}
@@ -172,7 +177,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			map.getCharacter().jump();
 		}
 		if(weaponSwitchKeyPressed){
-			System.out.println("you pretty devil");
+			
 			map.getCharacter().cycleItem();
 			weaponSwitchKeyPressed = false;
 		}
