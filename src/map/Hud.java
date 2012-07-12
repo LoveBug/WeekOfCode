@@ -8,7 +8,6 @@ import items.Item;
 
 
 import sprites.Character;
-import sprites.Sprite;
 import swarm.ImageWrapper;
 
 public class Hud{
@@ -43,6 +42,7 @@ public class Hud{
 		coinCount = character.getGold();
 		characterItems = character.getItemList();
 		characterMana = character.getMana();
+		characterHealth = character.getHealth();
 		
 	}
 	
@@ -51,7 +51,7 @@ public class Hud{
 		for(int i =0; i<characterHealth;i++){
 		healthtile.draw(g, 10+(4*i), 10, 12, 12);
 		}
-		for(int j =0; j<characterHealth;j++){
+		for(int j =0; j<characterMana;j++){
 		manatile.draw(g, 68+(2*j), 28, 8, 8);
 		}
 		

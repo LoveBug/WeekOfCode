@@ -45,7 +45,7 @@ public class Character extends Sprite implements Drawable{
 		
 
 		super(x,y,width,height,runCycle, 8, health);
-		mana = 100;
+		mana = 75;
 		
 		this.jumpSprite = new SpriteSheet("images/playerJump.png");
 		this.stationarySprite = new SpriteSheet("images/playerStand.png");
