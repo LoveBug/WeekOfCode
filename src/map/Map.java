@@ -1,6 +1,7 @@
 package map;
 
 import java.io.File;
+import java.io.IOException;
 
 import items.Coin;
 import items.WeaponItem;
@@ -41,6 +42,8 @@ public class Map {
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
+	private boolean complete = false;
+	
 	private int[][] enemyFrames = {{BLOCK_SIZE*2, BLOCK_SIZE*2, 8}, {BLOCK_SIZE, BLOCK_SIZE, 5}};
 	
 	public static final int TILE_DEPTH = 5;	
@@ -49,29 +52,35 @@ public class Map {
 	public Map(String filename) {
 		worldSprites = new SpriteSheet("images/tilesCave.gif");
 		weaponSprites = new SpriteSheet("images/hudWeapons.png");
-		
-		inputfile =  new File(filename);
+
 		try {
-			 scan = new Scanner(inputfile);
-			  xDimension = scan.nextInt();
-			  yDimension = scan.nextInt();
-			 map = new Tile[xDimension][yDimension];
+			File file = new File(filename);
+			scan = new Scanner(file);
+			xDimension = scan.nextInt();
+			yDimension = scan.nextInt();
+			map = new Tile[xDimension][yDimension];
+			enemies =  new ArrayList<Enemy>();
+			movingTiles = new ArrayList<MoveTile>();
+			items = new ArrayList<Item>();
 			readmap();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
 		readWeapons();
 		enemyTicks = Main.FPS/6;
-		//Must be after Readmap is called
-		 hud = new Hud(character,0,0);
+
+		hud = new Hud(character,0,0);
 	}
 		
 	public Tile[][] getMap(){return map;}
 	
 	private void readWeapons(){
-		//for(int i =0; i< 6;i++){
-		//character.getItemList().add(new WeaponItem(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
-		//}
+
+		for(int i =0; i< 6;i++){	
+			character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
+		}
+
 	}
 
 	private void readmap() {
@@ -126,8 +135,6 @@ public class Map {
 					}
 				}
 			}
-			
-		
 		}
 	}
 
@@ -185,5 +192,13 @@ public class Map {
 
 	public Exit getExit() {
 		return exit;
+	}
+
+	public boolean isComplete() {
+		return complete;
+	}
+
+	public void setComplete(boolean complete) {
+		this.complete = complete;
 	}
 }

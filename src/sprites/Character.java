@@ -80,6 +80,7 @@ public class Character extends Sprite implements Drawable{
 		checkCoinCollision(map);
 		
 		if(this.getMovementBox().checkCollision(map.getExit().getMovementBox())){
+			map.setComplete(true);
 			System.out.println("You win Mofo");
 		}
 		
