@@ -34,6 +34,7 @@ public class Enemy extends Sprite{
 						  m.getCharacter().getWidth() - 10, m.getCharacter().getHeight() - 15);
 		if(this.getMovementBox().checkCollision(temp)){
 			System.out.println("You got owned bitch");
+			m.getCharacter().setHealth(m.getCharacter().getHealth()-10);
 		}
 		
 		super.walk(getDirection());
