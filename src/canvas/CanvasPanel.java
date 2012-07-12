@@ -174,6 +174,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		if(weaponSwitchKeyPressed){
 			System.out.println("you pretty devil");
 			map.getCharacter().cycleItem();
+			weaponSwitchKeyPressed = false;
 		}
 		/*
 		 * if(downKeyPressed2) {
