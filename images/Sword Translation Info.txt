@@ -1,3 +1,12 @@
-Frame 1 : 6, 31
-frame 2 : -6, 31
-frame 3 : -6, -31
+top layers
+Frame 1 : 9, 38
+frame 2 : 2, 34
+frame 3 : -3, -24
+frame 4 : -28, 13
+bottom layers
+frame 5 : 3, -38
+frame 6 : -28, 1
+frame 7 : 9, -23
+frame 8 : 34, 13
+
+All arms are at 0, 16 to the character's top left corner
