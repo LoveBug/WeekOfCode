@@ -207,7 +207,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Bullet b = new Bullet(map.getCharacter().getX() + 45, map.getCharacter().getY() + 48, 32, 32,
+		Bullet b = new Bullet(map.getCharacter().getX(), map.getCharacter().getY(), 32, 32,
 							 "images/projectileBullet.png", 0, cursor.getGameworldX(), cursor.getGameworldY());
 		map.addBullet(b);
 		
