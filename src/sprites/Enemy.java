@@ -33,6 +33,7 @@ public class Enemy extends Sprite{
 		temp = new Hitbox(m.getCharacter().getX() + 10, m.getCharacter().getY() + 5, 
 						  m.getCharacter().getWidth() - 10, m.getCharacter().getHeight() - 15);
 		if(this.getMovementBox().checkCollision(temp)){
+			m.getCharacter().setHealth(m.getCharacter().getHealth()-3);
 			System.out.println("You got owned bitch");
 			m.getCharacter().damage(5);
 		}
