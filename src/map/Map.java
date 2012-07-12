@@ -28,6 +28,7 @@ public class Map {
 	private Character character;
 	private SpriteSheet worldSprites;
 	private Hud hud ;
+	private SpriteSheet weaponSprites;
 	
 	private ArrayList<MoveTile> movingTiles = new ArrayList<MoveTile>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -40,6 +41,8 @@ public class Map {
 	
 	public Map(String filename) {
 		worldSprites = new SpriteSheet("images/tilesCave.gif");
+		weaponSprites = new SpriteSheet("images/hudWeapons.png");
+		
 		inputfile =  new File(filename);
 		try {
 			 scan = new Scanner(inputfile);
@@ -50,13 +53,22 @@ public class Map {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+		readWeapons();
 		enemyTicks = Main.FPS/6;
 		//Must be after Readmap is called
 		 hud = new Hud(character,0,0);
 	}
 		
 	public Tile[][] getMap(){return map;}
+	
+	private void readWeapons(){
+		for(int i =0; i< 6;i++){
+		
+		
+		
+		character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
+		}
+	}
 
 	private void readmap() {
 		while(scan.hasNext()){
@@ -64,9 +76,7 @@ public class Map {
 			for(int j = 0; j< yDimension; j++){
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
-					if(item==17){
-
-						
+					if(item==17){	
 						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 64, 96, "images/playerWalk.png",60);
 
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));

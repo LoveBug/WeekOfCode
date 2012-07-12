@@ -26,6 +26,19 @@ public class Sprite {
 	
 	private boolean isWalking = false;
 	
+	public Sprite(int x, int y, int width, int height, String runCycle, int spritenumber){
+		setMovementBox(new Hitbox(x,y,height,width));
+		setX(x);
+		setY(y);
+		setHeight(height);
+		setWidth(width);
+		setSpriteSheet(runCycle);
+		setImage(new ImageWrapper(spritenumber, getWidth(), getHeight(), getSpriteSheet()));
+		this.setHealth(health);
+		this.FRAMES = 1;
+	}
+	
+	
 	public Sprite(int x, int y, int width, int height, String runCycle, int frames, int health){
 		setMovementBox(new Hitbox(x,y,height,width));
 		setX(x);

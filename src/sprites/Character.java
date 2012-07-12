@@ -37,6 +37,7 @@ public class Character extends Sprite implements Drawable{
 	private int gold = 0;
 	private ArrayList<Item> itemList; 
 	private int mana;
+	private int currentItemindex=0;
 	
 	private SpriteSheet jumpSprite, stationarySprite;
 	
@@ -252,6 +253,20 @@ public class Character extends Sprite implements Drawable{
 	}
 	public void setMana(int mana){
 	 this.mana = mana;
+	}
+	public void cycleItem(){
+		currentItemindex++;
+		currentItemindex = currentItemindex%itemList.size();
+	}
+
+	public Item getCurrentItem() {
+				return itemList.get(currentItemindex);
+	}
+	public void giveItem(Item item){
+		itemList.add(item);
+	}
+	public void removeItem(int x){
+		itemList.remove(x);
 	}
 
 	

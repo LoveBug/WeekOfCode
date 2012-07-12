@@ -1,16 +1,14 @@
 package map;
 
-
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 import items.Item;
 
-
 import sprites.Character;
 import swarm.ImageWrapper;
 
-public class Hud{
+public class Hud {
 	private Character character;
 	private ArrayList<Item> characterItems;
 	private int coinCount;
@@ -22,44 +20,44 @@ public class Hud{
 	private ImageWrapper bottomLayerimage;
 	private ImageWrapper healthtile;
 	private ImageWrapper manatile;
-	private int BAR_WIDTH;
-	private int BAR_LENGTH;
-	
+	private ImageWrapper weaponImage;
+	private int BAR_WIDTH = 256;
+	private int BAR_LENGTH = 128;
+	private Item selectedItem;
+
 	Hud(Character character, int ScreenX, int ScreenY) {
-		 this.toplayerimage = new ImageWrapper("images/hudLayerTop.png");
-		 this.bottomLayerimage = new ImageWrapper("images/hudLayerBottom.png");
-		 this.healthtile = new ImageWrapper("images/hudRedBlur.png");
-		 this.manatile = new ImageWrapper("images/hudGoldBlur.png");
-		 this.character = character;
-		 this.characterItems = character.getItemList();		
-		 this.characterHealth = character.getHealth();
-		 this.characterMana = character.getMana();
+		this.toplayerimage = new ImageWrapper("images/hudLayerTop.png");
+		this.bottomLayerimage = new ImageWrapper("images/hudLayerBottom.png");
+		this.healthtile = new ImageWrapper("images/hudRedBlur.png");
+		this.manatile = new ImageWrapper("images/hudGoldBlur.png");
+		this.character = character;
+		this.characterItems = character.getItemList();
+		this.characterHealth = character.getHealth();
+		this.characterMana = character.getMana();
+		this.selectedItem = this.character.getCurrentItem();
+		this.weaponImage = this.character.getCurrentItem().getImage();
 	}
-	
-	
 
 	public void update() {
 		coinCount = character.getGold();
 		characterItems = character.getItemList();
 		characterMana = character.getMana();
 		characterHealth = character.getHealth();
-		
+
 	}
-	
-	public void draw(Graphics g){
-		bottomLayerimage.draw(g, ScreenX, ScreenY, 256, 128);
-		for(int i =0; i<characterHealth;i++){
-		healthtile.draw(g, 10+(4*i), 10, 12, 12);
+
+	public void draw(Graphics g) {
+		bottomLayerimage.draw(g, ScreenX, ScreenY, BAR_WIDTH, BAR_LENGTH);
+		for (int i = 0; i < characterHealth; i++) {
+			healthtile.draw(g, 10 + (4 * i), 10, 12, 12);
 		}
-		for(int j =0; j<characterMana;j++){
-		manatile.draw(g, 68+(2*j), 28, 8, 8);
+
+		for (int j = 0; j < characterMana; j++) {
+			manatile.draw(g, 68 + (2 * j), 28, 8, 8);
 		}
 		
-		toplayerimage.draw(g, ScreenX, ScreenY, 256, 128);
-		
-	}	
-	
-	 
-	
-	
+		toplayerimage.draw(g, ScreenX, ScreenY, BAR_WIDTH, BAR_LENGTH);
+		weaponImage.draw(g, ScreenX+2, ScreenY+21, 64, 64);
+	}
+
 }

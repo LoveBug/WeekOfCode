@@ -4,6 +4,10 @@ import sprites.Sprite;
 import map.Map;
 
 public class Item extends Sprite{
+	
+	public Item(int x,int y, int width, int height,String Spritesheet, int spritenumber){
+		super(x, y, width, height, Spritesheet, spritenumber);
+}
 
 	public Item(int x, int y, int width, int height, String runCycle, int frames,int health) {
 		super(x, y, width, height, runCycle, frames, health);
@@ -14,5 +18,6 @@ public class Item extends Sprite{
 		walk(true);
 		super.move(m);
 	}
+	
 	
 }
