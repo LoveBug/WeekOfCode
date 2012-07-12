@@ -13,8 +13,6 @@ public class Cursor {
 	private int gameworldX;
 	private int gameworldY;
 	
-	private final int maxDistance = 5; 
-	
 	private Camera c;
 	
 	private ImageWrapper cursor;

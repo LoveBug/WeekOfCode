@@ -10,14 +10,16 @@ public class Item extends Sprite{
 }
 
 	public Item(int x, int y, int width, int height, String runCycle, int frames,int health) {
-		super(x, y, width, height, runCycle, frames, health);
-		this.setMoveDistance(0);
-			}
+			super(x, y, width, height, runCycle, frames, null, 0, health);
+		setMoveDistance(0);
+	}
 	
 	public void move(Map m){
 		walk(true);
 		super.move(m);
 	}
 	
+	public void jumpMovement(Map m){}
 	
+	public void jump(){}
 }

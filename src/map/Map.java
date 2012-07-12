@@ -1,8 +1,8 @@
 package map;
 
 import java.io.File;
-import java.io.IOException;
 
+import items.Bullet;
 import items.Coin;
 import items.WeaponItem;
 
@@ -10,12 +10,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import sprites.Character;
-import sprites.Enemy;
-import sprites.SpriteSheet;
+import sprites.*;
 import swarm.ImageWrapper;
-import sprites.Sprite;
-import map.Exit;
+import sprites.Character;
 
 import main.Main;
 
@@ -41,6 +38,7 @@ public class Map {
 	private ArrayList<MoveTile> movingTiles = new ArrayList<MoveTile>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	
 	private boolean complete = false;
 	private boolean dead = false;
@@ -75,14 +73,6 @@ public class Map {
 	}
 		
 	public Tile[][] getMap(){return map;}
-	
-	private void readWeapons(){
-
-		for(int i =0; i< 6;i++){	
-			character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
-		}
-
-	}
 
 	private void readmap() {
 		while(scan.hasNext()){
@@ -95,7 +85,7 @@ public class Map {
 
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 
-						entrance = new Sprite(i*BLOCK_SIZE, j*BLOCK_SIZE, 64, 96, "images/doorIn.png", 0);
+						entrance = new SpriteImage(i*BLOCK_SIZE, j*BLOCK_SIZE, 64, 96, "images/doorIn.png", 0);
 
 					}else if(item<0){
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
@@ -134,8 +124,23 @@ public class Map {
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
-				enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2],1));	
-
+						
+						Enemy.Type type = null;
+						switch(item-100){
+						case 0:
+							type = Enemy.Type.WALKER;
+							break;
+						case 1:
+							type = Enemy.Type.FLYER;
+							break;
+						default:
+							throw new RuntimeException("wat?");
+						}
+						if(type!=null)
+							if(type == Enemy.Type.FLYER)
+								enemies.add(new FlyingEnemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2],1));
+							else
+								enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2],1));
 					}else if(item>17){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
@@ -204,6 +209,19 @@ public class Map {
 		}else
 			eCountTick++;
 		
+		ArrayList<Bullet> temp = new ArrayList<Bullet>();
+		
+		for(Bullet b: bullets){
+			b.move(this);
+			if(b.isDestroy()){
+				temp.add(b);
+			}
+		}
+		
+		bullets.removeAll(temp);
+		temp = new ArrayList<Bullet>();
+		
+		
 		//update player
 		this.character.move(this);
 		//update hud
@@ -233,5 +251,13 @@ public class Map {
 
 	public void setDead(boolean dead) {
 		this.dead = dead;
+	}
+
+	public ArrayList<Bullet> getBullets() {
+		return bullets;
+	}
+
+	public void addBullet(Bullet b) {
+		bullets.add(b);
 	}
 }
