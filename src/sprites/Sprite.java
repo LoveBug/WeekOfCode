@@ -5,10 +5,13 @@ import java.awt.Graphics;
 import swarm.Hitbox;
 import swarm.ImageWrapper;
 
+import map.DestTile;
 import map.Map;
+import map.MoveTile;
 
-public class Sprite {
-	private final int FRAMES;
+public abstract class Sprite {
+	public final int FRAMES, JUMP_FRAMES;
+	public static final int FALL_MAX = 16;
 	
 	private ImageWrapper image;
 	private int height;
@@ -19,12 +22,18 @@ public class Sprite {
 	private Hitbox movementBox, shootBox;
 	
 	private boolean direction = true;
-	private SpriteSheet sprites;
+	private SpriteSheet sprites, jSprites;
 	private int moveDistance = 8;
 	private int currentImage = 0;
 	private int health;
 	
+	private float ySpeed, xSpeed;
+	
 	private boolean isWalking = false;
+	private boolean isJumping = false;
+	private boolean isFalling = false;
+	
+	private int maxJump;
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int spritenumber){
 		setMovementBox(new Hitbox(x,y,width,height));
@@ -37,10 +46,12 @@ public class Sprite {
 		setImage(new ImageWrapper(spritenumber, getWidth(), getHeight(), getSpriteSheet()));
 		this.setHealth(health);
 		this.FRAMES = 1;
+		this.JUMP_FRAMES = 0;
 	}
 	
 	
-	public Sprite(int x, int y, int width, int height, String runCycle, int frames, int health){
+	public Sprite(int x, int y, int width, int height, String runCycle, int frames, 
+			String jumpCycle, int jframes, int health){
 		setMovementBox(new Hitbox(x,y,width,height));
 		setShootBox(new Hitbox(0,0,0,0));
 		setX(x);
@@ -48,12 +59,27 @@ public class Sprite {
 		setHeight(height);
 		setWidth(width);
 		setSpriteSheet(runCycle);
+		if(jumpCycle==null)
+			this.jSprites = null;
+		else
+			setJumpSprites(jumpCycle);
 		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
 		this.setHealth(health);
+		
+		this.ySpeed = getMoveDistance();
+		
 		this.FRAMES = frames;
+		this.JUMP_FRAMES = jframes;
 	}
 	
 	public void move(Map map){
+		jumpMovement(map);
+		
+		if(this.xSpeed!=0){
+			setX((int)(getX()+this.xSpeed));
+			this.xSpeed = 0;
+		}
+		
 		if(isWalking){
 			int movement = moveDistance;
 			if(!getDirection()){
@@ -61,7 +87,6 @@ public class Sprite {
 			}
 			
 			setX(getX()+movement);
-			getMovementBox().setX(getX());
 			int x = getX();
 			if(getDirection())
 				x+=getWidth();
@@ -73,9 +98,126 @@ public class Sprite {
 						setX(getX()/32*32+32);
 					break;
 				}
-			getMovementBox().setX(getX());
+			//getMovementBox().setX(getX());
 		}
 	}
+	
+	public void jumpMovement(Map map){
+		if(isJumping){
+			if(getCurrentImage()<(JUMP_FRAMES-2)*getWidth()/Map.BLOCK_SIZE){
+				setCurrentImage(getCurrentImage()+getWidth()/Map.BLOCK_SIZE);
+				updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getJumpSprites()));
+			}
+			
+			if(ySpeed>7)
+				ySpeed -= 0.3;
+			else if(ySpeed>3)
+				ySpeed -= 0.15;
+			else if(ySpeed>1)
+				ySpeed -= 0.05;
+			
+			setY((int)(getY()-ySpeed));
+			if(getY()<maxJump){
+				isJumping = false;  
+				isFalling = true;
+				
+			}else{
+				for(int x=getX(); x<getX()+getWidth(); x++){
+					if(getMovementBox().checkCollision(map.getMap()[x/32][((getY()+10)/32)].getHitbox())){
+						isJumping = false;
+						isFalling = true;
+						ySpeed = getMoveDistance();
+						break;
+					}
+				}
+			}
+		}else{
+			boolean falling = true;
+			MoveTile tile = null;
+			Enemy enemy = null;
+			
+			int x=getX()+5;
+			int end = getX()+getWidth()-10;
+			if(!getDirection()){
+				x=getX()+10;
+				end=getX()+getWidth()-20;
+			}
+			
+			Hitbox temp =new Hitbox(x, getY()+getHeight()-1, getWidth()-10, getHeight()+1); 
+			
+			for(; x<end; x++){
+				if(temp.checkCollision(map.getMap()[x/32][(getY()+getHeight())/32].getHitbox())){
+					falling = false;
+					if(map.getMap()[x/32][(getY()+getHeight())/32] instanceof DestTile)
+						((DestTile)map.getMap()[x/32][(getY()+getHeight())/32]).destroy();
+				}
+			}
+			//check moving tile collision
+			for(MoveTile t : map.movingTiles())
+				if(temp.checkCollision(t.getHitbox()) && getY()+getHeight()+this.ySpeed>=t.getY()){
+					falling = false;
+					tile = t;
+					break;		
+
+				}
+			
+			//check enemy-foot collision
+			if(this instanceof Character){
+				for(Enemy e : map.enemies())
+					if(temp.checkCollision(e.getShootBox()) && getY()+getHeight()+this.ySpeed>=e.getY()){
+						falling = false;
+						enemy = e;
+						break;		
+					}
+			}
+			
+			if(falling)
+				fall();
+			else
+				land(tile, enemy);
+		}
+	}
+	
+	public void fall(){
+		setY((int)(getY()+this.ySpeed));
+		if(ySpeed<0)
+			ySpeed = 0;
+		if(ySpeed<FALL_MAX)
+			if(ySpeed<10)
+				ySpeed+=0.75;
+			else
+				ySpeed+=0.25;
+		if(!isFalling)
+			setCurrentImage(0);
+		isFalling = true;
+		getMovementBox().setY(getY());
+		if(getCurrentImage()<(JUMP_FRAMES-2)*getWidth()/Map.BLOCK_SIZE){
+			setCurrentImage(getCurrentImage()+getWidth()/Map.BLOCK_SIZE);
+			updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), jSprites));
+		}
+	}
+	
+	public void land(MoveTile tile, Enemy enemy){
+		if(this.isFalling){
+			setCurrentImage(0);
+			updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
+		}
+		if(tile!=null){
+			setY(tile.getY()-getHeight());
+			this.ySpeed = tile.getYSpeed();
+			this.xSpeed = tile.getXSpeed();		
+		}else if(enemy!=null){
+			setY(enemy.getY()-getHeight());
+			enemy.damage(1);
+			jump();
+		}else{
+			setY(getY()/32*32);
+			this.ySpeed = 0;
+		}
+		this.isFalling = false;
+	}
+	
+	public abstract void jump();
 	
 	public void draw(Graphics g){
 		image.draw(g, x, y, width, height);
@@ -120,10 +262,16 @@ public class Sprite {
 	public void setShootBox(Hitbox shootBox) {this.shootBox = shootBox;}
 	public void setDirection(boolean d) {this.direction = d;}
 	public void setSpriteSheet(String s) {this.sprites = new SpriteSheet(s);}
+	public void setJumpSprites(String s) {this.jSprites = new SpriteSheet(s);}
 	public void setSpriteSheet(SpriteSheet s) {this.sprites = s;}
+	public void setJumpSprites(SpriteSheet s) {this.jSprites = s;}
 	public void setMoveDistance(int m) {this.moveDistance = m;}
 	public void setCurrentImage(int c) {this.currentImage = c;}
 	public void setWalking(boolean w) {this.isWalking = w;}
+	public void setJumping(boolean j) {this.isJumping = j;}
+	public void setFalling(boolean f) {this.isJumping = f;}
+	public void setJumpHeight(int j) {this.maxJump = j;}
+	public void setYSpeed(float s) {this.ySpeed = s;}
 	public void setHealth(int health) {this.health = health;}
 	
 	//------------------GETTERS----------------------------
@@ -136,10 +284,15 @@ public class Sprite {
 	public Hitbox getShootBox() {return this.shootBox;}
 	public boolean getDirection() {return this.direction;}	
 	public SpriteSheet getSpriteSheet() {return this.sprites;}
+	public SpriteSheet getJumpSprites() {return this.jSprites;}
 	public int getMoveDistance() {return this.moveDistance;}
 	public int getCurrentImage() {return this.currentImage;}
 	public boolean isWalking() {return this.isWalking;}
-	public int getHealth() {	return health;}
+	public boolean isJumping() {return this.isJumping;}
+	public boolean isFalling() {return this.isFalling;}
+	public int getJumpHeight() {return this.maxJump;}
+	public float getYSpeed() {return this.ySpeed;}
+	public int getHealth() {return health;}
 
 	
 }

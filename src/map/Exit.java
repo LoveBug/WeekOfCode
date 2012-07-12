@@ -1,7 +1,5 @@
 package map;
 
-import java.awt.Graphics;
-
 import sprites.Sprite;
 
 public class Exit extends Sprite{
@@ -11,5 +9,6 @@ public class Exit extends Sprite{
 		super(x, y, width, height, runCycle, spritenumber);
 	}
 	
+	public void jump(){}
 	
 }
