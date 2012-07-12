@@ -68,7 +68,7 @@ public class Map {
 			e.printStackTrace();
 		}
 
-		readWeapons();
+		//readWeapons();
 		enemyTicks = Main.FPS/6;
 
 		hud = new Hud(character,0,0);
@@ -78,9 +78,9 @@ public class Map {
 	
 	private void readWeapons(){
 
-		/*for(int i =0; i< 6;i++){	
+		for(int i =0; i< 6;i++){	
 			character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
-		}*/
+		}
 
 	}
 
@@ -108,13 +108,28 @@ public class Map {
 					}else if(item>199){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
+						WeaponItem.Type type = null;
 						switch(item - 200){
 						case 0:
 							items.add(new Coin(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32, "images/pickupCoin.png", 4));
 							break;
+						case 1:
+							type = WeaponItem.Type.SWORD;
+							break;
+						case 2:
+							type = WeaponItem.Type.MACE;
+							break;
+						case 3:
+							type = WeaponItem.Type.PISTOL;
+							break;
+						case 4:
+							type = WeaponItem.Type.CROSSBOW;
+							break;
 						default:
-							items.add(new WeaponItem(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32,"images/hudWeapons.png" ,item-201));
-							
+							throw new RuntimeException("wat?");
+						}
+						if (type != null) {
+							items.add(new WeaponItem(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32,"images/hudWeapons.png", type));
 						}
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
