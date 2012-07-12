@@ -19,7 +19,7 @@ public class Hitbox{
 		if(box==null)
 			return false;
 		if((box.x > x && box.x < x + width) ||(box.x + box.width > x && box.x + box.width < x + width)){
-			if((box.y > y && box.y < y + height) || (box.y+box.height > y  && box.height<box.y+box.height)){
+			if((box.y > y && box.y < y + height) ||(box.y + box.height > y && box.y + box.height < y + height)){
 				return true;
 			}
 		}
