@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import sprites.Enemy;
 import swarm.ImageWrapper;
+import items.Bullet;
 import items.Item;
 import map.Map;
 import map.MoveTile;
@@ -91,6 +92,9 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		
 		for(Item i: map.items())
 			i.draw(g);
+		
+		for(Bullet b: map.getBullets())
+			b.draw(g);
 		
 		map.getEntrance().draw(g);
 		map.getExit().draw(g);
@@ -203,7 +207,9 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		Bullet b = new Bullet(map.getCharacter().getX() + 45, map.getCharacter().getY() + 48, 32, 32,
+							 "images/projectileBullet.png", 0, cursor.getGameworldX(), cursor.getGameworldY());
+		map.addBullet(b);
 		
 	}
 
