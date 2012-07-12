@@ -90,6 +90,7 @@ public abstract class Sprite {
 			int x = getX();
 			if(getDirection())
 				x+=getWidth();
+			
 			for(int y=getY()+5; y<getY()+getHeight()-10; y++)
 				if(getMovementBox().checkCollision(map.getMap()[x/32][y/32].getHitbox())){
 					if(getDirection())

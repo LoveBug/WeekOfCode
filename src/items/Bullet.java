@@ -96,4 +96,6 @@ public class Bullet extends Sprite{
 	public boolean isDestroy() {
 		return destroy;
 	}
+	
+	public void jump(){}
 }

@@ -144,9 +144,21 @@ public class Map {
 					}else if(item>17){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
-						movingTiles.add(new MoveTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
+						int up = scan.nextInt();
+						int right = scan.nextInt();
+						int down = j;
+						int left = i;
+						if(up<0){
+							down += up;
+							up *= -1;
+						}
+						if(right<0){
+							left += right;
+							right *= -1;
+						}
+						movingTiles.add(new MoveTile(BLOCK_SIZE, BLOCK_SIZE, left*BLOCK_SIZE, down*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(item-17, BLOCK_SIZE, BLOCK_SIZE, worldSprites),
-								j*BLOCK_SIZE, (j-10)*BLOCK_SIZE, 4, i*BLOCK_SIZE, (i+10)*BLOCK_SIZE, 4));																//minus 17 as dont want access to moving background tiles
+								(down+up)*BLOCK_SIZE, (left+right)*BLOCK_SIZE));																//minus 17 as dont want access to moving background tiles
 					}else{
 						ImageWrapper imgwrap = new ImageWrapper(item, BLOCK_SIZE, BLOCK_SIZE, worldSprites);
 						if(item==0)

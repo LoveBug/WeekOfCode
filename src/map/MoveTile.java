@@ -7,31 +7,18 @@ import swarm.ImageWrapper;
 public class MoveTile extends Tile{
 	private int upper,lower,left,right;
 	private int xspeed, yspeed;
-	
-	public MoveTile(int height, int width, int x, int y, int depth,
-			ImageWrapper image, boolean vertical, int upperBound, int lowerBound, int speed) {
+		
+	public MoveTile(int height, int width, int x, int y, int depth, ImageWrapper image, 
+			int upperBound, int rightBound) {
 		super(height, width, x, y, depth, image);
-		if(vertical){
-			upper = upperBound;
-			lower = lowerBound;
-			yspeed = speed;
-		}else{
-			right = lowerBound;
-			left = upperBound;
-			xspeed = speed;
-		}
-	}
-	
-	public MoveTile(int height, int width, int x, int y, int depth,
-			ImageWrapper image, int upperBound, int lowerBound, int yspeed,
-			int leftBound, int rightBound, int xspeed) {
-		super(height, width, x, y, depth, image);
+		lower = y;
+		left = x;
 		upper = upperBound;
-		lower = lowerBound;
-		this.yspeed = yspeed;
-		left = leftBound;
 		right = rightBound;
-		this.xspeed = xspeed;
+		if(lower!=upper)
+			this.yspeed = 4;
+		if(right!=left)
+			this.xspeed = 4;
 	}
 	
 	public void move(){
