@@ -268,9 +268,11 @@ public class Character extends Sprite implements Drawable{
 	 this.mana = mana;
 	}
 	public void cycleItem(){
+		if(itemList.size()!=0){
 		currentItemindex++;
 		currentItemindex = currentItemindex%itemList.size();
-	}
+		}
+		}
 
 	public Item getCurrentItem() {
 		if(itemList.size() == 0){

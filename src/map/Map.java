@@ -67,7 +67,7 @@ public class Map {
 			e.printStackTrace();
 		}
 
-		readWeapons();
+		//readWeapons();
 		enemyTicks = Main.FPS/6;
 
 		hud = new Hud(character,0,0);
