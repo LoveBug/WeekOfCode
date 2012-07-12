@@ -123,16 +123,14 @@ public class Character extends Sprite implements Drawable{
 			MoveTile tile = null;
 			Enemy enemy = null;
 			
-			int x=getX()+20;
+			int x=getX()+5;
 			int end = getX()+getWidth()-10;
 			if(!getDirection()){
 				x=getX()+10;
 				end=getX()+getWidth()-20;
 			}
 			
-			Hitbox temp = new Hitbox(getMovementBox().getX(), 
-					getMovementBox().getY()+getMovementBox().getHeight()-5,
-					getMovementBox().getWidth(), getMovementBox().getY()+getMovementBox().getHeight()+1);
+			Hitbox temp =new Hitbox(x, getY()+getHeight()-1, getWidth()-10, getHeight()+1); 
 			
 			for(; x<end; x++){
 				if(temp.checkCollision(map.getMap()[x/32][(getY()+getHeight())/32].getHitbox())){
@@ -151,11 +149,16 @@ public class Character extends Sprite implements Drawable{
 			
 			//check enemy-foot collision
 			for(Enemy e : map.enemies())
-				if(temp.checkCollision(e.getMovementBox()) && getY()+getHeight()+this.ySpeed>=e.getY()){
+				if(temp.checkCollision(e.getShootBox()) && getY()+getHeight()+this.ySpeed>=e.getY()){
 					falling = false;
 					enemy = e;
+					System.out.println("ShotBoxX: " + e.getShootBox().getX() + " Y: " + e.getShootBox().getY());
+					System.out.println("You x: " + this.getX() + " y: " + this.getY());
 					break;
+					
 				}
+			
+			
 			
 			if(enemy != null){
 				map.enemies().remove(enemy);
