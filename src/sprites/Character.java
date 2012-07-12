@@ -259,10 +259,12 @@ public class Character extends Sprite implements Drawable{
 	}
 	public void cycleItem(){
 		currentItemindex++;
+		
 		currentItemindex = currentItemindex%itemList.size();
 	}
 
 	public Item getCurrentItem() {
+		
 				return itemList.get(currentItemindex);
 	}
 	public void giveItem(Item item){

@@ -28,6 +28,7 @@ public class Sprite {
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int spritenumber){
 		setMovementBox(new Hitbox(x,y,height,width));
+		setShootBox(new Hitbox(0,0,0,0));
 		setX(x);
 		setY(y);
 		setHeight(height);

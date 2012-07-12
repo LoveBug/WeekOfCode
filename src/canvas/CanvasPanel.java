@@ -34,6 +34,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	private boolean upKeyPressed;
 	
 	private ImageWrapper bg;
+	private boolean weaponSwitchKeyPressed;
 
 	// private boolean downKeyPressed; for later when droppng through blocks
 
@@ -115,7 +116,12 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		} else if (e.getKeyCode() == KeyEvent.VK_UP
 				|| e.getKeyCode() == KeyEvent.VK_W) {
 			upKeyPressed = true;
+		}else if (e.getKeyCode() == KeyEvent.VK_Q) {
+			System.out.println("Hiii");
+			 weaponSwitchKeyPressed = true;
+			
 		}
+		
 		/*
 		 * else if(e.getKeyCode()==KeyEvent.VK_DOWN ||
 		 * e.getKeyCode()==KeyEvent.VK_A) { downKeyPressed = true; }
@@ -137,6 +143,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		}else if(e.getKeyCode()== KeyEvent.VK_ESCAPE){
 			System.exit(0);
 			
+		}else if (e.getKeyCode() == KeyEvent.VK_Q) {
+			System.out.println("Stop that");
+			 weaponSwitchKeyPressed = false;
+			
 		}
 		/*
 		 * else if(e.getKeyCode()==KeyEvent.VK_DOWN ||
@@ -157,6 +167,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		}
 		if (upKeyPressed) {
 			map.getCharacter().jump();
+		}
+		if(weaponSwitchKeyPressed){
+			System.out.println("you pretty devil");
+			map.getCharacter().cycleItem();
 		}
 		/*
 		 * if(downKeyPressed2) {
