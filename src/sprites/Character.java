@@ -1,6 +1,8 @@
 package sprites;
 
+import items.Coin;
 import items.Item;
+import items.WeaponItem;
 
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class Character extends Sprite implements Drawable{
 	
 	//Item feilds
 	private int gold = 0;
-	private ArrayList<Item> itemList; 
+	private ArrayList<Item> itemList = new ArrayList<Item>(); 
 	private int mana;
 	private int currentItemindex=0;
 	
@@ -220,6 +222,13 @@ public class Character extends Sprite implements Drawable{
 				temp.add(i);
 			}
 		}
+		for(Item i: temp){
+			if (i instanceof WeaponItem){
+				itemList.add(i);
+			}else if(i instanceof Coin){
+				gold++;
+			}
+		}
 		
 		m.items().removeAll(temp);
 	}
@@ -259,12 +268,13 @@ public class Character extends Sprite implements Drawable{
 	}
 	public void cycleItem(){
 		currentItemindex++;
-		
 		currentItemindex = currentItemindex%itemList.size();
 	}
 
 	public Item getCurrentItem() {
-		
+		if(itemList.size() == 0){
+			return null;
+		}
 				return itemList.get(currentItemindex);
 	}
 	public void giveItem(Item item){

@@ -58,7 +58,9 @@ public class Hud {
 		}
 		
 		toplayerimage.draw(g, ScreenX, ScreenY, BAR_WIDTH, BAR_LENGTH);
+		if(selectedItem !=null){
 		selectedItem.getImage().draw(g, ScreenX+2, ScreenY+21, 64, 64);
-	}
+		}
+		}
 
 }

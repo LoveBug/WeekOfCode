@@ -3,6 +3,8 @@ package map;
 import java.io.File;
 
 import items.Coin;
+import items.WeaponItem;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -67,12 +69,9 @@ public class Map {
 	public Tile[][] getMap(){return map;}
 	
 	private void readWeapons(){
-		for(int i =0; i< 6;i++){
-		
-		
-		
-		character.getItemList().add(new Item(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
-		}
+		//for(int i =0; i< 6;i++){
+		//character.getItemList().add(new WeaponItem(i*BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE,"images/hudWeapons.png", i));
+		//}
 	}
 
 	private void readmap() {
@@ -102,6 +101,10 @@ public class Map {
 						switch(item - 200){
 						case 0:
 							items.add(new Coin(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32, "images/pickupCoin.png", 4));
+							break;
+						default:
+							items.add(new WeaponItem(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32,"images/hudWeapons.png" ,item-201));
+							
 						}
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,

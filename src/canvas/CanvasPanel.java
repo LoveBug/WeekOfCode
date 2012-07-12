@@ -120,7 +120,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 				|| e.getKeyCode() == KeyEvent.VK_W) {
 			upKeyPressed = true;
 		}else if (e.getKeyCode() == KeyEvent.VK_Q) {
-			System.out.println("Hiii");
+			
 			 weaponSwitchKeyPressed = true;
 			
 		}
@@ -147,7 +147,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			System.exit(0);
 			
 		}else if (e.getKeyCode() == KeyEvent.VK_Q) {
-			System.out.println("Stop that");
+			
 			 weaponSwitchKeyPressed = false;
 			
 		}
@@ -172,7 +172,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			map.getCharacter().jump();
 		}
 		if(weaponSwitchKeyPressed){
-			System.out.println("you pretty devil");
+			
 			map.getCharacter().cycleItem();
 			weaponSwitchKeyPressed = false;
 		}
