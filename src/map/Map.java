@@ -3,6 +3,7 @@ package map;
 import java.io.File;
 import java.io.IOException;
 
+import items.Bullet;
 import items.Coin;
 import items.WeaponItem;
 
@@ -41,6 +42,7 @@ public class Map {
 	private ArrayList<MoveTile> movingTiles = new ArrayList<MoveTile>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	
 	private boolean complete = false;
 	private boolean dead = false;
@@ -204,6 +206,19 @@ public class Map {
 		}else
 			eCountTick++;
 		
+		ArrayList<Bullet> temp = new ArrayList<Bullet>();
+		
+		for(Bullet b: bullets){
+			b.move(this);
+			if(b.isDestroy()){
+				temp.add(b);
+			}
+		}
+		
+		bullets.removeAll(temp);
+		temp = new ArrayList<Bullet>();
+		
+		
 		//update player
 		this.character.move(this);
 		//update hud
@@ -233,5 +248,13 @@ public class Map {
 
 	public void setDead(boolean dead) {
 		this.dead = dead;
+	}
+
+	public ArrayList<Bullet> getBullets() {
+		return bullets;
+	}
+
+	public void addBullet(Bullet b) {
+		bullets.add(b);
 	}
 }
