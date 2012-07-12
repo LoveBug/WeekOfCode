@@ -23,6 +23,7 @@ public class Main implements ActionListener{
 	private Timer t;
 	
 	private ArrayList<String> mapsArray = new ArrayList<String>();
+	Sprite.
 	private int mapCount = 0;
 	
 	public Main()
@@ -44,8 +45,11 @@ public class Main implements ActionListener{
 			changeMap();
 		}
 		if(map.isComplete()){
-			mapCount++;
-			changeMap();
+			this.mapCount++;
+			if(mapCount<this.mapsArray.size())
+				changeMap();
+			else
+				win();
 		}
 		map.update();
 		canvas.repaint();
@@ -72,6 +76,9 @@ public class Main implements ActionListener{
 		canvas = new Canvas(map);
 	}
 	
-	
+	private void win(){
+		System.out.println("WIN!");
+		
+	}
 
 }
