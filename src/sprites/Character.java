@@ -156,8 +156,6 @@ public class Character extends Sprite implements Drawable{
 				if(temp.checkCollision(e.getShootBox()) && getY()+getHeight()+this.ySpeed>=e.getY()){
 					falling = false;
 					enemy = e;
-					System.out.println("ShotBoxX: " + e.getShootBox().getX() + " Y: " + e.getShootBox().getY());
-					System.out.println("You x: " + this.getX() + " y: " + this.getY());
 					break;
 					
 				}
@@ -205,7 +203,7 @@ public class Character extends Sprite implements Drawable{
 			this.xSpeed = tile.getXSpeed();		
 		}else if(enemy!=null){
 			setY(enemy.getY()-getHeight());
-			System.out.println("I straight up murdered " + enemy);
+			enemy.damage(1);
 			jump();
 		}else{
 			setY(getY()/32*32);
