@@ -45,6 +45,7 @@ public class Character extends Sprite implements Drawable{
 		
 
 		super(x,y,width,height,runCycle, 8, health);
+		setShootBox(new Hitbox(getX()+getWidth()/4, getY()+getHeight()/4, getWidth()/2, getHeight()/2));
 		mana = 75;
 		
 		this.jumpSprite = new SpriteSheet("images/playerJump.png");
@@ -52,7 +53,7 @@ public class Character extends Sprite implements Drawable{
 
 
 		this.ySpeed = getMoveDistance();
-		setItemList(new 	ArrayList<Item>());
+		setItemList(new ArrayList<Item>());
 	}
 	
 	public void walk(boolean direction){
@@ -76,7 +77,7 @@ public class Character extends Sprite implements Drawable{
 		
 		checkCoinCollision(map);
 		
-		if(this.getMovementBox().checkCollision(map.getExit().getMovementBox())){
+		if(this.getShootBox().checkCollision(map.getExit().getMovementBox())){
 			map.setComplete(true);
 		}
 		
@@ -279,6 +280,14 @@ public class Character extends Sprite implements Drawable{
 		itemList.remove(x);
 	}
 
+	public void setX(int x) {
+		super.setX(x);
+		getShootBox().setX(super.getX()+getWidth()/4);
+	}
+	public void setY(int y) {
+		super.setY(y);
+		getShootBox().setY(super.getY()+getHeight()/4);
+	}
 	
 		
 	
