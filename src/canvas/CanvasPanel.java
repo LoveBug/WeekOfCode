@@ -89,6 +89,9 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		
 		for(Item i: map.items())
 			i.draw(g);
+		
+		map.getEntrance().draw(g);
+		map.getExit().draw(g);
 	
 		map.getCharacter().draw(g);
 			

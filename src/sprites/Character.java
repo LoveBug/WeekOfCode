@@ -77,6 +77,10 @@ public class Character extends Sprite implements Drawable{
 		
 		checkCoinCollision(map);
 		
+		if(this.getMovementBox().checkCollision(map.getExit().getMovementBox())){
+			System.out.println("You win Mofo");
+		}
+		
 		if(!isWalking() && !isJumping){
 			if(turnCounter<0){
 				setCurrentImage(0);
@@ -157,8 +161,6 @@ public class Character extends Sprite implements Drawable{
 					break;
 					
 				}
-			
-			
 			
 			if(enemy != null){
 				map.enemies().remove(enemy);
