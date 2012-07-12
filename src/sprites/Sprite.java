@@ -28,13 +28,13 @@ public class Sprite {
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int frames, int health){
 		setMovementBox(new Hitbox(x,y,height,width));
+		setShootBox(new Hitbox(0,0,0,0));
 		setX(x);
 		setY(y);
 		setHeight(height);
 		setWidth(width);
 		setSpriteSheet(runCycle);
 		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
-		setMovementBox(new Hitbox(x, y, getWidth(), getHeight()));
 		this.setHealth(health);
 		this.FRAMES = frames;
 	}
@@ -93,10 +93,12 @@ public class Sprite {
 	public void setX(int x) {
 		this.x = x;
 		this.movementBox.setX(x);
+		this.shootBox.setX(x);
 	}
 	public void setY(int y) {
 		this.y = y;
 		this.movementBox.setY(y);
+		this.shootBox.setY(y);
 	}
 	public void setHeight(int h) {this.height = h;}
 	public void setWidth(int w) {this.width = w;}
