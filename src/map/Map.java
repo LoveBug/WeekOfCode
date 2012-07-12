@@ -85,7 +85,9 @@ public class Map {
 						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 64, 96, "images/playerWalk.png",60);
 
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
+
 						entrance = new Sprite(i*BLOCK_SIZE, j*BLOCK_SIZE, 64, 96, "images/doorIn.png", 0);
+
 					}else if(item<0){
 						map[i][j] = new DestTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE, TILE_DEPTH, 
 								new ImageWrapper(item*-1, BLOCK_SIZE, BLOCK_SIZE, worldSprites), 

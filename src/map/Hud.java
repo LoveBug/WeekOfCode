@@ -35,7 +35,7 @@ public class Hud {
 		this.characterHealth = character.getHealth();
 		this.characterMana = character.getMana();
 		this.selectedItem = this.character.getCurrentItem();
-		this.weaponImage = this.character.getCurrentItem().getImage();
+		
 	}
 
 	public void update() {
@@ -43,6 +43,7 @@ public class Hud {
 		characterItems = character.getItemList();
 		characterMana = character.getMana();
 		characterHealth = character.getHealth();
+		selectedItem = character.getCurrentItem();
 
 	}
 
@@ -57,7 +58,7 @@ public class Hud {
 		}
 		
 		toplayerimage.draw(g, ScreenX, ScreenY, BAR_WIDTH, BAR_LENGTH);
-		weaponImage.draw(g, ScreenX+2, ScreenY+21, 64, 64);
+		selectedItem.getImage().draw(g, ScreenX+2, ScreenY+21, 64, 64);
 	}
 
 }
