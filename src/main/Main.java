@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 import javax.swing.Timer;
 
+import swarm.ImageWrapper;
+
 import canvas.Canvas;
 
 import map.Map;
@@ -23,11 +25,14 @@ public class Main implements ActionListener{
 	private Timer t;
 	
 	private ArrayList<String> mapsArray = new ArrayList<String>();
-	Sprite.
+	ImageWrapper winImage;
 	private int mapCount = 0;
+	
+	private boolean hasWon = false;
 	
 	public Main()
 	{
+		winImage = new ImageWrapper("images/splashVictory.png");
 		readMaps();
 		changeMap();
 		this.tick = 1000/FPS;
@@ -51,7 +56,8 @@ public class Main implements ActionListener{
 			else
 				win();
 		}
-		map.update();
+		if(!hasWon)
+			map.update();
 		canvas.repaint();
 	}
 	
@@ -77,8 +83,8 @@ public class Main implements ActionListener{
 	}
 	
 	private void win(){
-		System.out.println("WIN!");
-		
+		canvas.setImage(winImage);
+		this.hasWon = true;
 	}
 
 }
