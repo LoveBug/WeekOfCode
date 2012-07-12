@@ -33,9 +33,6 @@ public class Character extends Sprite implements Drawable{
 	private float ySpeed;
 	private float xSpeed = 0;
 	
-
-	
-	//Item feilds
 	private int gold = 0;
 	private ArrayList<Item> itemList = new ArrayList<Item>(); 
 	private int mana;
@@ -161,11 +158,6 @@ public class Character extends Sprite implements Drawable{
 					break;
 					
 				}
-			
-			if(enemy != null){
-				map.enemies().remove(enemy);
-			}
-			
 			
 			if(falling)
 				fall();

@@ -43,6 +43,7 @@ public class Map {
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
 	private boolean complete = false;
+	private boolean dead = false;
 	
 	private int[][] enemyFrames = {{BLOCK_SIZE*2, BLOCK_SIZE*2, 8}, {BLOCK_SIZE, BLOCK_SIZE, 5}};
 	
@@ -174,8 +175,18 @@ public class Map {
 		//update enemies
 		if(eCountTick >= enemyTicks){
 			eCountTick = 0;
-			for(Enemy e : enemies)
-				e.move(this);
+			
+			ArrayList<Enemy> temp = new ArrayList<Enemy>();
+			
+			for(Enemy e : enemies){
+				if(e.getHealth() < 0)
+					temp.add(e);
+				else
+					e.move(this);
+			}
+			
+			enemies = temp;
+			temp = new ArrayList<Enemy>();
 		}else
 			eCountTick++;
 		
@@ -200,5 +211,13 @@ public class Map {
 
 	public void setComplete(boolean complete) {
 		this.complete = complete;
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 }

@@ -40,6 +40,9 @@ public class Main implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(map.getCharacter().getHealth() < 0){
+			changeMap();
+		}
 		if(map.isComplete()){
 			mapCount++;
 			changeMap();

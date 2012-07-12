@@ -11,4 +11,5 @@ public class Exit extends Sprite{
 		super(x, y, width, height, runCycle, spritenumber);
 	}
 	
+	
 }
