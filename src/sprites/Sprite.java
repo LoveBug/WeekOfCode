@@ -27,7 +27,7 @@ public class Sprite {
 	private boolean isWalking = false;
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int spritenumber){
-		setMovementBox(new Hitbox(x,y,height,width));
+		setMovementBox(new Hitbox(x,y,width,height));
 		setShootBox(new Hitbox(0,0,0,0));
 		setX(x);
 		setY(y);
@@ -41,7 +41,7 @@ public class Sprite {
 	
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int frames, int health){
-		setMovementBox(new Hitbox(x,y,height,width));
+		setMovementBox(new Hitbox(x,y,width,height));
 		setShootBox(new Hitbox(0,0,0,0));
 		setX(x);
 		setY(y);
@@ -79,6 +79,8 @@ public class Sprite {
 	
 	public void draw(Graphics g){
 		image.draw(g, x, y, width, height);
+		movementBox.draw(g);
+		shootBox.draw(g);
 	}
 	
 	public void updateImage(ImageWrapper i){

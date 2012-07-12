@@ -1,5 +1,8 @@
 package swarm;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Hitbox{
 	private int width;
 	private int height;
@@ -60,8 +63,13 @@ public class Hitbox{
 	public int getY() {
 		return y;
 	}
-
+	
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void draw(Graphics g){
+		g.setColor(Color.RED);
+		g.drawRect(this.x, this.y, this.width, this.height);
 	}
 }
