@@ -81,7 +81,6 @@ public class Character extends Sprite implements Drawable{
 		
 		if(this.getMovementBox().checkCollision(map.getExit().getMovementBox())){
 			map.setComplete(true);
-			System.out.println("You win Mofo");
 		}
 		
 		if(!isWalking() && !isJumping){
@@ -228,6 +227,7 @@ public class Character extends Sprite implements Drawable{
 				itemList.add(i);
 			}else if(i instanceof Coin){
 				gold++;
+				System.out.println("Your gold is: "+ gold);
 			}
 		}
 		
