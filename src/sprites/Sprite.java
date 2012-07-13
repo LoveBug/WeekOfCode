@@ -247,8 +247,8 @@ public abstract class Sprite {
 	
 	public void draw(Graphics g){
 		image.draw(g, x, y, width, height);
-		movementBox.draw(g);
-		shootBox.draw(g);
+		//movementBox.draw(g);
+		//shootBox.draw(g);
 	}
 	
 	public void updateImage(ImageWrapper i){
