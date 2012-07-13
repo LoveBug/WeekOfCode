@@ -62,7 +62,7 @@ public class WeaponItem extends Item {
 				previousFrame = frames;
 				break;
 			default:
-				System.out.println("We hit default");
+				break;
 
 			}
 			previousFrame = frames;
