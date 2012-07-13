@@ -30,7 +30,7 @@ public class WeaponItem extends Item {
 			fireRate = 90;
 			break;
 		case PISTOL:
-			fireRate = 20;
+			fireRate = 0;
 			break;
 		default:
 			fireRate = 0;
