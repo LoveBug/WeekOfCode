@@ -144,7 +144,7 @@ public class Character extends Sprite implements Drawable{
 		if(itemList.size() == 0){
 			return null;
 		}
-				return itemList.get(currentItemindex);
+		return itemList.get(currentItemindex);
 	}
 	public void giveItem(Item item){
 		itemList.add(item);
@@ -163,12 +163,13 @@ public class Character extends Sprite implements Drawable{
 	}
 
 	public WeaponItem getCurrentWeapon() {
-		if(getCurrentItem() instanceof WeaponItem)
+		if(getCurrentItem() instanceof WeaponItem){
+			System.out.println("Current weapon returned as"+ getCurrentItem());
 			return (WeaponItem)getCurrentItem();
+		}
 		return null;
 	}
 	
-		
 	
 	
 	

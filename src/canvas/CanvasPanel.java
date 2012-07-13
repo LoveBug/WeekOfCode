@@ -40,6 +40,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	private static final int blockSize = 32;
 	
+	private int frames = 0;
+	
 
 	public CanvasPanel(Map m) {
 		setPreferredSize(new Dimension(1024, 768));
@@ -65,6 +67,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	}
 
 	public void paint(Graphics g) {
+		frames++;
 		g.drawImage(bg.getImage(), 0, 0, null);
 		if(map!=null){
 			g.translate(-cam.getX(), -cam.getY());
@@ -179,12 +182,17 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		if(weaponFired){
 
 			if(map.getCharacter().getCurrentWeapon() != null){
+				
 				Bullet b;
-				if(cursor.getX() > map.getCharacter().getX())
-					b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX() + 35, map.getCharacter().getY() + 40, cursor.getGameworldX(), cursor.getGameworldY());
+				if(cursor.getGameworldX() > map.getCharacter().getX())
+					b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX() + 38,
+							map.getCharacter().getY() + 40, cursor.getGameworldX(), cursor.getGameworldY(), frames);
 				else
-					b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX(), map.getCharacter().getY() + 40, cursor.getGameworldX(), cursor.getGameworldY());
-				map.addBullet(b);
+					b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX(), 
+							map.getCharacter().getY() + 40, cursor.getGameworldX(), cursor.getGameworldY(), frames);
+				
+				if(b != null)
+					map.addBullet(b);
 			}
 		}
 
