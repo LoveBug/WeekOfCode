@@ -2,6 +2,7 @@ package sprites;
 
 import items.Coin;
 
+import items.Heart;
 import items.Item;
 import items.WeaponItem;
 
@@ -29,8 +30,6 @@ public class Character extends Sprite implements Drawable{
 	
 	public Character(int x, int y, int width, int height, String runCycle, int health)
 	{
-		
-
 		super(x,y,width,height,runCycle, 8, "images/playerJump.png", 5, health);
 		setShootBox(new Hitbox(getX()+getWidth()/4, getY()+getHeight()/4, getWidth()/2, getHeight()/2));
 		mana = 75;
@@ -84,10 +83,17 @@ public class Character extends Sprite implements Drawable{
 				gold++;
 				System.out.println("Your gold is: "+ gold);
 			}
+			else if(i instanceof Heart){
+				if(getHealth() + 0.3*maxHealth < maxHealth)
+					this.damage(-(int)(maxHealth*0.3));
+				else
+					setHealth(maxHealth);
+			}
 		}
 		
 		m.items().removeAll(temp);
 	}
+	
 	
 	public void jump()
 	{

@@ -4,6 +4,7 @@ import java.io.File;
 
 import items.Bullet;
 import items.Coin;
+import items.Heart;
 import items.WeaponItem;
 
 import java.io.FileNotFoundException;
@@ -107,6 +108,9 @@ public class Map {
 							break;
 						case 4:
 							type = WeaponItem.Type.CROSSBOW;
+							break;
+						case 5:
+							items.add(new Heart(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32, "images/pickupHeart.png", 4));
 							break;
 						default:
 							throw new RuntimeException("wat?");
