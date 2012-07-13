@@ -22,6 +22,7 @@ public class Character extends Sprite implements Drawable{
 	private ArrayList<Item> itemList = new ArrayList<Item>(); 
 	private int mana;
 	private int currentItemindex=0;
+	private int maxHealth;
 	
 	private SpriteSheet stationarySprite;
 	
@@ -32,7 +33,7 @@ public class Character extends Sprite implements Drawable{
 		super(x,y,width,height,runCycle, 8, "images/playerJump.png", 5, health);
 		setShootBox(new Hitbox(getX()+getWidth()/4, getY()+getHeight()/4, getWidth()/2, getHeight()/2));
 		mana = 75;
-		
+		maxHealth = health;
 		this.stationarySprite = new SpriteSheet("images/playerStand.png");
 		setItemList(new ArrayList<Item>());
 	}
@@ -46,7 +47,9 @@ public class Character extends Sprite implements Drawable{
 	
 	public void move(Map map)
 	{	
+		boolean temp = isWalking();
 		super.move(map); 
+		setWalking(temp);
 		
 		checkCoinCollision(map);
 		
@@ -115,6 +118,15 @@ public class Character extends Sprite implements Drawable{
 		// TODO Auto-generated method stub
 		return mana;
 	}
+	
+	public int getMaxHealth(){
+		return this.maxHealth;
+	}
+	
+	public void setmaxHealth(int i){
+		this.maxHealth = i;
+	}
+	
 	public void setMana(int mana){
 	 this.mana = mana;
 	}

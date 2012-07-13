@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.swing.Timer;
 
 import swarm.ImageWrapper;
+import sprites.Character;
 
 import canvas.Canvas;
 
@@ -51,10 +52,13 @@ public class Main implements ActionListener{
 		}
 		if(map.isComplete()){
 			this.mapCount++;
+			Character p = map.getCharacter();
 			if(mapCount<this.mapsArray.size())
 				changeMap();
 			else
 				win();
+			map.getCharacter().setItemList(p.getItemList());
+			map.getCharacter().setGold(p.getGold());
 		}
 		if(!hasWon)
 			map.update();
