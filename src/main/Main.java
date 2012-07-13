@@ -27,7 +27,7 @@ public class Main implements ActionListener{
 	
 	private ArrayList<String> mapsArray = new ArrayList<String>();
 	ImageWrapper winImage;
-	private int mapCount = 3;
+	private int mapCount = 0;
 	
 	private boolean hasWon = false;
 	
