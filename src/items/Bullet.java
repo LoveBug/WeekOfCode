@@ -14,6 +14,8 @@ public class Bullet extends Sprite{
 	private int directionX;
 	private int directionY;
 	
+	private double fireSpeed = 20.0;
+	
 	private boolean destroy = false;
 
 	public Bullet(int x, int y, int width, int height, String runCycle,
@@ -29,8 +31,8 @@ public class Bullet extends Sprite{
 		double unnormalY = dirY - startY;
 		
 		double speed = Math.sqrt((unnormalX*unnormalX) + (unnormalY*unnormalY));
-		setSpeedX((int) (20.0*(unnormalX)/speed));
-		setSpeedY((int) (20.0*(unnormalY)/speed));
+		setSpeedX((int) (fireSpeed*(unnormalX)/speed));
+		setSpeedY((int) (fireSpeed*(unnormalY)/speed));
 	}
 	
 	@Override
@@ -46,7 +48,7 @@ public class Bullet extends Sprite{
 		int x = getX();
 		if(dirX)
 			x+=getWidth();
-		for(int y=getY()+5; y<getY()+getHeight()-10; y++){
+		for(int y=getY(); y<getY()+getHeight(); y++){
 			if(getMovementBox().checkCollision(map.getMap()[x/32][y/32].getHitbox())){
 				destroy = true;
 			}
@@ -56,7 +58,7 @@ public class Bullet extends Sprite{
 		int y = getY();
 		if(dirY)
 			y+=getWidth();
-		for(int nX=getY()+5; nX<getX()+getHeight()-10; nX++){
+		for(int nX=getY(); nX<getX()+getHeight(); nX++){
 			if(getMovementBox().checkCollision(map.getMap()[nX/32][y/32].getHitbox())){
 				destroy = true;
 			}

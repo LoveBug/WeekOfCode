@@ -223,7 +223,7 @@ public class Map {
 				}
 			}
 		}
-		bullets.removeAll(temp);		
+		bullets.removeAll(btemp);		
 		
 		//update player
 		this.character.move(this);
