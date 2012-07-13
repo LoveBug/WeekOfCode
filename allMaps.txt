@@ -1,6 +1,7 @@
 testLevelExpanded.txt
 thePits.txt
 treasureRoom.txt
+mineTime.txt
 testLevelExpanded.txt
 superLevel.txt
 testLevel.txt
