@@ -2,6 +2,7 @@ testLevelExpanded.txt
 thePits.txt
 treasureRoom.txt
 mineTime.txt
+thePlummet.txt
 testLevelExpanded.txt
 superLevel.txt
 testLevel.txt
