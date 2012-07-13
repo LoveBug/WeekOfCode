@@ -22,7 +22,7 @@ public abstract class Sprite {
 	private Hitbox movementBox, shootBox;
 	
 	private boolean direction = true;
-	private SpriteSheet sprites, jSprites;
+	private SpriteSheet sprites, jSprites, dSprites;
 	private int moveDistance = 8;
 	private int currentImage = 0;
 	private int health;
@@ -32,6 +32,9 @@ public abstract class Sprite {
 	private boolean isWalking = false;
 	private boolean isJumping = false;
 	private boolean isFalling = false;
+	
+	private boolean isDeath = false;
+	private int deathFrames;
 	
 	private int maxJump;
 	
@@ -51,7 +54,7 @@ public abstract class Sprite {
 	
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int frames, 
-			String jumpCycle, int jframes, int health){
+			String jumpCycle, int jframes, String deathCycle, int dframes, int health){
 		setMovementBox(new Hitbox(x,y,width,height));
 		setShootBox(new Hitbox(0,0,0,0));
 		setX(x);
@@ -63,6 +66,11 @@ public abstract class Sprite {
 			this.jSprites = null;
 		else
 			setJumpSprites(jumpCycle);
+		if(deathCycle==null)
+			this.dSprites = null;
+		else
+			this.dSprites = new SpriteSheet(deathCycle);
+		this.deathFrames = dframes;
 		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
 		this.setHealth(health);
 		
@@ -73,6 +81,13 @@ public abstract class Sprite {
 	}
 	
 	public void move(Map map){
+		if(health<0){
+			if(getCurrentImage()<this.deathFrames){
+				setCurrentImage(getCurrentImage()+1);
+				setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
+			}else
+				this.isDeath = true;
+		}
 		jumpMovement(map);
 		
 		if(this.xSpeed!=0){
@@ -295,6 +310,6 @@ public abstract class Sprite {
 	public int getJumpHeight() {return this.maxJump;}
 	public float getYSpeed() {return this.ySpeed;}
 	public int getHealth() {return health;}
-
+	public boolean getDead() {return this.isDeath;}
 	
 }

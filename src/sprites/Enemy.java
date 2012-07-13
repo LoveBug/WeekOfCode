@@ -19,8 +19,8 @@ public class Enemy extends Sprite{
 
 	}
 	
-	public Enemy(int x, int y, int width, int height, String runCycle,int frames, int health) {
-		super(x, y, width, height, runCycle, frames, null, 0, health);
+	public Enemy(int x, int y, int width, int height, String runCycle,int frames, String deathCycle, int dframes, int health) {
+		super(x, y, width, height, runCycle, frames, null, 0, deathCycle, dframes, health);
 		getImage().reverse();
 
 		setShootBox(new Hitbox(x, y, width, height/2));
@@ -46,8 +46,7 @@ public class Enemy extends Sprite{
 		temp = new Hitbox(m.getCharacter().getX() + 10, m.getCharacter().getY() + 5, 
 						  m.getCharacter().getWidth() - 10, m.getCharacter().getHeight() - 15);
 		if(this.getShootBox().checkCollision(temp)){
-			m.getCharacter().setHealth(m.getCharacter().getHealth()-3);
-			m.getCharacter().damage(1);
+			m.getCharacter().damage(5);
 		}
 		if(count>=MOVE_RATIO){
 			count = 0;

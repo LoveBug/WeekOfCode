@@ -31,7 +31,7 @@ public class Character extends Sprite implements Drawable{
 	{
 		
 
-		super(x,y,width,height,runCycle, 8, "images/playerJump.png", 5, health);
+		super(x,y,width,height,runCycle, 8, "images/playerJump.png", 5, "images/playerDeath.png", 12, health);
 		setShootBox(new Hitbox(getX()+getWidth()/4, getY()+getHeight()/4, getWidth()/2, getHeight()/2));
 		mana = 75;
 		maxHealth = health;

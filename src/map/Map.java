@@ -14,8 +14,6 @@ import sprites.*;
 import swarm.ImageWrapper;
 import sprites.Character;
 
-import main.Main;
-
 import items.Item;
 
 public class Map {
@@ -38,7 +36,7 @@ public class Map {
 	private boolean complete = false;
 	private boolean dead = false;
 	
-	private int[][] enemyFrames = {{BLOCK_SIZE*2, BLOCK_SIZE*2, 8}, {BLOCK_SIZE, BLOCK_SIZE, 5}};
+	private int[][] enemyFrames = {{BLOCK_SIZE*2, BLOCK_SIZE*2, 8, 7}, {BLOCK_SIZE, BLOCK_SIZE, 5, }};
 	
 	public static final int TILE_DEPTH = 5;	
 	public static final int BLOCK_SIZE = 32;
@@ -131,9 +129,9 @@ public class Map {
 						}
 						if(type!=null)
 							if(type == Enemy.Type.FLYER)
-								enemies.add(new FlyingEnemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2],1));
+								enemies.add(new FlyingEnemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2], "images/enemyDeath" + (item-100) + ".png", enemyFrames[item-100][3], 1));
 							else
-								enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2],1));
+								enemies.add(new Enemy(i*BLOCK_SIZE, j*BLOCK_SIZE, enemyFrames[item - 100][0],enemyFrames[item - 100][1], "images/enemyMove" + (item-100) + ".png", enemyFrames[item - 100][2], "images/enemyDeath" + (item-100) + ".png", enemyFrames[item-100][3], 3));
 					}else if(item>17){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
 								TILE_DEPTH, new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE, worldSprites));
@@ -202,7 +200,7 @@ public class Map {
 		//update enemies
 		ArrayList<Enemy> temp = new ArrayList<Enemy>();
 		for(Enemy e : enemies){
-			if(e.getHealth() < 0)
+			if(e.getDead())
 				temp.add(e);
 			else
 				e.move(this);

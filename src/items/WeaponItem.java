@@ -1,7 +1,5 @@
 package items;
 
-import canvas.Cursor;
-
 public class WeaponItem extends Item {
 	public enum Type {
 		SWORD(0), CROSSBOW(5), PISTOL(1), MACE(4);
