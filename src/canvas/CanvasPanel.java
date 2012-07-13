@@ -65,46 +65,44 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	}
 
 	public void paint(Graphics g) {
-		
 		g.drawImage(bg.getImage(), 0, 0, null);
+		if(map!=null){
+			g.translate(-cam.getX(), -cam.getY());
 		
-		g.translate(-cam.getX(), -cam.getY());
-		
-		for (int i = 0; i < map.getMap().length; i++) {
-			for (int j = 0; j < map.getMap()[0].length; j++) {
-				Tile tempTile = map.getMap()[i][j];
+			for (int i = 0; i < map.getMap().length; i++) {
+				for (int j = 0; j < map.getMap()[0].length; j++) {
+					Tile tempTile = map.getMap()[i][j];
 				
-				tempTile.setX(tempTile.getX());
-				tempTile.setY(tempTile.getY());
+					tempTile.setX(tempTile.getX());
+					tempTile.setY(tempTile.getY());
 				
-				tempTile.draw(g);
+					tempTile.draw(g);
 				
+				}
 			}
-		}
 		
-		for(MoveTile m: map.movingTiles() )
-			m.draw(g);
+			for(MoveTile m: map.movingTiles() )
+				m.draw(g);
 
-		for(Enemy e : map.enemies())
-			e.draw(g);
+			for(Enemy e : map.enemies())
+				e.draw(g);
 		
-		for(Item i: map.items())
-			i.draw(g);
+			for(Item i: map.items())
+				i.draw(g);
 		
-		for(Bullet b: map.getBullets())
-			b.draw(g);
+			for(Bullet b: map.getBullets())
+				b.draw(g);
 		
-		map.getEntrance().draw(g);
-		map.getExit().draw(g);
+			map.getEntrance().draw(g);
+			map.getExit().draw(g);
 	
-		map.getCharacter().draw(g);
+			map.getCharacter().draw(g);
 			
-		cursor.draw(g);
-		g.translate(cam.getX(), cam.getY());
+			cursor.draw(g);
+			g.translate(cam.getX(), cam.getY());
 		
-		map.getHud().draw(g);
-		
-			
+			map.getHud().draw(g);
+		}
 	}
 
 	@Override
@@ -151,6 +149,11 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		}
 	}
 
+	public void setImage(ImageWrapper i){
+		map = null;
+		bg=i;
+	}
+	
 	public void movecharacter() {
 
 		if (leftKeyPressed) {

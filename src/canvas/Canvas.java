@@ -1,6 +1,8 @@
 package canvas;
 import javax.swing.*;
 
+import swarm.ImageWrapper;
+
 import map.Map;
 
 import java.awt.*;
@@ -22,6 +24,10 @@ public class Canvas{
 	            "null"));
 		
 		frame.setVisible(true);	
+	}
+	
+	public void setImage(ImageWrapper i){
+		panel.setImage(i);
 	}
 	
 	public void repaint(){
