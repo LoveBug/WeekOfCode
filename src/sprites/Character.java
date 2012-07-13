@@ -83,7 +83,6 @@ public class Character extends Sprite implements Drawable{
 				itemList.add(i);
 			}else if(i instanceof Coin){
 				gold++;
-				System.out.println("Your gold is: "+ gold);
 			}
 			else if(i instanceof Heart){
 				if(getHealth() + 0.3*maxHealth < maxHealth)
@@ -170,7 +169,6 @@ public class Character extends Sprite implements Drawable{
 
 	public WeaponItem getCurrentWeapon() {
 		if(getCurrentItem() instanceof WeaponItem){
-			System.out.println("Current weapon returned as"+ getCurrentItem());
 			return (WeaponItem)getCurrentItem();
 		}
 		return null;
