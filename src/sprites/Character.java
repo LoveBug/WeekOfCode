@@ -1,6 +1,7 @@
 package sprites;
 
 import items.Coin;
+
 import items.Item;
 import items.WeaponItem;
 
@@ -145,6 +146,12 @@ public class Character extends Sprite implements Drawable{
 	public void setY(int y) {
 		super.setY(y);
 		getShootBox().setY(super.getY()+getHeight()/4);
+	}
+
+	public WeaponItem getCurrentWeapon() {
+		if(getCurrentItem() instanceof WeaponItem)
+			return (WeaponItem)getCurrentItem();
+		return null;
 	}
 	
 		
