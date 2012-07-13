@@ -36,7 +36,7 @@ public class Map {
 	private boolean complete = false;
 	private boolean dead = false;
 	
-	private int[][] enemyFrames = {{BLOCK_SIZE*2, BLOCK_SIZE*2, 8, 7}, {BLOCK_SIZE, BLOCK_SIZE, 5, }};
+	private int[][] enemyFrames = {{BLOCK_SIZE*2, BLOCK_SIZE*2, 8, 6}, {BLOCK_SIZE, BLOCK_SIZE, 5, 9}};
 	
 	public static final int TILE_DEPTH = 5;	
 	public static final int BLOCK_SIZE = 32;
