@@ -1,7 +1,7 @@
 testLevelExpanded.txt
-foo.text
 thePits.txt
 theTreasure.txt
 theMine.txt
 thePlummet.txt
-
+theBrawl.txt
+foo.text
