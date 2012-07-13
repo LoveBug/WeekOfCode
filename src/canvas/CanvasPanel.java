@@ -56,7 +56,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		this.map = m;
 		this.cam = new Camera(map.getCharacter());
 		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
-		mouseController.mouseMove(map.getCharacter().getX(), map.getCharacter().getY());
+		//mouseController.mouseMove(map.getCharacter().getX(), map.getCharacter().getY());
 		
 		bg = new ImageWrapper("images/backgroundCave.jpg");
 		
@@ -77,10 +77,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		frames++;
 		g.drawImage(bg.getImage(), 0, 0, null);
 		if(map!=null){
-		System.out.println("Camx is" + cam.getX() +"Camy is" +cam.getY());
-		System.out.println("Character x is "+map.getCharacter().getX()+ " Character Y is "+ map.getCharacter().getY());
-		System.out.println("Cursor X "+cursor.getX() + "Cursor Y "+cursor.getY());
-			g.translate(-cam.getX(), -cam.getY());
+				g.translate(-cam.getX(), -cam.getY());
 			
 		
 			for (int i = 0; i < map.getMap().length; i++) {
@@ -223,12 +220,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		cursor.moveCursor(e.getX(), e.getY());
-		System.out.println("X pos:"+ e.getX()+" Y pos:"+e.getY() );
-		System.out.println("X position of cursor"+cursor.getX() + "Gameworld X position "+cursor.getGameworldX());
+		
 		requestFocusInWindow();
 		
-		System.out.println("AFTERFOCUS X position of cursor"+cursor.getX() + "Gameworld X position "+cursor.getGameworldX());
-	}
+		}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
