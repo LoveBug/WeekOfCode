@@ -175,7 +175,11 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		if(weaponFired){
 
 			if(map.getCharacter().getCurrentWeapon() != null){
-				Bullet b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX(), map.getCharacter().getY(), cursor.getGameworldX(), cursor.getGameworldY());
+				Bullet b;
+				if(cursor.getX() > map.getCharacter().getX())
+					b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX() + 35, map.getCharacter().getY() + 40, cursor.getGameworldX(), cursor.getGameworldY());
+				else
+					b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX(), map.getCharacter().getY() + 40, cursor.getGameworldX(), cursor.getGameworldY());
 				map.addBullet(b);
 			}
 		}
