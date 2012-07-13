@@ -48,7 +48,7 @@ public class Hud {
 
 	public void draw(Graphics g) {
 		bottomLayerimage.draw(g, ScreenX, ScreenY, BAR_WIDTH, BAR_LENGTH);
-		for (int i = 0; i < characterHealth; i++) {
+		for (int i = 0; i < Math.round((characterHealth/(float)character.getMaxHealth())*58); i++) {
 			healthtile.draw(g, 10 + (4 * i), 10, 12, 12);
 		}
 

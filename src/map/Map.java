@@ -19,18 +19,13 @@ import main.Main;
 import items.Item;
 
 public class Map {
-	private int enemyTicks;
-	private int eCountTick = 0;
-	
 	private Tile[][] map;
-	private File inputfile;
 	private Scanner scan;
 	private int xDimension;
 	private int yDimension;
 	private Character character;
 	private SpriteSheet worldSprites;
 	private Hud hud ;
-	private SpriteSheet weaponSprites;
 	
 	private Sprite entrance;
 	private Exit exit;
@@ -50,7 +45,6 @@ public class Map {
 	
 	public Map(String filename) {
 		worldSprites = new SpriteSheet("images/tilesCave.gif");
-		weaponSprites = new SpriteSheet("images/hudWeapons.png");
 
 		try {
 			File file = new File(filename);
@@ -67,7 +61,6 @@ public class Map {
 		}
 
 		//readWeapons();
-		enemyTicks = Main.FPS/6;
 
 		hud = new Hud(character,0,0);
 	}
@@ -81,7 +74,7 @@ public class Map {
 				for(int i = 0; i< xDimension; i++){
 					int item = scan.nextInt();
 					if(item==17){	
-						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 64, 96, "images/playerWalk.png",60);
+						character = new Character(i*BLOCK_SIZE,j*BLOCK_SIZE, 64, 96, "images/playerWalk.png",1000);
 
 						map[i][j] = new BackgroundTile(BLOCK_SIZE,BLOCK_SIZE,i*BLOCK_SIZE,j*BLOCK_SIZE,TILE_DEPTH,new ImageWrapper(0, BLOCK_SIZE, BLOCK_SIZE,worldSprites));
 
@@ -175,6 +168,10 @@ public class Map {
 		return character;
 	}
 	
+	public void setCharacter(Character c) {
+		this.character = c;;
+	}
+	
 	public ArrayList<MoveTile> movingTiles(){
 		return this.movingTiles;
 	}
@@ -198,35 +195,25 @@ public class Map {
 		//update moving tiles
 		for(MoveTile t : this.movingTiles)
 			t.move();
-		
-		if(eCountTick >= enemyTicks){
-			for(Item e : items)
-				e.move(this);
-		}
+
+		for(Item e : items)
+			e.move(this);
 		
 		//update enemies
-		if(eCountTick >= enemyTicks){
-			eCountTick = 0;
-			
-			ArrayList<Enemy> temp = new ArrayList<Enemy>();
-			
-			for(Enemy e : enemies){
-				if(e.getHealth() < 0)
-					temp.add(e);
-				else
-					e.move(this);
-			}
-			
-			enemies.removeAll(temp);
-		}else
-			eCountTick++;
+		ArrayList<Enemy> temp = new ArrayList<Enemy>();
+		for(Enemy e : enemies){
+			if(e.getHealth() < 0)
+				temp.add(e);
+			else
+				e.move(this);
+		}
+		enemies.removeAll(temp);
 		
-		ArrayList<Bullet> temp = new ArrayList<Bullet>();
-		
+		ArrayList<Bullet> btemp = new ArrayList<Bullet>();	
 		for(Bullet b: bullets){
 			b.move(this);
 			if(b.isDestroy()){
-				temp.add(b);
+				btemp.add(b);
 			}
 			
 			for(Enemy e : enemies){
@@ -236,10 +223,7 @@ public class Map {
 				}
 			}
 		}
-		
-		bullets.removeAll(temp);
-		temp = new ArrayList<Bullet>();
-		
+		bullets.removeAll(temp);		
 		
 		//update player
 		this.character.move(this);

@@ -30,6 +30,10 @@ public class Canvas{
 		panel.setImage(i);
 	}
 	
+	public Camera getCamera(){
+		return this.panel.getCamera();
+	}
+	
 	public void repaint(){
 		panel.movecharacter();
 		panel.repaint();

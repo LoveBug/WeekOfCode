@@ -1,9 +1,12 @@
 package items;
 
 import sprites.Sprite;
+import main.Main;
 import map.Map;
 
 public class Item extends Sprite{
+	private final int ANIMATION_RATIO = Main.FPS/5;
+	private int count = 0;
 	
 	public Item(int x,int y, int width, int height,String Spritesheet, int spritenumber){
 		super(x, y, width, height, Spritesheet, spritenumber);
@@ -15,7 +18,11 @@ public class Item extends Sprite{
 	}
 	
 	public void move(Map m){
-		walk(true);
+		if(count>=ANIMATION_RATIO){
+			count = 0;
+			walk(true);
+		}else
+			count++;
 		super.move(m);
 	}
 	

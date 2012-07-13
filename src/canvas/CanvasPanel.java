@@ -154,6 +154,10 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		bg=i;
 	}
 	
+	public Camera getCamera(){
+		return this.cam;
+	}
+	
 	public void movecharacter() {
 
 		if (leftKeyPressed) {
