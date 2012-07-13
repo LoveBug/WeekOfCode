@@ -47,7 +47,7 @@ public class Main implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(map.getCharacter().getHealth() < 0){
+		if(map.getCharacter().getDead()){
 			changeMap();
 		}
 		if(map.isComplete()){

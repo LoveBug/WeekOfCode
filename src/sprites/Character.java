@@ -30,7 +30,7 @@ public class Character extends Sprite implements Drawable{
 	
 	public Character(int x, int y, int width, int height, String runCycle, int health)
 	{
-		super(x,y,width,height,runCycle, 8, "images/playerJump.png", 5, health);
+		super(x,y,width,height,runCycle, 8, "images/playerJump.png", 5, "images/playerDeath.png", 7, health);
 		setShootBox(new Hitbox(getX()+getWidth()/4, getY()+getHeight()/4, getWidth()/2, getHeight()/2));
 		mana = 75;
 		maxHealth = health;
@@ -39,6 +39,8 @@ public class Character extends Sprite implements Drawable{
 	}
 	
 	public void walk(boolean direction){
+		if(getHealth()<=0)
+			return;
 		if(!(isJumping() || isFalling()))
 			super.walk(direction);
 		setDirection(direction);
@@ -57,7 +59,7 @@ public class Character extends Sprite implements Drawable{
 			map.setComplete(true);
 		}
 		
-		if(!isWalking() && !isJumping()){
+		if(!isWalking() && !isJumping() && getDead()){
 			if(turnCounter<0){
 				setCurrentImage(0);
 				updateImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), stationarySprite));

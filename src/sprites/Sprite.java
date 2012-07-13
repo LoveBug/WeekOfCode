@@ -5,11 +5,15 @@ import java.awt.Graphics;
 import swarm.Hitbox;
 import swarm.ImageWrapper;
 
+import main.Main;
 import map.DestTile;
 import map.Map;
 import map.MoveTile;
 
 public abstract class Sprite {
+	private final int MOVE_RATIO = Main.FPS/5;
+	private int count;
+	
 	public final int FRAMES, JUMP_FRAMES;
 	public static final int FALL_MAX = 16;
 	
@@ -22,7 +26,7 @@ public abstract class Sprite {
 	private Hitbox movementBox, shootBox;
 	
 	private boolean direction = true;
-	private SpriteSheet sprites, jSprites;
+	private SpriteSheet sprites, jSprites, dSprites;
 	private int moveDistance = 8;
 	private int currentImage = 0;
 	private int health;
@@ -32,6 +36,9 @@ public abstract class Sprite {
 	private boolean isWalking = false;
 	private boolean isJumping = false;
 	private boolean isFalling = false;
+	
+	private boolean isDeath = false;
+	private int deathFrames;
 	
 	private int maxJump;
 	
@@ -51,7 +58,7 @@ public abstract class Sprite {
 	
 	
 	public Sprite(int x, int y, int width, int height, String runCycle, int frames, 
-			String jumpCycle, int jframes, int health){
+			String jumpCycle, int jframes, String deathCycle, int dframes, int health){
 		setMovementBox(new Hitbox(x,y,width,height));
 		setShootBox(new Hitbox(0,0,0,0));
 		setX(x);
@@ -63,6 +70,11 @@ public abstract class Sprite {
 			this.jSprites = null;
 		else
 			setJumpSprites(jumpCycle);
+		if(deathCycle==null)
+			this.dSprites = null;
+		else
+			this.dSprites = new SpriteSheet(deathCycle);
+		this.deathFrames = dframes;
 		setImage(new ImageWrapper(getCurrentImage(), getWidth(), getHeight(), getSpriteSheet()));
 		this.setHealth(health);
 		
@@ -73,6 +85,18 @@ public abstract class Sprite {
 	}
 	
 	public void move(Map map){
+		if(health<=0){
+			if(count>=MOVE_RATIO){
+				count = 0;
+				if(getCurrentImage()<this.deathFrames*(this.width/Map.BLOCK_SIZE)){
+					setCurrentImage(getCurrentImage()+getWidth()/Map.BLOCK_SIZE);
+					updateImage(new ImageWrapper(this.currentImage, getWidth(), getHeight(), this.dSprites));
+				}else
+					this.isDeath = true;
+			}else
+				count++;
+			return;
+		}
 		jumpMovement(map);
 		
 		if(this.xSpeed!=0){
@@ -234,6 +258,8 @@ public abstract class Sprite {
 	}
 	
 	public void walk(boolean direction){
+		if(getHealth()<=0)
+			return;
 		this.currentImage += this.width/Map.BLOCK_SIZE;
 		if(this.currentImage>=(FRAMES-1)*this.width/Map.BLOCK_SIZE)
 			this.currentImage=0;
@@ -243,7 +269,14 @@ public abstract class Sprite {
 	}
 	
 	public void damage(int dam){
+		if(getHealth()<=0)
+			return;
 		setHealth(getHealth() - dam);
+		if(getHealth()<=0){
+			setCurrentImage(0);
+			setMovementBox(new Hitbox(0,0,0,0));
+			setShootBox(new Hitbox(0,0,0,0));
+		}
 	}
 	
 	//-------------------SETTERS---------------------------
@@ -295,6 +328,6 @@ public abstract class Sprite {
 	public int getJumpHeight() {return this.maxJump;}
 	public float getYSpeed() {return this.ySpeed;}
 	public int getHealth() {return health;}
-
+	public boolean getDead() {return this.isDeath;}
 	
 }

@@ -1,7 +1,6 @@
 package map;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 import items.Item;
 
@@ -10,7 +9,6 @@ import swarm.ImageWrapper;
 
 public class Hud {
 	private Character character;
-	private ArrayList<Item> characterItems;
 	private int coinCount;
 	private int ScreenX;
 	private int ScreenY;
@@ -30,7 +28,6 @@ public class Hud {
 		this.healthtile = new ImageWrapper("images/hudRedBlur.png");
 		this.manatile = new ImageWrapper("images/hudGoldBlur.png");
 		this.character = character;
-		this.characterItems = character.getItemList();
 		this.characterHealth = character.getHealth();
 		this.characterMana = character.getMana();
 		this.selectedItem = this.character.getCurrentItem();
@@ -39,7 +36,6 @@ public class Hud {
 
 	public void update() {
 		coinCount = character.getGold();
-		characterItems = character.getItemList();
 		characterMana = character.getMana();
 		characterHealth = character.getHealth();
 		selectedItem = character.getCurrentItem();
