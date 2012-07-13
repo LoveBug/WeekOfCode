@@ -3,7 +3,7 @@ foo.text
 thePits.txt
 theTreasure.txt
 theMine.txt
-thePlummet.txt
+
 testLevelExpanded.txt
 superLevel.txt
 testLevel.txt
