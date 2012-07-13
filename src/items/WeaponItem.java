@@ -24,16 +24,16 @@ public class WeaponItem extends Item {
 
 		switch (type) {
 		case SWORD:
-			fireRate = 100;
+			fireRate = 60;
 			break;
 		case CROSSBOW:
-			fireRate = 300;
+			fireRate = 45;
 			break;
 		case MACE:
-			fireRate = 300;
+			fireRate = 90;
 			break;
 		case PISTOL:
-			fireRate = 30;
+			fireRate = 20;
 			break;
 		default:
 			fireRate = 0;
@@ -43,6 +43,8 @@ public class WeaponItem extends Item {
 	}
 
 	public Bullet getBullet(int x, int y, int curX, int curY, int frames) {
+		if(frames < previousFrame)
+			previousFrame = 0;
 		if (frames > fireRate + previousFrame) {
 			switch (this.type) {
 			case CROSSBOW:
@@ -72,4 +74,5 @@ public class WeaponItem extends Item {
 		}
 		return null;
 	}
+
 }
