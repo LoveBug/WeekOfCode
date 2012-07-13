@@ -56,7 +56,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		this.map = m;
 		this.cam = new Camera(map.getCharacter());
 		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
-		mouseController.mouseMove(map.getCharacter().getX(), map.getCharacter().getY());
+		//mouseController.mouseMove(map.getCharacter().getX(), map.getCharacter().getY());
 		
 		bg = new ImageWrapper("images/backgroundCave.jpg");
 		
@@ -66,11 +66,19 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		
 	}
 
+	public void changeMap(Map m){
+		this.map = m;
+		this.cam = new Camera(map.getCharacter());
+		cursor = new Cursor(0, 0, blockSize, blockSize, cam);
+		mouseController.mouseMove(map.getCharacter().getX(), map.getCharacter().getY());
+	}
+	
 	public void paint(Graphics g) {
 		frames++;
 		g.drawImage(bg.getImage(), 0, 0, null);
 		if(map!=null){
-			g.translate(-cam.getX(), -cam.getY());
+				g.translate(-cam.getX(), -cam.getY());
+			
 		
 			for (int i = 0; i < map.getMap().length; i++) {
 				for (int j = 0; j < map.getMap()[0].length; j++) {
@@ -162,7 +170,9 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	}
 	
 	public void movecharacter() {
-
+		if(map==null)
+			return;
+		
 		if (leftKeyPressed) {
 			map.getCharacter().walk(false);
 		
@@ -202,9 +212,9 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		cursor.moveCursor(e.getX(), e.getY());
+	//	cursor.moveCursor(e.getX(), e.getY());
 
-		requestFocusInWindow();
+		//requestFocusInWindow();
 	}
 
 	@Override
@@ -212,7 +222,8 @@ public class CanvasPanel extends JPanel implements KeyListener,
 		cursor.moveCursor(e.getX(), e.getY());
 		
 		requestFocusInWindow();
-	}
+		
+		}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
