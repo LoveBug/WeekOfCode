@@ -83,7 +83,10 @@ public class Main implements ActionListener{
 	
 	private void changeMap(){
 		map = new Map("levels/" + mapsArray.get(mapCount));
-		canvas = new Canvas(map);
+		if(canvas == null)
+			canvas = new Canvas(map);
+		else
+			canvas.setMap(map);
 	}
 	
 	private void win(){
