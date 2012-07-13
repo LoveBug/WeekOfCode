@@ -31,17 +31,14 @@ public class WeaponItem extends Item {
 			return (new Bullet(x, y, 32, 32, "images/projectileFireball.png", 0, curX, curY));
 		
 		case PISTOL:
-			return (new Bullet(x, y, 32, 32, "images/projectileFlechette.png", 0, curX, curY));
+			return (new Bullet(x, y, 32, 32, "images/projectileBullet.png", 0, curX, curY));
 		case MACE:
 			break;
 		default:
 			System.out.println("We hit default");
 			
 		}
-			return (new Bullet(x, y, 32, 32, "images/projectileFlechette.png", 0,
-					curX, curY));
-		
-		
+		return (new Bullet(x, y, 32, 32, "images/projectileFlechette.png", 0,
+				curX, curY));
 	}
-	
 }

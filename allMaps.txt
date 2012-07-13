@@ -1,3 +1,4 @@
+testLevelExpanded.txt
 thePits.txt
 treasureRoom.txt
 testLevelExpanded.txt
