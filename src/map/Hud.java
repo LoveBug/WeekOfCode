@@ -61,7 +61,7 @@ public class Hud {
 	}
 
 	public void setCoinDisplay(Graphics g) {
-		String coins = "1000" + character.getGold();
+		String coins = "" + character.getGold();
 
 		for (int i = 0; i < coins.length(); i++) {
 			images[coins.charAt(i) - '0'].draw(g, 80 + 18 * i, 48, 128, 128);
