@@ -31,8 +31,6 @@ public class Bullet extends Sprite{
 		double speed = Math.sqrt((unnormalX*unnormalX) + (unnormalY*unnormalY));
 		setSpeedX((int) (20.0*(unnormalX)/speed));
 		setSpeedY((int) (20.0*(unnormalY)/speed));
-		
-		print();
 	}
 	
 	@Override
@@ -42,13 +40,6 @@ public class Bullet extends Sprite{
 		
 		boolean dirX = directionX - startX > 0;
 		boolean dirY = directionY - startY > 0;
-		
-		/*if(!dirX){
-			movementX = -speedX;
-		}
-		if(!dirY){
-			movementY = -speedY;
-		}*/
 			
 		setX(getX()+movementX);
 		getMovementBox().setX(getX());
@@ -72,11 +63,7 @@ public class Bullet extends Sprite{
 		}
 		
 	}
-	public void print(){
-		//System.out.println("The angle from the X axis: " + (Math.sin(Math.tan((double)directionY/(double)directionX))));
-	//	System.out.println("The angle from the Y axis: " + (Math.cos(Math.tan((double)directionX/(double)directionY))));
-		System.out.println("X Speed: "+speedX +" Y Speed: "+speedY);
-	}
+
 	public int getSpeedX() {
 		return speedX;
 	}
@@ -97,5 +84,13 @@ public class Bullet extends Sprite{
 		return destroy;
 	}
 	
-	public void jump(){}
+	public void destroy() {
+		destroy = true;
+	}
+
+	@Override
+	public void jump() {
+		
+	}
+
 }

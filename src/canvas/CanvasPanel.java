@@ -36,8 +36,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 	
 	private ImageWrapper bg;
 	private boolean weaponSwitchKeyPressed;
-
-	// private boolean downKeyPressed; for later when droppng through blocks
+	private boolean weaponFired;
 
 	private static final int blockSize = 32;
 	
@@ -50,7 +49,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			mouseController = new Robot();
 			
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.map = m;
@@ -127,11 +125,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			 weaponSwitchKeyPressed = true;
 			
 		}
-		
-		/*
-		 * else if(e.getKeyCode()==KeyEvent.VK_DOWN ||
-		 * e.getKeyCode()==KeyEvent.VK_A) { downKeyPressed = true; }
-		 */
 	}
 
 	@Override
@@ -154,11 +147,6 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			 weaponSwitchKeyPressed = false;
 			
 		}
-		/*
-		 * else if(e.getKeyCode()==KeyEvent.VK_DOWN ||
-		 * e.getKeyCode()==KeyEvent.VK_A) { downKeyPressed = false; }
-		 */
-
 	}
 
 	public void setImage(ImageWrapper i){
@@ -184,12 +172,14 @@ public class CanvasPanel extends JPanel implements KeyListener,
 			map.getCharacter().cycleItem();
 			weaponSwitchKeyPressed = false;
 		}
-		/*
-		 * if(downKeyPressed2) {
-		 * 
-		 * }
-		 */
-		
+		if(weaponFired){
+
+			if(map.getCharacter().getCurrentWeapon() != null){
+				Bullet b = map.getCharacter().getCurrentWeapon().getBullet(map.getCharacter().getX(), map.getCharacter().getY(), cursor.getGameworldX(), cursor.getGameworldY());
+				map.addBullet(b);
+			}
+		}
+
 		cam.setX(cursor);
 		cam.setY(cursor);
 	}
@@ -210,21 +200,22 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Bullet b = new Bullet(map.getCharacter().getX(), map.getCharacter().getY(), 32, 32,
-							 "images/projectileBullet.png", 0, cursor.getGameworldX(), cursor.getGameworldY());
-		map.addBullet(b);
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		weaponFired = true;
+		/*Bullet b = new Bullet(map.getCharacter().getX(), map.getCharacter().getY(), 32, 32,
+				 "images/projectileBullet.png", 0, cursor.getGameworldX(), cursor.getGameworldY());
+		map.addBullet(b);*/
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+		weaponFired = false;
 		
 	}
 
