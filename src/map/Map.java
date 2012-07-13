@@ -112,7 +112,7 @@ public class Map {
 							throw new RuntimeException("wat?");
 						}
 						if (type != null) {
-							items.add(new WeaponItem(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32,"images/hudWeapons.png", type));
+							items.add(new WeaponItem(i*BLOCK_SIZE, j*BLOCK_SIZE, 32, 32,"images/weapon" + type.index + ".png", type));
 						}
 					}else if(item>99){
 						map[i][j] = new BackgroundTile(BLOCK_SIZE, BLOCK_SIZE, i*BLOCK_SIZE, j*BLOCK_SIZE,
@@ -214,6 +214,13 @@ public class Map {
 			b.move(this);
 			if(b.isDestroy()){
 				btemp.add(b);
+			}
+			
+			for(Enemy e : enemies){
+				if(b.getMovementBox().checkCollision(e.getMovementBox())){
+					b.destroy();
+					e.damage(1);
+				}
 			}
 		}
 		bullets.removeAll(temp);		

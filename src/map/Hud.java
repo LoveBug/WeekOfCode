@@ -20,7 +20,6 @@ public class Hud {
 	private ImageWrapper bottomLayerimage;
 	private ImageWrapper healthtile;
 	private ImageWrapper manatile;
-	private ImageWrapper weaponImage;
 	private int BAR_WIDTH = 256;
 	private int BAR_LENGTH = 128;
 	private Item selectedItem;
