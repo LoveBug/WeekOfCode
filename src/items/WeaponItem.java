@@ -18,7 +18,6 @@ public class WeaponItem extends Item {
 			Type type) {
 
 		super(x, y, width, height, Spritesheet, 1, type.index);
-		System.out.println("TYPE " + type + " TYPEINDEX :" + type.index);
 
 		switch (type) {
 		case SWORD:
