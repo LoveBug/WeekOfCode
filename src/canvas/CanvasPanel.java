@@ -212,9 +212,7 @@ public class CanvasPanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-	//	cursor.moveCursor(e.getX(), e.getY());
-
-		//requestFocusInWindow();
+		mouseMoved(e);
 	}
 
 	@Override

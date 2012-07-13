@@ -1,4 +1,5 @@
 testLevelExpanded.txt
+foo.text
 thePits.txt
 theTreasure.txt
 theMine.txt
